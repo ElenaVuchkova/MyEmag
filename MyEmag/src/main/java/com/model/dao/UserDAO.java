@@ -5,6 +5,7 @@ package com.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 
@@ -34,7 +35,7 @@ public class UserDAO {
 		
 		String sql = "INSERT INTO users (username, password,email, role) values (?, md5(?),?, ?)";
 		System.out.println(u);
-		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		st.setString(1, u.getUsername());
 		st.setString(2, u.getPassword());		
 		st.setString(3, u.getEmail());

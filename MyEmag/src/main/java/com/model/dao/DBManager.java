@@ -11,7 +11,7 @@ public class DBManager {
 	private static final String DB_PORT = "3306";
 	private static final String DB_NAME = "emagdb";
 	private static final String DB_USER = "root";
-	private static final String DB_PASS = "No_pass95";	
+	private static final String DB_PASS = "Kostadin4194*";	
 	private Connection con = null;
 	
 	private DBManager(){
@@ -21,6 +21,7 @@ public class DBManager {
 			System.out.println("Driver not found");
 		}
 		try {
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
 			con = DriverManager.getConnection("jdbc:mysql://"+DB_IP+":"+DB_PORT+"/"+DB_NAME,DB_USER, DB_PASS);
 		} catch (SQLException e) {
 			System.out.println("Error connecting to Database - " + e.getMessage());
