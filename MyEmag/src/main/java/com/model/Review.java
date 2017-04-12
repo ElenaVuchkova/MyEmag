@@ -1,4 +1,4 @@
-package commodel;
+package com.model;
 
 public class Review {
 	

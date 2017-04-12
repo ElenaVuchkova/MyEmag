@@ -1,4 +1,4 @@
-package cm.model;
+package com.model;
 
 public class Product {
 	

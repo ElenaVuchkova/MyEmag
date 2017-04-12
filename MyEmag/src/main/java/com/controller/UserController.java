@@ -31,10 +31,7 @@ public class UserController {
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String indexpage(){
 		return "index";
-	}
-
-	
-	
+	}	
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(Model viewModel, HttpSession s, HttpServletRequest req) {	
