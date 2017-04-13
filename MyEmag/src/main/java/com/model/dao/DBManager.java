@@ -21,7 +21,6 @@ public class DBManager {
 			System.out.println("Driver not found");
 		}
 		try {
-			System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
 			con = DriverManager.getConnection("jdbc:mysql://"+DB_IP+":"+DB_PORT+"/"+DB_NAME,DB_USER, DB_PASS);
 		} catch (SQLException e) {
 			System.out.println("Error connecting to Database - " + e.getMessage());
