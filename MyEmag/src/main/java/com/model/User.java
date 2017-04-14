@@ -1,11 +1,29 @@
 package com.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+
 public class User {
 	
 	private int userId;
+	
+	@NotNull
+	@Size(min=3)
 	private String username;
+	
+	@NotNull
+	@Email
+	@Pattern(regexp="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")
 	private String email;
+	
+	@NotNull
+	@Size(min=8)	
+	@Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&*+=])(?=\\S+$).{8,}")
 	private String password;
+	
 	private int role;
 	
 	
@@ -16,9 +34,11 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
-
+	
 	public void setUsername(String username) {
-		this.username = username;
+		if(Validator.isValidString(username)){
+			this.username = username;
+		}
 	}
 
 	public String getEmail() {
@@ -26,7 +46,9 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		if(Validator.isValidEmail(email)){
+			this.email = email;
+		}
 	}
 
 	public String getPassword() {
@@ -34,7 +56,9 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		if(Validator.isValidPassword(password)){
+			this.password = password;
+		}
 	}
 
 	public int getRole() {
@@ -47,7 +71,6 @@ public class User {
 
 	public int getUserId() {
 		return userId;
-	}
-	
+	}	
 
 }

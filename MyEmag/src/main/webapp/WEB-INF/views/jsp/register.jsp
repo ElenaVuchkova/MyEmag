@@ -32,8 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 <!--register-->
-<div class="container">
-		<div class="login">
+		<div class="register">
 			<f:form commandName="user" action="register" method="post" >
 			<div class="col-md-6 login-do">
 			<div class="login-mail">
@@ -61,7 +60,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</f:form>
 		</div>
 
-</div>
 <!--//register-->	
 
 	<!--//content-->

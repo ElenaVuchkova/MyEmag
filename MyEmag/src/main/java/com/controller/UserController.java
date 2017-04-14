@@ -21,8 +21,7 @@ import com.model.dao.UserDAO;
 @Controller
 public class UserController {
 	
-	//login
-	
+	//login	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginpage(){
 		return "login";

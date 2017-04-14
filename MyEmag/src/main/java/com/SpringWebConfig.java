@@ -19,8 +19,6 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-
-//TODO rename
 @ComponentScan("com")
 class SpringWebConfig extends WebMvcConfigurerAdapter {
 	
