@@ -12,7 +12,7 @@ import java.util.HashMap;
 import com.model.User;
 
 public class UserDAO {
-
+	
 	private static UserDAO instance;
 	private static final HashMap<String, User> allUsers = new HashMap<>();//username - > user
 	
@@ -32,7 +32,6 @@ public class UserDAO {
 	}
 
 	public synchronized void addUser(User u) throws SQLException {			
-		
 		String sql = "INSERT INTO users (username, password,email, role) values (?, md5(?),?, ?)";
 		System.out.println(u);
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -65,6 +64,8 @@ public class UserDAO {
 		}
 		return allUsers;
 	}
+	
+	
 
 	
 	/*public synchronized boolean validLogin(String username, String password) throws SQLException {
@@ -95,7 +96,7 @@ public class UserDAO {
 			return id;
 		}
 		return 0;
-	}
+	}*/
 	
 	public User getUser (String username) {
 		if (allUsers.containsKey(username)) {
@@ -103,5 +104,7 @@ public class UserDAO {
 			return u;			
 		}
 		return null;
-	}*/
+	}
+	
+	
 }
