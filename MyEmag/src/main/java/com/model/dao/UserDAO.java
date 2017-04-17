@@ -46,6 +46,7 @@ public class UserDAO {
 		int userId =res.getInt(1);
 		u.setUserId(userId);
 		allUsers.put(u.getUsername(), u);
+		System.out.println("addUser method - user was added");
 	}
 	
 	private HashMap<String, User> getAllUsers() throws SQLException{

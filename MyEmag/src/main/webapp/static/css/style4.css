@@ -41,6 +41,16 @@
 	white-space: nowrap;
 	overflow: hidden;
 }
+
+/*-- error 
+--*/
+.error {
+	color: #ff0000;
+	font-style: italic;
+	font-weight: bold;
+} 
+
+
 .rw-words-1 span{
 font-family:'Oxygen-Regular';
 	font-size: 1.2em;

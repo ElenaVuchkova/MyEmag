@@ -36,9 +36,7 @@ public class User {
 	}
 	
 	public void setUsername(String username) {
-		if(Validator.isValidString(username)){
-			this.username = username;
-		}
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -46,9 +44,7 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		if(Validator.isValidEmail(email)){
-			this.email = email;
-		}
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -56,9 +52,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		if(Validator.isValidPassword(password)){
-			this.password = password;
-		}
+		this.password = password;
 	}
 
 	public int getRole() {
@@ -71,6 +65,14 @@ public class User {
 
 	public int getUserId() {
 		return userId;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "[userId=" + userId + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", role=" + role + "]";
+	}
+	
+	
 
 }

@@ -6,6 +6,14 @@
 <html>
 <head>
 <title>register</title>
+
+<style type="text/css">
+.error {
+	color: #ff0000;
+	font-style: italic;
+	font-weight: bold;
+}
+</style>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
@@ -32,23 +40,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 <!--register-->
-		<div class="register">
+<div class="container">
+		<div class="login">
 			<f:form commandName="user" action="register" method="post" >
+			
+			<f:errors path="*" cssClass="errorblock" element="div"/>
+			
 			<div class="col-md-6 login-do">
 			<div class="login-mail">
 					<f:input path="username" type="text" placeholder="Username" required=""></f:input> 
+					<f:errors path="username" cssClass="error"/>
 					<i  class="glyphicon glyphicon-user"></i>
 				</div>
 				<div class="login-mail">
 					<f:input path="email" type="text" placeholder="Email" required=""></f:input>
+					<f:errors path="email" cssClass="error"/>
 					<i  class="glyphicon glyphicon-envelope"></i>
 				</div>
 				<div class="login-mail">
 					<f:input  path="password" type="password" placeholder="Password" required=""></f:input>
+					<f:errors path="password" cssClass="error"/>
 					<i class="glyphicon glyphicon-lock"></i>
 				</div>
 				<div class="login-mail">
 					<input type="password" placeholder="Confirm password" required="">
+					<f:errors path="password" cssClass="error"/>
 					<i class="glyphicon glyphicon-lock"></i>
 				</div>
 				  
@@ -59,6 +75,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			</f:form>
 		</div>
+	</div>
+
 
 <!--//register-->	
 
