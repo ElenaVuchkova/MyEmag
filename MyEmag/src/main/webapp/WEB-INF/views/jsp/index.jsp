@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,9 +60,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
-						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
-						<li><a href="checkout.html">Checkout</a></li>
+						<c:if test="${sessionScope.logged}">
+							<li><a href="logout">Logout</a></li>
+						</c:if>
+						<c:if test="${!sessionScope.logged}">
+							<li><a href="login">Login</a></li>
+							<li><a href="register">Register</a></li>
+						</c:if>
 					</ul>
 				</div>
 				
