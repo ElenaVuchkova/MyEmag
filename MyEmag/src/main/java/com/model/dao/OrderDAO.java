@@ -30,7 +30,7 @@ public class OrderDAO {
 		String paymentType=o.getPayment();
 		o.setDate(LocalDateTime.now());
 		int paymentId=PaymentDAO.getInstance().getPaymentId(paymentType);
-		String sql = "INSERT INTO favouriteproducts (price, date, user_id, payment_id) values (?,?,?,?)";
+		String sql = "INSERT INTO orders (price, date, user_id, payment_id) values (?,?,?,?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setDouble(1, o.getPrice());
 		st.setTimestamp(3, java.sql.Timestamp.valueOf(o.getDate()));

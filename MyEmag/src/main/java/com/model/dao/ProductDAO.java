@@ -17,7 +17,7 @@ public class ProductDAO {
 	
 	private ProductDAO(){
 		try {
-			getAallproducts();
+			getAllProducts();
 		} catch (SQLException e) {
 			System.out.println("productdao"+e.getMessage());
 		}		
@@ -53,11 +53,11 @@ public class ProductDAO {
 		for (String path : imagePaths) {
 			ImageDAO.getInstance().addImagePath(path, productId);
 		}
-		p.setImagePaths(imagePaths);
+		//p.setImagePaths(imagePaths);
 		
 	}
 	
-	private HashMap<Integer, Product> getAallproducts() throws SQLException{
+	private HashMap<Integer, Product> getAllProducts() throws SQLException{
 		if(allproducts.isEmpty()){
 			String sql = "SELECT p.product_id, p.title, quantity, p.price, p.descr_key1, p.descr_value1, p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, s.name as subcategory, c.name AS category"
 					+ "FROM products p JOIN subcategories s ON (p.subcategory_id=s.subcategory_id), JOIN categories c (s.category_id=c.category_id);";
