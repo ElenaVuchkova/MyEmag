@@ -5,6 +5,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
 	
@@ -12,6 +13,8 @@ public class User {
 	
 	@NotNull
 	@Size(min=3)
+	@NotEmpty
+	@Pattern(regexp="[^\\s]+")
 	private String username;
 	
 	@NotNull

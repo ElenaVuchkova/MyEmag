@@ -2,18 +2,12 @@
     pageEncoding="ISO-8859-1"%>
     
     <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>register</title>
 
-<style type="text/css">
-.error {
-	color: #ff0000;
-	font-style: italic;
-	font-weight: bold;
-}
-</style>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
@@ -34,37 +28,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<h1>Register</h1>
 		<em></em>
-		<h2><a href="index.html">Home</a><label>/</label>Register</h2>
+		<h2><a href="index">Home</a><label>/</label>Register</h2>
 	</div>
 </div>
+	
+	<c:if test="${sessionScope.register!=null}">
+		<c:out value="${sessionScope.register}"/>
+	</c:if>
+
 
 
 <!--register-->
 <div class="container">
 		<div class="login">
-			<f:form commandName="user" action="register" method="post" >
-			
-			<f:errors path="*" cssClass="errorblock" element="div"/>
+			<f:form commandName="user" action="register" method="post" >		
 			
 			<div class="col-md-6 login-do">
 			<div class="login-mail">
 					<f:input path="username" type="text" placeholder="Username" required=""></f:input> 
-					<f:errors path="username" cssClass="error"/>
 					<i  class="glyphicon glyphicon-user"></i>
 				</div>
 				<div class="login-mail">
-					<f:input path="email" type="text" placeholder="Email" required=""></f:input>
-					<f:errors path="email" cssClass="error"/>
+					<f:input path="email" type="text" placeholder="Email" required=""></f:input>					
 					<i  class="glyphicon glyphicon-envelope"></i>
 				</div>
 				<div class="login-mail">
 					<f:input  path="password" type="password" placeholder="Password" required=""></f:input>
-					<f:errors path="password" cssClass="error"/>
+				
 					<i class="glyphicon glyphicon-lock"></i>
 				</div>
 				<div class="login-mail">
 					<input type="password" placeholder="Confirm password" required="">
-					<f:errors path="password" cssClass="error"/>
+					
 					<i class="glyphicon glyphicon-lock"></i>
 				</div>
 				  
