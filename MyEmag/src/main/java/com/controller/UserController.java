@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.model.User;
+
 import com.model.dao.UserDAO;
 
 
@@ -30,23 +31,26 @@ public class UserController {
 	
 	//login	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String loginpage( Model model, HttpSession session){
-		//session.setAttribute("user", new User());
-		model.addAttribute("user", new User()); 	
-		return "login";
+	public ModelAndView loginPage(Model model, HttpSession session) {
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			return new ModelAndView("main", "user", new User());
+		}
+		return new ModelAndView("login", "user", new User());
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute("user") User user, HttpSession session, HttpServletRequest req) {	
-		System.out.println(user.getUsername());
-		System.out.println(user.getPassword());
+	public String login(@ModelAttribute("user") User userHelper, HttpSession session) {	
 		try {
-			if(UserDAO.getInstance().validLogin(user.getUsername(), user.getPassword())){
-				session.setAttribute("username", user.getUsername());
+			String username=userHelper.getUsername();
+			String password=userHelper.getPassword();
+			System.out.println("tuka trbva da vleze v ifa++++++++++");
+			if(UserDAO.getInstance().validLogin(username, password)){
+				session.setAttribute("username", username);
 				session.setAttribute("logged", true);	
 				return "index";
 			}
 			else{
+				session.setAttribute("logged", false);
 				session.setAttribute("login", "Could not login. Please, enter a valid username and password!");
 			}
 		} catch (SQLException e) {
@@ -59,8 +63,6 @@ public class UserController {
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView register(HttpSession session, Model model) {
-		
-		//model.addAttribute("user", new User()); 
 		return new ModelAndView("register", "user", new User());
 	}
 	
@@ -76,6 +78,7 @@ public class UserController {
 		else{			
 			try {
 				UserDAO.getInstance().addUser(user);
+				session.setAttribute("register", "Successfully register! Please, login!");				
 				return "login";
 			} catch (SQLException e) {
 				session.setAttribute("register", "The user already exists!");
