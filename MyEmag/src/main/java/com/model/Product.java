@@ -21,6 +21,9 @@ public class Product {
 	private String descrValue3;
 	private ArrayList<Review> reviews;
 	
+	public Product () {
+		
+	}
 	
 	public Product(String category, String subcategory, String title, int quantity, double price, ArrayList<String> imagePaths, String descrKey1, String descrValue1, String descrKey2,
 			String descrValue2, String descrKey3, String descrValue3, ArrayList<Review> reviews) {
