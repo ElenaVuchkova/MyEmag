@@ -8,9 +8,9 @@ pageEncoding="ISO-8859-1"%>
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form commandName="product" enctype="multipart/form-data">
+	<form:form commandName="product" >
 		Category<form:input path="category" cssErrorClass="error"/><br>
-		Subcategory<form:input path="subcategory" cssErrorClass="error"/><br>
+		Sub<form:input path="subcategory" cssErrorClass="error"/><br>
 		Title<form:input path="title" cssErrorClass="error"/><br>
 		Quantity<form:input path="quantity" cssErrorClass="error"/><br>
 		Price<form:input path="price" cssErrorClass="error"/><br>
@@ -21,8 +21,6 @@ pageEncoding="ISO-8859-1"%>
 		<form:input path="descrValue2" cssErrorClass="error"/><br>
 		3.<form:input path="descrKey3" cssErrorClass="error"/>
 		<form:input path="descrValue3" cssErrorClass="error"/><br>
-		Images<br>
-		<input type="file" id="file" name="failche" accept="image/*">
 		<input type="submit" value="Create product"/>
 	</form:form>
 
