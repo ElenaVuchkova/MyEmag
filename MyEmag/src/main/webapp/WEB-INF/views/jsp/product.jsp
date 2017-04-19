@@ -25,6 +25,8 @@ pageEncoding="ISO-8859-1"%>
 		<input type="file" id="file" name="failche" accept="image/*">
 		<input type="submit" value="Create product"/>
 	</form:form>
+	
+	
 
 </body>
 </html>
