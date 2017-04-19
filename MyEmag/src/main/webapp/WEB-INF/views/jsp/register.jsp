@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-    <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,12 +38,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 <!--register-->
-<div class="container">
+	<div class="container">
 		<div class="login">
-			<f:form commandName="user" action="register" method="post" >		
-			
+			<f:form commandName="user" method="post" >		
 			<div class="col-md-6 login-do">
-			<div class="login-mail">
+				<div class="login-mail">
 					<f:input path="username" type="text" placeholder="Username" required=""></f:input> 
 					<i  class="glyphicon glyphicon-user"></i>
 				</div>
@@ -54,31 +52,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="login-mail">
 					<f:input  path="password" type="password" placeholder="Password" required=""></f:input>
-				
 					<i class="glyphicon glyphicon-lock"></i>
 				</div>
 				<div class="login-mail">
-					<input type="password" placeholder="Confirm password" required="">
-					
+					<input type="password" placeholder="Confirm password" required="">			
 					<i class="glyphicon glyphicon-lock"></i>
-				</div>
-				  
+				</div>				  
 				<label class="hvr-skew-backward">
 					<input type="submit" value="Submit">
-				</label>
-			
-			</div>
-			</f:form>
+				</label>	
+		</div>
+		</f:form>
 		</div>
 	</div>
-
-
 <!--//register-->	
-
 	<!--//content-->
 		<!--//footer-->
 	<div class="footer">
-	<div class="footer-middle">
+		<div class="footer-middle">
 				<div class="container">		
 					<div class="col-md-3 footer-middle-in">
 						<h6>Information</h6>

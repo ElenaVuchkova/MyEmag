@@ -39,11 +39,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</c:if>
 	
 <!--login-->
-<div class="container">
+	<div class="container">
 		<div class="login">
-		
 			<f:form action="login" method="post" commandName="user">			
-			
 			<div class="col-md-6 login-do">
 			<div class="login-mail">
 					<f:input path="username" type="text" placeholder="Username" required=""></f:input>
@@ -52,17 +50,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="login-mail">
 					<f:input  path="password" type="password" placeholder="Password" required=""></f:input>				
 					<i class="glyphicon glyphicon-lock"></i>
-				</div>			
-			  
+				</div>							
 				<label class="hvr-skew-backward">
 					<input type="submit" value="Submit">
 				</label>
-			
 			</div>
 			</f:form>
 		</div>
-
-</div>
+	</div>
 
 <!--//login-->
 

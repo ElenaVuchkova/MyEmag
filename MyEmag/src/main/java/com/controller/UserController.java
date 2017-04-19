@@ -1,13 +1,10 @@
 package com.controller;
 
-
-
 import java.sql.SQLException;
-
+import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +40,6 @@ public class UserController {
 		try {
 			String username=userHelper.getUsername();
 			String password=userHelper.getPassword();
-			System.out.println("tuka trbva da vleze v ifa++++++++++");
 			if(UserDAO.getInstance().validLogin(username, password)){
 				session.setAttribute("username", username);
 				session.setAttribute("logged", true);	
@@ -71,14 +67,13 @@ public class UserController {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 			session.invalidate();
 		}
-			
 		if(result.hasErrors()){
 			session.setAttribute("register", "Could not register. Please, enter a valid data!");
 		}
 		else{			
 			try {
 				UserDAO.getInstance().addUser(user);
-				session.setAttribute("register", "Successfully register! Please, login!");				
+				session.setAttribute("register", "Successfully register! Please, login!");			
 				return "login";
 			} catch (SQLException e) {
 				session.setAttribute("register", "The user already exists!");
