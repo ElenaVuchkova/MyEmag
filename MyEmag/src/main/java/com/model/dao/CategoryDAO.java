@@ -3,6 +3,7 @@ package com.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.model.Product;
 
@@ -35,4 +36,16 @@ public class CategoryDAO {
 		int categoryId=rs.getInt(1);
 		return categoryId;
 	}
+	
+	public synchronized ArrayList<String> getAllCategories () throws SQLException {
+		ArrayList<String> categories=new ArrayList<>();
+		String sql = "SELECT name FROM categories";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ResultSet rs=st.executeQuery();
+		while (rs.next()) {
+			String category=rs.getString("name");
+			categories.add(category);
+		}
+		return categories;
+	}	
 }

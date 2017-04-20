@@ -10,7 +10,7 @@ pageEncoding="ISO-8859-1"%>
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form commandName="product" >
+	<form:form commandName="product">
 		Category<form:input path="category" cssErrorClass="error"/><br>
 		Sub<form:input path="subcategory" cssErrorClass="error"/><br>
 		Title<form:input path="title" cssErrorClass="error"/><br>

@@ -108,7 +108,6 @@ public class ProductDAO {
 				+ "JOIN subcategories s ON (p.subcategory_id=s.subcategory_id), JOIN categories c (s.category_id=c.category_id)" 
 				+ " WHERE order_id=?";
 		PreparedStatement st;
-		
 		st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setInt(1, orderId);
 		ResultSet res = st.executeQuery();
@@ -136,7 +135,18 @@ public class ProductDAO {
 			}
 			p.setReviews(reviews);
 			products.add(p);
-		}		
+		}
+		return products;
+	}
+	
+	public synchronized ArrayList<Product> searchProduct (String word) {
+		ArrayList<Product> products=new ArrayList<>();
+		for (Product p : allproducts.values()) {
+			String title=p.getTitle();
+			if (title.toLowerCase().contains(word.toLowerCase())) {
+				products.add(p);
+			}
+		}
 		return products;
 	}	
 }

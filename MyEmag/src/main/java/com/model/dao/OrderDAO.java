@@ -47,29 +47,25 @@ public class OrderDAO {
 		}
 	}
 	
-	public synchronized ArrayList<Order> getAllOrdersByUser (String userName) {
+	public synchronized ArrayList<Order> getAllOrdersByUser (String userName) throws SQLException {
 		User user=UserDAO.getInstance().getUser(userName);
 		int userId=user.getUserId();
 		ArrayList<Order> orders=new ArrayList<>();
 		String sql="SELECT o.order_id, o.date, p.type, FROM orders o JOIN payments p ON (o.payment_id=p.payment_id) WHERE user_id=?";
 		PreparedStatement st;
-		try {
-			st = DBManager.getInstance().getConnection().prepareStatement(sql);
-			st.setInt(1, userId);
-			ResultSet res = st.executeQuery();
-			while (res.next()) {
-				int orderId=res.getInt("id");
-				String payment=res.getString("type");
-				java.sql.Timestamp time=res.getTimestamp("date");
-				LocalDateTime date=time.toLocalDateTime();
-				Order o=new Order(null, date, user, payment);
-				o.setOrderId(orderId);
-				ArrayList<Product> products=ProductDAO.getInstance().getAllProductsFromOrder(orderId);
-				o.setProducts(products);
-				orders.add(o);
-			}
-		} catch (SQLException e) {
-			System.out.println("SQL : " + e.getMessage());
+		st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, userId);
+		ResultSet res = st.executeQuery();
+		while (res.next()) {
+			int orderId=res.getInt("id");
+			String payment=res.getString("type");
+			java.sql.Timestamp time=res.getTimestamp("date");
+			LocalDateTime date=time.toLocalDateTime();
+			Order o=new Order(null, date, user, payment);
+			o.setOrderId(orderId);
+			ArrayList<Product> products=ProductDAO.getInstance().getAllProductsFromOrder(orderId);
+			o.setProducts(products);
+			orders.add(o);
 		}
 		return orders;
 	}

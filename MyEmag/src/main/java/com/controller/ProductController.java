@@ -21,7 +21,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
-	public String receiveUpload(@ModelAttribute Product p,  Model model) throws IOException{
+	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, @ModelAttribute Product p,  Model model) throws IOException{
 		try {
 			ProductDAO.getInstance().addProduct(p);
 		} catch (SQLException e) {

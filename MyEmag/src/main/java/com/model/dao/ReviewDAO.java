@@ -45,24 +45,20 @@ public class ReviewDAO {
 		r.setReviewId(reviewId);
 	}
 
-	public ArrayList<Review> getAllReviewsByProduct(int productId) {
+	public ArrayList<Review> getAllReviewsByProduct(int productId) throws SQLException {
 		ArrayList<Review> reviews=new ArrayList<>();
 		String sql="SELECT r.review_id, r.comment, r.date, u.username FROM reviews r JOIN users u ON (r.user_id=r.user_id) WHERE product_id=?";
 		PreparedStatement st;
-		try {
-			st = DBManager.getInstance().getConnection().prepareStatement(sql);
-			st.setInt(1, productId);
-			ResultSet res = st.executeQuery();
-			while (res.next()) {
-				int reviewId=res.getInt("review_id");
-				User user=UserDAO.getInstance().getUser(res.getString("username"));
-				Review r=new Review(res.getString("comment"), res.getInt("rating"), user, null);
-				r.setReviewId(reviewId);
-				reviews.add(r);
+		st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, productId);
+		ResultSet res = st.executeQuery();
+		while (res.next()) {
+			int reviewId=res.getInt("review_id");
+			User user=UserDAO.getInstance().getUser(res.getString("username"));
+			Review r=new Review(res.getString("comment"), res.getInt("rating"), user, null);
+			r.setReviewId(reviewId);
+			reviews.add(r);
 			}
-		} catch (SQLException e) {
-			System.out.println("SQL : " + e.getMessage());
-		}
 		return reviews;
 	}
 	

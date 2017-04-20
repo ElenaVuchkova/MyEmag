@@ -27,20 +27,16 @@ public class ImageDAO {
 		st.executeUpdate();
 	}
 	
-	public synchronized ArrayList<String> getAllImagePathsByProduct (int productId) {
+	public synchronized ArrayList<String> getAllImagePathsByProduct (int productId) throws SQLException {
 		ArrayList<String> imagePaths=new ArrayList<>();
 		String sql="SELECT path FROM images JOIN products USING (product_id) WHERE product_id=?";
 		PreparedStatement st;
-		try {
-			st = DBManager.getInstance().getConnection().prepareStatement(sql);
-			st.setInt(1, productId);
-			ResultSet res = st.executeQuery();
-			while (res.next()) {
-				String imagePath=res.getString("path");
-				imagePaths.add(imagePath);
-			}
-		} catch (SQLException e) {
-			System.out.println("SQL : " + e.getMessage());
+		st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, productId);
+		ResultSet res = st.executeQuery();
+		while (res.next()) {
+			String imagePath=res.getString("path");
+			imagePaths.add(imagePath);
 		}
 		return imagePaths;
 	}
