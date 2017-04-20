@@ -25,13 +25,13 @@ import com.model.Product;
 import com.model.dao.ProductDAO;
 
 @Controller
-@SessionAttributes("filename")
-@MultipartConfig
+//@SessionAttributes("filename")
+//@MultipartConfig
 public class ProductController {
 	
-	private String imageName;
-	static String sep=File.separator;
-	private static final String FILE_LOCATION = sep+"Users"+sep+"hp"+sep+"images";
+//	private String imageName;
+//	static String sep=File.separator;
+//	private static final String FILE_LOCATION = sep+"Users"+sep+"hp"+sep+"images";
 
 	@RequestMapping(value="/product", method=RequestMethod.GET)
 	public String createProduct (Model m) {
@@ -41,18 +41,18 @@ public class ProductController {
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, @ModelAttribute Product p,  Model model) throws IOException{
-		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
-		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		imageName = multiPartFile.getOriginalFilename();
-		ArrayList<String> imagePaths=new ArrayList<>();
-		imagePaths.add(imageName);
-		p.setImagePaths(imagePaths);
+//		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
+//		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//		imageName = multiPartFile.getOriginalFilename();
+//		ArrayList<String> imagePaths=new ArrayList<>();
+//		imagePaths.add(imageName);
+//		p.setImagePaths(imagePaths);
 		try {
 			ProductDAO.getInstance().addProduct(p);
 		} catch (SQLException e) {
 			System.out.println("SQL - " + e.getMessage());
 		}
-		model.addAttribute("filename", multiPartFile.getOriginalFilename());
+		//model.addAttribute("filename", multiPartFile.getOriginalFilename());
 		return "index";
 	}
 	

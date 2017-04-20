@@ -3,6 +3,7 @@ package com.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class SubcategoryDAO {
 
@@ -35,4 +36,16 @@ private static SubcategoryDAO instance;
 		int subcategoryId=rs.getInt(1);
 		return subcategoryId;
 	}
-}
+	
+	public synchronized ArrayList<String> getAllSubcategoryByCategory (String name) throws SQLException {
+		ArrayList<String> subcategories=new ArrayList<>();
+		String sql = "SELECT s.name FROM subcategories s JOIN categories c ON (s.category_id=c.category_id) where c.name=?";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ResultSet rs=st.executeQuery();
+		while (rs.next()) {
+			String subcategory=rs.getString("name");
+			subcategories.add(subcategory);
+		}
+		return subcategories;
+	}
+ }

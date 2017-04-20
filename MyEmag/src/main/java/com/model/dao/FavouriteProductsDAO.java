@@ -32,23 +32,19 @@ public class FavouriteProductsDAO {
 		st.executeUpdate();
 	}
 
-	public synchronized ArrayList<Product> getAllFavouriteProductsByUser (String username) {
+	public synchronized ArrayList<Product> getAllFavouriteProductsByUser (String username) throws SQLException {
 		ArrayList<Product> products=new ArrayList<>(); 
 		User user=UserDAO.getInstance().getUser(username);
 		int userId=user.getUserId();
 		String sql="SELECT product_id FROM favouriteproducts WHERE user_id=?";
 		PreparedStatement st;
-		try {
-			st = DBManager.getInstance().getConnection().prepareStatement(sql);
-			st.setInt(1, userId);
-			ResultSet res = st.executeQuery();
-			while (res.next()) {
-				int productId=res.getInt("product_id");
-				Product p=ProductDAO.getInstance().getProduct(productId);
-				products.add(p);
-			}
-		} catch (SQLException e) {
-			System.out.println("SQL : " + e.getMessage());
+		st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, userId);
+		ResultSet res = st.executeQuery();
+		while (res.next()) {
+			int productId=res.getInt("product_id");
+			Product p=ProductDAO.getInstance().getProduct(productId);
+			products.add(p);
 		}
 		return products;
 		

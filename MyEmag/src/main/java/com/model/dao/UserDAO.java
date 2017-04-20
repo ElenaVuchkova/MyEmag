@@ -16,15 +16,11 @@ public class UserDAO {
 	private static UserDAO instance;
 	private static final HashMap<String, User> allUsers = new HashMap<>();//username - > user
 	
-	private UserDAO(){		
-		try {
-			getAllUsers();
-		} catch (SQLException e) {
-			System.out.println("userdao"+e.getMessage());
-		}		
+	private UserDAO() throws SQLException{		
+		getAllUsers();	
 	}
 	
-	public static synchronized UserDAO getInstance(){
+	public static synchronized UserDAO getInstance() throws SQLException{
 		if(instance == null){
 			instance = new UserDAO();
 		}

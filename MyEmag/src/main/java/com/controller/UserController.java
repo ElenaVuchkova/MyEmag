@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.model.Product;
 import com.model.User;
-
+import com.model.dao.CategoryDAO;
 import com.model.dao.UserDAO;
 
 
@@ -22,7 +24,15 @@ import com.model.dao.UserDAO;
 public class UserController {
 		
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String indexpage(){
+	public String indexpage(Model m){
+		ArrayList<String> categories =new ArrayList<>();
+		try {
+			categories=CategoryDAO.getInstance().getAllCategories();
+			m.addAttribute("categories", categories);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "index";
 	}	
 	
