@@ -10,7 +10,7 @@ pageEncoding="ISO-8859-1"%>
 <body>
 	<form:form commandName="product">
 		Category<form:input path="category" cssErrorClass="error"/><br>
-		Subcategory<form:input path="subcategory" cssErrorClass="error"/><br>
+		Sub<form:input path="subcategory" cssErrorClass="error"/><br>
 		Title<form:input path="title" cssErrorClass="error"/><br>
 		Quantity<form:input path="quantity" cssErrorClass="error"/><br>
 		Price<form:input path="price" cssErrorClass="error"/><br>

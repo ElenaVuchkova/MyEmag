@@ -33,6 +33,7 @@ private static SubcategoryDAO instance;
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setString(1, name);
 		ResultSet rs=st.executeQuery();
+		rs.next();
 		int subcategoryId=rs.getInt(1);
 		return subcategoryId;
 	}
