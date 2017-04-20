@@ -2,22 +2,16 @@ package com.controller;
 
 
 import java.io.IOException;
-
 import java.sql.SQLException;
-
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.model.Product;
 import com.model.dao.ProductDAO;
 
 @Controller
-
 public class ProductController {
 
 	@RequestMapping(value="/product", method=RequestMethod.GET)
