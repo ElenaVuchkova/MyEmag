@@ -21,7 +21,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
   
     @Override
     protected String[] getServletMappings() {
-        return new String[] { "/", "*.html", "*.pdf" };
+        return new String[] { "/", "*.html", "*.pdf", "*.jpg", "*.png"};
     }
     
 	@Override
@@ -35,7 +35,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	}
 
  
-    private static final String LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages"; // Temporary location where files will be stored
+    private static final String LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages"; // Temporary location where files will be stored
  
     private static final long MAX_FILE_SIZE = 5242880; // 5MB : Max file size.
                                                         // Beyond that size spring will throw exception.
