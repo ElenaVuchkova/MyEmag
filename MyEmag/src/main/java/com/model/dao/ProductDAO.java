@@ -5,9 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.model.Product;
 import com.model.Review;
+import com.mysql.jdbc.Statement;
 
 
 public class ProductDAO {
@@ -32,7 +34,7 @@ public class ProductDAO {
 		String sql = "INSERT INTO products (title, quantity, price, descr_key1, descr_value1, descr_key2, "
 				+ "descr_value2, descr_key3, descr_value3, subcategory_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement st;
-		st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st = DBManager.getInstance().getConnection().prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS);
 		st.setString(1, p.getTitle());
 		st.setInt(2, p.getQuantity());
 		st.setDouble(3, p.getPrice());
@@ -48,11 +50,11 @@ public class ProductDAO {
 		res.next();
 		int productId = res.getInt(1);
 		p.setProductId(productId);
-//		List<String> imagePaths=p.getImagePaths();
-//		for (String path : imagePaths) {
-//			ImageDAO.getInstance().addImagePath(path, productId);
-//		}
-		//p.setImagePaths(imagePaths);
+		List<String> imagePaths=p.getImagePaths();
+		for (String path : imagePaths) {
+			ImageDAO.getInstance().addImagePath(path, productId);
+		}
+		p.setImagePaths(imagePaths);
 		
 	}
 	
@@ -70,15 +72,13 @@ public class ProductDAO {
 						res.getString("subcategory"), 
 						res.getString("title"),
 						res.getInt("quantity"), 
-						res.getDouble("price"), 
-						null, 
+						res.getDouble("price"),  
 						res.getString("descr_key1"),
 						res.getString("descr_value1"),
 						res.getString("descr_key2"), 
 						res.getString("descr_value2"), 
 						res.getString("descr_key3"), 
-						res.getString("descr_value3"), 
-						null);
+						res.getString("descr_value3"));
 				p.setProductId(productId);
 				ArrayList<String> imagePaths=ImageDAO.getInstance().getAllImagePathsByProduct(productId);
 				p.setImagePaths(imagePaths);
@@ -118,14 +118,12 @@ public class ProductDAO {
 					res.getString("title"),
 					res.getInt("quantity"), 
 					res.getDouble("price"), 
-					null, 
 					res.getString("descr_key1"),
 					res.getString("descr_value1"),
 					res.getString("descr_key2"), 
 					res.getString("descr_value2"), 
 					res.getString("descr_key3"), 
-					res.getString("descr_value3"), 
-					null);
+					res.getString("descr_value3"));
 			p.setProductId(productId);
 			ArrayList<String> imagePaths=ImageDAO.getInstance().getAllImagePathsByProduct(productId);
 			p.setImagePaths(imagePaths);

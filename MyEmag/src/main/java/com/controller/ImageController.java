@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.model.Product;
 
 @Controller
-@SessionAttributes("filename")
+//@SessionAttributes("filename")
 @MultipartConfig
 public class ImageController {
 	
@@ -31,12 +31,6 @@ public class ImageController {
 	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 
 	
-	@RequestMapping(value="/upload", method=RequestMethod.GET)
-	public String prepareForUpload() {
-		return "upload";
-	}
-	
-
 	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)
 	@ResponseBody
 	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
@@ -44,9 +38,15 @@ public class ImageController {
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
 	
+	@RequestMapping(value="/upload", method=RequestMethod.GET)
+	public String prepareForUpload(HttpSession session) {		
+		Product p=(Product)session.getAttribute("product");
+		System.out.println(p);
+		return "upload";
+	}
+	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, HttpSession session, Model model) throws IOException{	
-		Product p=(Product) session.getAttribute("product");
+	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model, HttpSession session) throws IOException{	
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		vzemiToqImage = multiPartFile.getOriginalFilename();
