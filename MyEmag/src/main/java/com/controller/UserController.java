@@ -27,8 +27,7 @@ public class UserController {
 	
 		
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String indexpage(Model m){
-		
+	public String indexpage(Model m){		
 		ArrayList<String> categories=new ArrayList<>();
 		ArrayList<String> subcategories=new ArrayList<>();
 		HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();

@@ -23,7 +23,7 @@ pageEncoding="ISO-8859-1"%>
 		<form:input path="descrValue2" cssErrorClass="error"/><br>
 		3.<form:input path="descrKey3" cssErrorClass="error"/>
 		<form:input path="descrValue3" cssErrorClass="error"/><br>
-		<input type="submit" value="Create product"/>
+		<input type="submit" value="Next page"/>
 	</form:form>
 	
 	

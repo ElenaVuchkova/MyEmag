@@ -6,6 +6,13 @@ import java.util.Collections;
 
 public class Product {
 	
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", category=" + category + ", subcategory=" + subcategory
+				+ ", title=" + title + ", quantity=" + quantity + ", price=" + price + "]";
+	}
+
+
 	private int productId;
 	private String category;
 	private String subcategory;
@@ -25,21 +32,19 @@ public class Product {
 		
 	}
 	
-	public Product(String category, String subcategory, String title, int quantity, double price, ArrayList<String> imagePaths, String descrKey1, String descrValue1, String descrKey2,
-			String descrValue2, String descrKey3, String descrValue3, ArrayList<Review> reviews) {
+	public Product(String category, String subcategory, String title, int quantity, double price, String descrKey1, String descrValue1, String descrKey2,
+			String descrValue2, String descrKey3, String descrValue3) {
 		this.category=category;
 		this.subcategory=subcategory;
 		this.title = title;
 		this.quantity = quantity;
 		this.price=price;
-		this.imagePaths=imagePaths;
 		this.descrKey1 = descrKey1;
 		this.descrValue1 = descrValue1;
 		this.descrKey2 = descrKey2;
 		this.descrValue2 = descrValue2;
 		this.descrKey3 = descrKey3;
 		this.descrValue3 = descrValue3;
-		this.reviews=reviews;
 	}
 
 

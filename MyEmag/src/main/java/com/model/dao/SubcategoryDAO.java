@@ -43,12 +43,9 @@ public class SubcategoryDAO {
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setString(1, name);
 		ResultSet rs=st.executeQuery();
-		System.out.println("test before while +++++++++++++++++++++++++++++++++++++");
 		while (rs.next()) {			
 			String subcategory=rs.getString("name");
 			subcategories.add(subcategory);
-			System.out.println("in while +++++++++++++++++++++++++++++++++++++");
-			System.out.println(subcategory);
 		}
 		return subcategories;
 	}

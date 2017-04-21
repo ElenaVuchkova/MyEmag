@@ -1,15 +1,17 @@
 package com.controller;
 
 
-import java.io.IOException;
+
 import java.sql.SQLException;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import com.model.Product;
 import com.model.dao.ProductDAO;
@@ -24,11 +26,12 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
-	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, @ModelAttribute Product p,  Model model) throws IOException{
+	public String receiveUpload(@ModelAttribute Product p,HttpSession session) {
 		try {
 			ProductDAO.getInstance().addProduct(p);
+			session.setAttribute("product", p);
 		} catch (SQLException e) {
-			System.out.println("SQL - " + e.getMessage());
+			System.out.println("SQL receive upload controller - " + e.getMessage());
 		}
 		return "index";
 	}

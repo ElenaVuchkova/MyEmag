@@ -20,7 +20,7 @@ public class ImageDAO {
 	}
 	
 	public synchronized void addImagePath (String path, int productId) throws SQLException{
-		String sql = "INSERT INTO categories (path, product_id) values (?,?)";
+		String sql = "INSERT INTO images (path, product_id) values (?,?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setString(1, path);	
 		st.setInt(2, productId);

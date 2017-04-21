@@ -9,6 +9,7 @@
 <body>
 
 <h1>Upload file please</h1>
+
 <form method="POST" enctype="multipart/form-data">
 	<input type="file" id="file" name="failche" accept="image/*">
 	<input type="submit" value="Upload now">
