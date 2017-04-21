@@ -26,6 +26,7 @@ public class ImageController {
 	private String vzemiToqImage;
 
 	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+
 	
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public String prepareForUpload() {
@@ -41,8 +42,7 @@ public class ImageController {
 	}
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model) throws IOException{
-		
+	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model) throws IOException{		
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		vzemiToqImage = multiPartFile.getOriginalFilename();

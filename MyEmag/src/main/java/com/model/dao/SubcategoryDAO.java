@@ -7,10 +7,9 @@ import java.util.ArrayList;
 
 public class SubcategoryDAO {
 
-private static SubcategoryDAO instance;
+	private static SubcategoryDAO instance;
 	
-	private SubcategoryDAO(){
-	}
+	private SubcategoryDAO(){}
 	
 	public static synchronized SubcategoryDAO getInstance(){
 		if(instance == null){
@@ -42,10 +41,14 @@ private static SubcategoryDAO instance;
 		ArrayList<String> subcategories=new ArrayList<>();
 		String sql = "SELECT s.name FROM subcategories s JOIN categories c ON (s.category_id=c.category_id) where c.name=?";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setString(1, name);
 		ResultSet rs=st.executeQuery();
-		while (rs.next()) {
+		System.out.println("test before while +++++++++++++++++++++++++++++++++++++");
+		while (rs.next()) {			
 			String subcategory=rs.getString("name");
 			subcategories.add(subcategory);
+			System.out.println("in while +++++++++++++++++++++++++++++++++++++");
+			System.out.println(subcategory);
 		}
 		return subcategories;
 	}
