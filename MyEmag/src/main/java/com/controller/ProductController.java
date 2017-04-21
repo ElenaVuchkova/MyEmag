@@ -30,7 +30,7 @@ public class ProductController {
 		} catch (SQLException e) {
 			System.out.println("SQL - " + e.getMessage());
 		}
-		return "index";
+		return "upload";
 	}
 	
 }

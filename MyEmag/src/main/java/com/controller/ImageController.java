@@ -7,6 +7,7 @@ import java.nio.file.StandardCopyOption;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.model.Product;
 
 @Controller
 @SessionAttributes("filename")
@@ -42,7 +45,8 @@ public class ImageController {
 	}
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model) throws IOException{		
+	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, HttpSession session, Model model) throws IOException{	
+		Product p=(Product) session.getAttribute("product");
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		vzemiToqImage = multiPartFile.getOriginalFilename();
