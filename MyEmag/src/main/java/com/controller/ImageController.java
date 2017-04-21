@@ -46,7 +46,6 @@ public class ImageController {
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String receiveUpload(@RequestParam("failche") MultipartFile multiPartFile, Model model, HttpSession session) throws IOException{	
-		
 		File fileOnDisk = new File(FILE_LOCATION + multiPartFile.getOriginalFilename());
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		vzemiToqImage = multiPartFile.getOriginalFilename();
