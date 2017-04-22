@@ -77,7 +77,7 @@ public class ChangeProductController {
 			
 			//create product
 			Product p=new Product(category, subcategory, title, quantity, price, descrKey1, descrValue1,
-					descrKey2, descrValue2, descrKey3, descrValue3);
+					descrKey2, descrValue2, descrKey3, descrValue3,0);
 			
 			
 			//check size

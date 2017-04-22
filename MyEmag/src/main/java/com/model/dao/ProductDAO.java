@@ -33,7 +33,7 @@ public class ProductDAO {
 
 	public synchronized void addProduct (Product p) throws SQLException {
 		String sql = "INSERT INTO products (title, quantity, price, descr_key1, descr_value1, descr_key2, "
-				+ "descr_value2, descr_key3, descr_value3, subcategory_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "descr_value2, descr_key3, descr_value3, subcategory_id, sale_price) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection con=DBManager.getInstance().getConnection();
 		PreparedStatement st=null;
 		try {
@@ -49,6 +49,7 @@ public class ProductDAO {
 			st.setString(8, p.getDescrKey3());
 			st.setString(9, p.getDescrValue3());
 			st.setInt(10, subcategoryId);
+			st.setInt(10, 0);
 			st.executeUpdate();
 			ResultSet res = st.getGeneratedKeys();
 			res.next();
@@ -74,7 +75,7 @@ public class ProductDAO {
 	public HashMap<Integer, Product> getAllProducts() throws SQLException{
 		if(allproducts.isEmpty()){
 			String sql = "SELECT p.product_id, p.title, quantity, p.price, 	p.descr_key1, p.descr_value1," 
-					+"p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, s.name as subcategory,"
+					+"p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, p.sale_price, s.name as subcategory,"
 					+"c.name AS category	FROM products p JOIN subcategories s ON (p.subcategory_id=s.subcategory_id) "
 					+"JOIN categories c ON (s.category_id=c.category_id);";	
 			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
@@ -91,7 +92,9 @@ public class ProductDAO {
 						res.getString("descr_key2"), 
 						res.getString("descr_value2"), 
 						res.getString("descr_key3"), 
-						res.getString("descr_value3"));
+						res.getString("descr_value3"),
+						res.getDouble("sale_price")
+						);
 				p.setProductId(productId);
 				ArrayList<String> imagePaths=ImageDAO.getInstance().getAllImagePathsByProduct(productId);
 				p.setImagePaths(imagePaths);
@@ -116,7 +119,8 @@ public class ProductDAO {
 	
 	public synchronized ArrayList<Product> getAllProductsFromOrder (int orderId) throws SQLException{
 		ArrayList<Product> products=new ArrayList<>();
-		String sql="SELECT p.product_id, p.title, p.quantity, p.price, p.descr_key1, p.descr_value1, p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, s.name as subcategory, c.name AS category "
+		String sql="SELECT p.product_id, p.title, p.quantity, p.price, p.descr_key1, p.descr_value1, p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, p.sale_price"
+				+ " s.name as subcategory, c.name AS category "
 				+ "FROM products p JOIN orders_has_products o ON (p.product_id=o.product_id)," 
 				+ "JOIN subcategories s ON (p.subcategory_id=s.subcategory_id), JOIN categories c (s.category_id=c.category_id)" 
 				+ " WHERE order_id=?";
@@ -136,7 +140,10 @@ public class ProductDAO {
 					res.getString("descr_key2"), 
 					res.getString("descr_value2"), 
 					res.getString("descr_key3"), 
-					res.getString("descr_value3"));
+					res.getString("descr_value3"),
+					res.getDouble("sale_price")
+					);
+			
 			p.setProductId(productId);
 			ArrayList<String> imagePaths=ImageDAO.getInstance().getAllImagePathsByProduct(productId);
 			p.setImagePaths(imagePaths);
@@ -236,5 +243,41 @@ public class ProductDAO {
 			con.setAutoCommit(true);
 		}
 		allproducts.remove(id);
+	}
+	
+	public void makeSaleForOneProduct (int id, int percent) throws SQLException {
+		if (percent>0 && percent<100) {
+			Product p=allproducts.get(id);
+			double price=p.getPrice();
+			double salePrice=price-(price*percent/100);
+			p.setSalePrice(salePrice);
+			String sql = "UPDATE products SET sale_price=? WHERE product_id=?";
+			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			st.setDouble(1, salePrice);
+			st.setInt(2, id);
+			st.executeUpdate();
+		}
+	}
+	
+	public void makeSaleForAllProductsBySubcategory (String subcategory, int percent) throws SQLException {
+		if (percent>0 && percent<100) {
+			int subcategoryId=SubcategoryDAO.getInstance().getSubcategoryId(subcategory);
+			String sql = "UPDATE products SET sale_price=price-(price*?/100) WHERE subcategory_id=?";
+			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			st.setDouble(1, percent);
+			st.setInt(2, subcategoryId);
+			st.executeUpdate();
+			getAllProducts();
+		}
+	}
+	
+	public ArrayList<Product> getAllProductsWithSale () {
+		ArrayList<Product> productsWithSale = new ArrayList<>();
+		for (Product p : allproducts.values()) {
+			if (p.getSalePrice()!=0) {
+				productsWithSale.add(p);
+			}
+		}
+		return productsWithSale;
 	}
 }
