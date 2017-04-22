@@ -27,7 +27,7 @@ public class ImageController {
 	
 	private String vzemiToqImage;
 
-	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
 
 	
 	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)

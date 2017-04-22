@@ -86,7 +86,7 @@ public class ChangeProductController {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture.getOriginalFilename());
 					Files.copy(multiPartPicture.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 					ArrayList<String> paths = new ArrayList<>();
-					paths.add(multiPartPicture.getOriginalFilename());
+					paths.add(FILE_LOCATION+multiPartPicture.getOriginalFilename());
 					p.setImagePaths(paths);
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment");

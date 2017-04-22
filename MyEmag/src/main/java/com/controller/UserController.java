@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.model.Product;
 import com.model.User;
 import com.model.dao.CategoryDAO;
 import com.model.dao.DBManager;
+import com.model.dao.ProductDAO;
 import com.model.dao.SubcategoryDAO;
 import com.model.dao.UserDAO;
 
@@ -34,18 +36,21 @@ public class UserController {
 		try {
 			categories=CategoryDAO.getInstance().getAllCategories();
 			for(String c: categories){
-				System.out.println(c);
 				if (!catAndSubcat.containsKey(c)) {
 					catAndSubcat.put(c, new ArrayList<>());
 				}
 				subcategories=SubcategoryDAO.getInstance().getAllSubcategoryByCategory(c);
 				for(String s:subcategories){
 					catAndSubcat.get(c).add(s);
-					System.out.println(s);
-				}
-				
+				}				
 			}
-			m.addAttribute("catAndSubcat", catAndSubcat);
+			m.addAttribute("catAndSubcat", catAndSubcat);			
+			HashMap<Integer, Product> allProducts= ProductDAO.getInstance().getAllProducts();
+			m.addAttribute("allproducts", allProducts);
+			System.out.println("vsichki produkti za index page");
+			for (Product p: allProducts.values()){
+				System.out.println(p);
+			}
 		} catch (SQLException e) {
 			System.out.println("sql index controller"+e.getMessage());
 		}

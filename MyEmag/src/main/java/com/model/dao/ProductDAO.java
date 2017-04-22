@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.model.Product;
 import com.model.Review;
@@ -58,7 +60,7 @@ public class ProductDAO {
 		
 	}
 	
-	private HashMap<Integer, Product> getAllProducts() throws SQLException{
+	public HashMap<Integer, Product> getAllProducts() throws SQLException{
 		if(allproducts.isEmpty()){
 			String sql = "SELECT p.product_id, p.title, quantity, p.price, 	p.descr_key1, p.descr_value1," 
 					+"p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, s.name as subcategory,"
