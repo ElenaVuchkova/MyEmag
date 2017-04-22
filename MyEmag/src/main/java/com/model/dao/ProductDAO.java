@@ -1,5 +1,6 @@
 package com.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,33 +32,43 @@ public class ProductDAO {
 	}
 
 	public synchronized void addProduct (Product p) throws SQLException {
-		int	subcategoryId = SubcategoryDAO.getInstance().getSubcategoryId(p.getSubcategory());
-		
 		String sql = "INSERT INTO products (title, quantity, price, descr_key1, descr_value1, descr_key2, "
 				+ "descr_value2, descr_key3, descr_value3, subcategory_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement st;
-		st = DBManager.getInstance().getConnection().prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS);
-		st.setString(1, p.getTitle());
-		st.setInt(2, p.getQuantity());
-		st.setDouble(3, p.getPrice());
-		st.setString(4, p.getDescrKey1());
-		st.setString(5, p.getDescrValue1());
-		st.setString(6, p.getDescrKey2());
-		st.setString(7, p.getDescrValue2());
-		st.setString(8, p.getDescrKey3());
-		st.setString(9, p.getDescrValue3());
-		st.setInt(10, subcategoryId);
-		st.executeUpdate();
-		ResultSet res = st.getGeneratedKeys();
-		res.next();
-		int productId = res.getInt(1);
-		p.setProductId(productId);
-		List<String> imagePaths=p.getImagePaths();
-		for (String path : imagePaths) {
-			ImageDAO.getInstance().addImagePath(path, productId);
+		Connection con=DBManager.getInstance().getConnection();
+		PreparedStatement st=null;
+		try {
+			int	subcategoryId = SubcategoryDAO.getInstance().getSubcategoryId(p.getSubcategory());
+			st =con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, p.getTitle());
+			st.setInt(2, p.getQuantity());
+			st.setDouble(3, p.getPrice());
+			st.setString(4, p.getDescrKey1());
+			st.setString(5, p.getDescrValue1());
+			st.setString(6, p.getDescrKey2());
+			st.setString(7, p.getDescrValue2());
+			st.setString(8, p.getDescrKey3());
+			st.setString(9, p.getDescrValue3());
+			st.setInt(10, subcategoryId);
+			st.executeUpdate();
+			ResultSet res = st.getGeneratedKeys();
+			res.next();
+			int productId = res.getInt(1);
+			p.setProductId(productId);
+			List<String> imagePaths=p.getImagePaths();
+			for (String path : imagePaths) {
+				ImageDAO.getInstance().addImagePath(path, productId);
+			}
+			p.setImagePaths(imagePaths);
+		} catch (SQLException e) {
+			System.out.println("SQL transaction to insert product -" + e.getMessage());
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				System.out.println("SQL transaction to insert product- rollback -" + e.getMessage());
+			}
+		} finally {
+			con.setAutoCommit(true);
 		}
-		p.setImagePaths(imagePaths);
-		
 	}
 	
 	public HashMap<Integer, Product> getAllProducts() throws SQLException{
@@ -148,5 +159,82 @@ public class ProductDAO {
 			}
 		}
 		return products;
-	}	
+	}
+	
+	public synchronized void updateQuantity (int id, int quantity) throws SQLException{
+		String sql = "UPDATE products SET quantity=? WHERE product_id=?";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, quantity);
+		st.setInt(2, id);
+		st.executeUpdate();
+		Product p=allproducts.get(id);
+		p.setQuantity(quantity);
+	}
+	
+	public synchronized void updateTitle (int id, String title) throws SQLException{
+		String sql = "UPDATE products SET title=? WHERE product_id=?";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setString(1, title);
+		st.setInt(2, id);
+		st.executeUpdate();
+		Product p=allproducts.get(id);
+		p.setTitle(title);
+	}
+	
+	public synchronized void updateDescr1 (int id, String descrValue1) throws SQLException{
+		String sql = "UPDATE products SET descr_value1=? WHERE product_id=?";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setString(1, descrValue1);
+		st.setInt(2, id);
+		st.executeUpdate();
+		Product p=allproducts.get(id);
+		p.setDescrValue1(descrValue1);
+	}
+	public synchronized void updateDescr2 (int id, String descrValue2) throws SQLException{
+		String sql = "UPDATE products SET descr_value2=? WHERE product_id=?";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setString(1, descrValue2);
+		st.setInt(2, id);
+		st.executeUpdate();
+		Product p=allproducts.get(id);
+		p.setDescrValue2(descrValue2);
+	}
+	public synchronized void updateDescr3 (int id, String descrValue3) throws SQLException{
+		String sql = "UPDATE products SET descr_value3=? WHERE product_id=?";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setString(1, descrValue3);
+		st.setInt(2, id);
+		st.executeUpdate();
+		Product p=allproducts.get(id);
+		p.setDescrValue3(descrValue3);
+	}
+	public synchronized void deleteProduct (int id) throws SQLException{
+		String sql1 = "DELETE FROM reviews WHERE product_id=?";
+		String sql2 = "DELETE FROM images WHERE product_id=?";
+		String sql3 = "DELETE FROM products WHERE product_id=?";
+		PreparedStatement st1=null;
+		PreparedStatement st2=null;
+		PreparedStatement st3=null;
+		Connection con=DBManager.getInstance().getConnection();
+		try {
+			con.setAutoCommit(false);
+			st1 = con.prepareStatement(sql1);
+			st2 = con.prepareStatement(sql2);
+			st3 = con.prepareStatement(sql3);
+			st1.executeUpdate();
+			st2.executeUpdate();
+			st3.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			System.out.println("SQL transaction to delete product -" + e.getMessage());
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				System.out.println("SQL transaction to delete product- rollback -" + e.getMessage());
+			}
+		} finally {
+			con.setAutoCommit(true);
+		}
+		allproducts.remove(id);
+	}
 }

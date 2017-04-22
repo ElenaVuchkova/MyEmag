@@ -12,6 +12,7 @@ public class DBManager {
 	private static final String DB_NAME = "emagdb";
 	private static final String DB_USER = "root";
 	private static final String DB_PASS = "No_pass95";	
+	//private static final String DB_PASS = "Kostadin4194*";
 	private Connection con = null;
 	
 	private DBManager(){

@@ -46,5 +46,6 @@ public class CategoryDAO {
 			categories.add(category);
 		}
 		return categories;
-	}	
+	}
+	
 }
