@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>MyEmag</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>PRODUCT</title>
+<link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,12 +17,12 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--theme-style-->
-<link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
-<script src="js/jquery.min.js"></script>
+<script src="/MyEmag/js/jquery.min.js"></script>
 <!--- start-rate---->
-<script src="js/jstarbox.js"></script>
-	<link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+<script src="/MyEmag/js/jstarbox.js"></script>
+	<link rel="stylesheet" href="/MyEmag/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
 		<script type="text/javascript">
 			jQuery(function() {
 			jQuery('.starbox').each(function() {
@@ -44,15 +45,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		</script>
 <!---//End-rate---->
-
+<link href="/MyEmag/css/form.css" rel="stylesheet" type="text/css" media="all" />
+<title>Insert title here</title>
 </head>
+
 <body>
 <!--header-->
 <div class="header">
 <div class="container">
 		<div class="head">
 			<div class=" logo">
-				<a href="index.html"><img src="images/emaglogo.png" alt=""></a>	
+				<a href="index.html"><img src="/MyEmag/images/logo.png" alt=""></a>	
 			</div>
 		</div>
 	</div>
@@ -60,15 +63,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
-						<c:if test="${sessionScope.logged}">
-							<li><a href="logout">Logout</a></li>
-						</c:if>
-						<c:if test="${!sessionScope.logged}">
-							<li><a href="login">Login</a></li>
-							<li><a href="register">Register</a></li>
-						</c:if>
+						<li><a href="login.html">Login</a></li>
+						<li><a href="register.html">Register</a></li>
+						<li><a href="checkout.html">Checkout</a></li>
 					</ul>
 				</div>
+				
+			<div class="col-sm-5 header-social">		
+					<ul >
+						<li><a href="#"><i></i></a></li>
+						<li><a href="#"><i class="ic1"></i></a></li>
+						<li><a href="#"><i class="ic2"></i></a></li>
+						<li><a href="#"><i class="ic3"></i></a></li>
+						<li><a href="#"><i class="ic4"></i></a></li>
+					</ul>
+					
+			</div>
 				<div class="clearfix"> </div>
 		</div>
 		</div>
@@ -78,7 +88,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="head-top">
 			
 		 <div class="col-sm-8 col-md-offset-2 h_menu4">
-				<nav class="navbar nav_bottom" role="navigation">
+<nav class="navbar nav_bottom" role="navigation">
  
  <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header nav_2">
@@ -100,8 +110,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="dropdown-menu ">
                     <div class="menu-top">
 						<div class="col1">
-							<div class="h_nav">		
-							
+							<div class="h_nav">									
 								<c:forEach items="${sessionScope.catAndSubcat}" var="catAndSubcat">								
 									<h4>${catAndSubcat.key}</h4>
 									<c:forEach items="${catAndSubcat.value}" var="subcategory">
@@ -110,7 +119,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</ul>
 									</c:forEach>
 								</c:forEach>	
-										
 							</div>							
 						</div>						
 					</div>                  
@@ -134,9 +142,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</ul>
 					<div class="cart box_1">
 						<a href="checkout.html">
-						<h3> <div class="total">
+						<h3> 
+							<div class="total">
 							<span class="simpleCart_total"></span></div>
-							<img src="images/cart.png" alt=""/></h3>
+							<img src="/MyEmag/images/cart.png" alt=""/>
+						</h3>
 						</a>
 						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 
@@ -146,8 +156,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!----->
 
 						<!---pop-up-box---->					  
-			<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
-			<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+			<link href="/MyEmag/css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+			<script src="/MyEmag/js/jquery.magnific-popup.js" type="text/javascript"></script>
 			<!---//pop-up-box---->
 			<div id="small-dialog" class="mfp-hide">
 				<div class="search-top">
@@ -181,71 +191,80 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>	
 </div>
 <!--banner-->
-<div class="banner">
-<div class="container">
-<section class="rw-wrapper">
-				<h1 class="rw-sentence">
-					<span>MyEmag</span>
-					<div class="rw-words rw-words-1">
-						<span>TV</span>
-						<span>ELEKTRONIKA</span>
-						
-					</div>
-					<div class="rw-words rw-words-2">
-						<span>KAKVOTO POJELAETE</span>
-						<span>MOJE DA SI KUPITE</span>
-						
-					</div>
-				</h1>
-			</section>
-			</div>
+<div class="banner-top">
+	<div class="container">
+		<h1>Single</h1>
+		<em></em>
+		<h2><a href="index.html">Home</a><label>/</label>Single</h2>
+	</div>
 </div>
-	<!--content-->
-		<div class="content">
-			<div class="container">				
-				<!--products-->
-			<div class="content-mid">
-				<h3>Top rated</h3>
-				<label class="line"></label>
-			<c:forEach items="${sessionScope.allproducts}" var="product">	
-				<div class="mid-popular">
-					<div class="col-md-3 item-grid simpleCart_shelfItem">
-					<div class=" mid-pop">
-					<div class="pro-img">
-						
-						<img src="${product.value.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
-						<div class="zoom-icon ">
-						 <a class="picture" href="${product.value.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
-						<a href="product/${product.value.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
-						</div>
-						</div>
-						<div class="mid-1">
-						<div class="women">
-						<div class="women-top">
-							<span><a href="single">${product.value.title}</a></span>
-							</div>
-							<div class="img item_add">
-								<a href="#"><img src="images/ca.png" alt=""></a>
-							</div>
-							<div class="clearfix"></div>
-							</div>
-							<div class="mid-2">
-								<span>$${product.value.price}</span>
-								  <div class="block">
-									<div class="starbox small ghosting"> </div>
-								</div>								
-								<div class="clearfix"></div>
-							</div>
-							
-						</div>
-					</div>
-					</div>					
-				</div>						
-			</c:forEach>
-			</div>				
-			</div> 	
+<h2>Review</h2>
+<div class="container">
+<div class="col-md-9">
+	<div class="col-md-5 grid">		
+		<div class="flexslider">
+			 <div class="thumb-image"> <img src="${product.imagePaths[0]}" data-imagezoom="true" class="img-responsive"> </div>
+		</div>	
+	<div class="col-md-7 single-top-in">
+		<div class="span_2_of_a1 simpleCart_shelfItem">
+			<h3>${product.title}</h3>
+			   <div class="price_single">
+				  <span class="reducedfrom item_price">$${product.price}</span>
+				  <c:if test="${product.salePrice != 0}">
+   					 <span class="reducedfrom item_price">$${product.salePrice}</span>
+				  </c:if>
+				<div class="clearfix"> </div>
+				</div>
+			</div>
 		</div>
-	<!--//content-->
+	</div>
+</div>
+</div>
+
+	<form method="post" action="review" >
+		<div style="width: 400px;">
+		</div>
+		<div style="padding-bottom: 18px;">Rate this product<br/>
+			<select id="rating" name="rating" style="width : 150px;" class="form-control"><option>5</option>
+			<option>4</option>
+			<option>3</option>
+			<option>2</option>
+			<option>1</option>
+			</select>
+		</div>
+		<div style="padding-bottom: 18px;">Add comment<span style="color: red;"> *</span><br/>
+			<textarea id="comment" ${readonly} name="comment" style="width : 450px;" rows="10" class="form-control"></textarea>
+		</div>
+		<div style="padding-bottom: 18px;"><input value="Submit" type="submit"></div>
+	</form>
+
+<script type="text/javascript">
+function validateForm() {
+if (isEmpty(document.getElementById('data_11').value.trim())) {
+alert('Reviewer is required!');
+return false;
+}
+if (isEmpty(document.getElementById('data_4').value.trim())) {
+alert('Title is required!');
+return false;
+}
+if (isEmpty(document.getElementById('data_8').value.trim())) {
+alert('Review is required!');
+return false;
+}
+if (!document.getElementById('data_9_0').checked && !document.getElementById('data_9_1').checked && !document.getElementById('data_9_2').checked ) {
+alert('Would you recommend this product? is required!');
+return false;}
+return true;
+}
+function isEmpty(str) { return (str.length === 0 || !str.trim()); }
+function validateEmail(email) {
+var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,15}(?:\.[a-z]{2})?)$/i;
+return isEmpty(email) || re.test(email);
+}
+</script>
+		
+
 	<!--//footer-->
 	<div class="footer">
 	<div class="footer-middle">
@@ -265,12 +284,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<!--//footer-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/simpleCart.min.js"> </script>
+<script src="/MyEmag/js/simpleCart.min.js"> </script>
 <!-- slide -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/MyEmag/js/bootstrap.min.js"></script>
 <!--light-box-files -->
-		<script src="js/jquery.chocolat.js"></script>
-		<link rel="stylesheet" href="css/chocolat.css" type="text/css" media="screen" charset="utf-8">
+		<script src="/MyEmag/js/jquery.chocolat.js"></script>
+		<link rel="stylesheet" href="/MyEmag/css/chocolat.css" type="text/css" media="screen" charset="utf-8">
 		<!--light-box-files -->
 		<script type="text/javascript" charset="utf-8">
 		$(function() {
@@ -281,3 +300,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </body>
 </html>
+
+
+
+
+
+<!--  
+<body>
+			Title:<c:out value="${sessionScope.product.title}"></c:out><br>
+			Price:<c:out value="${sessionScope.product.price}"></c:out><br>
+			Path::<c:out value="${product.imagePaths[0]}"></c:out><br>
+			<img src="${product.imagePaths[0]}"> <br>	
+</body>
+</html>
+-->

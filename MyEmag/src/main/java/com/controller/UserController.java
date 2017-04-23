@@ -48,6 +48,7 @@ public class UserController {
 			session.setAttribute("catAndSubcat", catAndSubcat);
 			HashMap<Integer, Product> allProducts= ProductDAO.getInstance().getAllProducts();
 			m.addAttribute("allproducts", allProducts);
+			session.setAttribute("allproducts", allProducts);
 			System.out.println("vsichki produkti za index page");
 			for (Product p: allProducts.values()){
 				System.out.println(p);
