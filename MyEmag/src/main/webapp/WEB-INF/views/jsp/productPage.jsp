@@ -159,8 +159,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					</div>
 					<div class="clearfix"> </div>
-					
-						<!----->
 
 						<!---pop-up-box---->					  
 			<link href="/MyEmag/css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
