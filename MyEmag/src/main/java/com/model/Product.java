@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Product {
+public class Product implements Comparable<Product> {
 	
 	@Override
 	public String toString() {
@@ -196,5 +196,10 @@ public class Product {
 
 	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
+	}
+
+	@Override
+	public int compareTo(Product p) {
+		return this.reviews.size()-p.reviews.size();
 	}
 }
