@@ -102,14 +102,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="col1">
 							<div class="h_nav">		
 							
-										<c:forEach items="${catAndSubcat}" var="catAndSubcat">								
-											<h4>${catAndSubcat.key}</h4>
-											<c:forEach items="${catAndSubcat.value}" var="subcategory">
-											<ul>
-												<li><a href="product.html"><c:out value="${subcategory}"></c:out></a></li>
-											</ul>
-											</c:forEach>
-										</c:forEach>	
+								<c:forEach items="${sessionScope.catAndSubcat}" var="catAndSubcat">								
+									<h4>${catAndSubcat.key}</h4>
+									<c:forEach items="${catAndSubcat.value}" var="subcategory">
+									<ul>
+										<li><a href="product.html"><c:out value="${subcategory}"></c:out></a></li>
+									</ul>
+									</c:forEach>
+								</c:forEach>	
 										
 							</div>							
 						</div>						

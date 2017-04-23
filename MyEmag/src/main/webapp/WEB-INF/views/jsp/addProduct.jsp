@@ -55,9 +55,7 @@ function fillSubcategories(){
          		     <input id="descrValue3" type="text" name="descrValue3" class="validate" required>
          		   <label for="descrValue3">"descrValue3"</label><br>
          		   
-         		    
-         		   
-         		   
+         		       		   
          		   
 				Categories: 
 				<select name = "category" id="categorycombo" onchange="fillSubcategories()">

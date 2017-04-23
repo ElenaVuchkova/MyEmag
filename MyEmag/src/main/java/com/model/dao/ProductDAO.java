@@ -50,7 +50,7 @@ public class ProductDAO {
 			st.setString(8, p.getDescrKey3());
 			st.setString(9, p.getDescrValue3());
 			st.setInt(10, subcategoryId);
-			st.setInt(10, 0);
+			st.setInt(11, 0);
 			st.executeUpdate();
 			ResultSet res = st.getGeneratedKeys();
 			res.next();

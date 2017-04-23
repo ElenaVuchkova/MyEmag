@@ -27,8 +27,8 @@ import com.model.dao.SubcategoryDAO;
 @Controller
 @MultipartConfig
 public class ChangeProductController {
-	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	private String jspName;
 	
 	
@@ -77,7 +77,7 @@ public class ChangeProductController {
 			
 			//create product
 			Product p=new Product(category, subcategory, title, quantity, price, descrKey1, descrValue1,
-					descrKey2, descrValue2, descrKey3, descrValue3,0);
+					descrKey2, descrValue2, descrKey3, descrValue3,0.0);
 			
 			
 			//check size
@@ -89,7 +89,7 @@ public class ChangeProductController {
 					paths.add(FILE_LOCATION+multiPartPicture.getOriginalFilename());
 					p.setImagePaths(paths);
 				} catch (IOException e) {
-					System.out.println("io exception int check size comment");
+					System.out.println("io exception int check size comment"+e.getMessage());
 				}
 			}
 			
