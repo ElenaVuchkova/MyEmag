@@ -204,17 +204,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="col-md-9">
 	<div class="col-md-5 grid">		
 		<div class="flexslider">
-			  <ul class="slides">
-			    <li data-thumb="/MyEmag/images/si.jpg">
-			        <div class="thumb-image"> <img src="/MyEmag/images/si.jpg" data-imagezoom="true" class="img-responsive"> </div>
+			<c:forEach items="${product.imagePaths}" var="imagePath">
+			<ul class="slides">
+				 <li data-thumb="${imagePath}">
+			        <div class="thumb-image"> <img src="${imagePath}" data-imagezoom="true" class="img-responsive"> </div>
 			    </li>
-			    <li data-thumb="images/si1.jpg">
-			         <div class="thumb-image"> <img src="/MyEmag/images/si1.jpg" data-imagezoom="true" class="img-responsive"> </div>
-			    </li>
-			    <li data-thumb="images/si2.jpg">
-			       <div class="thumb-image"> <img src="/MyEmag/images/si2.jpg" data-imagezoom="true" class="img-responsive"> </div>
-			    </li> 
-			  </ul>
+			</ul>
+			</c:forEach>			  
 		</div>
 	</div>	
 <div class="col-md-7 single-top-in">
@@ -229,6 +225,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 				 <div class="clearfix"></div>
 				</div>
+				
+				<h4 class="quick">Quick Overview:</h4>
+				
+				<p class="quick_desc">${product.descrKey1}: ${product.descrValue1}</p>
+				<p class="quick_desc">${product.descrKey2}: ${product.descrValue2}</p>
+				<p class="quick_desc">${product.descrKey3}: ${product.descrValue3}</p>
+				
 				
 			    <div class="wish-list">
 				 	<ul>
@@ -324,7 +327,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </body>
 </html>
-
 
 
 

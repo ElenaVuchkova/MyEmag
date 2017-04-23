@@ -32,7 +32,7 @@ public class ReviewDAO {
 		int productId=r.getProduct().getProductId();
 		int userId=r.getUser().getUserId();
 		int rating=r.getRating();
-		String sql = "INSERT INTO favouriteproducts (comment, rating, user_id, product_id, date) values (?, ?, ?)";
+		String sql = "INSERT INTO reviews (comment, rating, user_id, product_id, date) values (?, ?, ?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		st.setString(1, comment);
 		st.setInt(2, rating);

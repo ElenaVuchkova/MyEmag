@@ -20,7 +20,7 @@ public class ProductController {
 		
 	//view product
 	@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
-	public String viewProfile(Model model, @PathVariable("productId") Integer productId, HttpSession session) {			
+	public String viewProduct (Model model, @PathVariable("productId") Integer productId, HttpSession session) {			
 		try {
 			if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
 				Product p=ProductDAO.getInstance().getProduct(productId);
