@@ -28,8 +28,17 @@ public class User {
 	private String password;
 	
 	private int role;
+	private int isSubscriber;
 	
 	
+	public int getIsSubscriber() {
+		return isSubscriber;
+	}
+
+	public void setIsSubscriber(int isSubscriber) {
+		this.isSubscriber = isSubscriber;
+	}
+
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}

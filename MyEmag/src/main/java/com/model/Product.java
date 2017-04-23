@@ -27,13 +27,16 @@ public class Product {
 	private String descrKey3;
 	private String descrValue3;
 	private ArrayList<Review> reviews;
+	private double salePrice;
 	
+	
+
 	public Product () {
 		
 	}
 	
 	public Product(String category, String subcategory, String title, int quantity, double price, String descrKey1, String descrValue1, String descrKey2,
-			String descrValue2, String descrKey3, String descrValue3) {
+			String descrValue2, String descrKey3, String descrValue3, double salePrice) {
 		this.category=category;
 		this.subcategory=subcategory;
 		this.title = title;
@@ -45,6 +48,7 @@ public class Product {
 		this.descrValue2 = descrValue2;
 		this.descrKey3 = descrKey3;
 		this.descrValue3 = descrValue3;
+		this.salePrice=salePrice;
 	}
 
 
@@ -186,4 +190,11 @@ public class Product {
 		this.reviews = reviews;
 	}
 
+	public double getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(double salePrice) {
+		this.salePrice = salePrice;
+	}
 }

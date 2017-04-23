@@ -29,13 +29,14 @@ public class UserDAO {
 
 	public synchronized void addUser(User u) throws SQLException {	
 		u.setRole(1);
-		String sql = "INSERT INTO users (username, password,email, role) values (?, md5(?),?, ?)";
+		String sql = "INSERT INTO users (username, password,email, role, isSubscriber) values (?, md5(?),?, ?, ?)";
 		System.out.println(u);
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		st.setString(1, u.getUsername());
 		st.setString(2, u.getPassword());		
 		st.setString(3, u.getEmail());
 		st.setInt(4, u.getRole());
+		st.setInt(5, 0);
 		st.executeUpdate();
 		ResultSet res = st.getGeneratedKeys();
 		res.next();
@@ -49,7 +50,7 @@ public class UserDAO {
 	//TODO 
 	private HashMap<String, User> getAllUsers() throws SQLException{
 		//if(allUsers.isEmpty()){
-			String sql = "SELECT user_id, username, password, email, role FROM users;";
+			String sql = "SELECT user_id, username, password, email, role, isSubscriber FROM users;";
 			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ResultSet res = st.executeQuery();
 			while(res.next()){
@@ -58,6 +59,7 @@ public class UserDAO {
 				u.setPassword(res.getString("password")); 
 				u.setEmail(res.getString("email"));
 				u.setRole(res.getInt("role"));
+				u.setIsSubscriber(res.getInt("isSubscriber"));
 				int id=res.getInt("user_id");
 				u.setUserId(id);
 				allUsers.put(u.getUsername(), u);
@@ -113,5 +115,12 @@ public class UserDAO {
 			return u;			
 		}
 		return null;
+	}
+	
+	public void subscribe (String username) {
+		if (allUsers.containsKey(username)) {
+			User u=allUsers.get(username);
+			u.setIsSubscriber(1);		
+		}
 	}
 }
