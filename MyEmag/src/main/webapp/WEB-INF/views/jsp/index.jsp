@@ -207,7 +207,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="content-mid">
 				<h3>Top rated</h3>
 				<label class="line"></label>
-			<c:forEach items="${allproducts}" var="product">	
+			<c:forEach items="${sessionScope.allproducts}" var="product">	
 				<div class="mid-popular">
 					<div class="col-md-3 item-grid simpleCart_shelfItem">
 					<div class=" mid-pop">

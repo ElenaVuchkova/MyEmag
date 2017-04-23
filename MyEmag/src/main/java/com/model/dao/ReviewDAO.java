@@ -30,9 +30,11 @@ public class ReviewDAO {
 		r.setDate(LocalDateTime.now());
 		String comment=r.getComment();
 		int productId=r.getProduct().getProductId();
+		System.out.println("ad review product ID- " + productId);
 		int userId=r.getUser().getUserId();
+		System.out.println("ad review user ID- " + userId);
 		int rating=r.getRating();
-		String sql = "INSERT INTO reviews (comment, rating, user_id, product_id, date) values (?, ?, ?,?,?)";
+		String sql = "INSERT INTO reviews (comment, rating, product_id, user_id, date) values (?, ?, ?,?,?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		st.setString(1, comment);
 		st.setInt(2, rating);
@@ -41,6 +43,7 @@ public class ReviewDAO {
 		st.setTimestamp(5, Timestamp.valueOf(r.getDate()));
 		st.executeUpdate();
 		ResultSet rs=st.getGeneratedKeys();
+		rs.next();
 		int reviewId=rs.getInt(1);
 		r.setReviewId(reviewId);
 	}

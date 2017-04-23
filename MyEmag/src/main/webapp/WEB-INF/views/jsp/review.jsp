@@ -221,7 +221,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 </div>
 
-	<form method="post" action="//submit.form" onSubmit="return validateForm();">
+	<form method="post" action="review" >
 		<div style="width: 400px;">
 		</div>
 		<div style="padding-bottom: 18px;">Rate this product<br/>
@@ -235,7 +235,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div style="padding-bottom: 18px;">Add comment<span style="color: red;"> *</span><br/>
 			<textarea id="comment" ${readonly} name="comment" style="width : 450px;" rows="10" class="form-control"></textarea>
 		</div>
-		<div style="padding-bottom: 18px;"><input name="skip_Submit" value="Submit" type="submit"/></div>
+		<div style="padding-bottom: 18px;"><input value="Submit" type="submit"></div>
 	</form>
 
 <script type="text/javascript">

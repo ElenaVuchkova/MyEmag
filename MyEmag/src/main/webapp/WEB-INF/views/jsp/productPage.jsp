@@ -267,7 +267,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 	<!--quantity-->
 				 
-			    <a href="#" class="add-to item_add hvr-skew-backward">Add to cart</a>
+			<a href="#" class="add-to item_add hvr-skew-backward">Add to cart</a><br>
+			<a href="${product.productId}/review" class="add-to item_add hvr-skew-backward">Make review</a>
 			<div class="clearfix"> </div>
 			</div>
 		
