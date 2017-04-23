@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,6 +46,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		</script>
 <!---//End-rate---->
+<link href="/MyEmag/css/test.css" rel="stylesheet" type="text/css" media="all" />
+
+<!---for reviews---->
+
+<!---//for reviews---->
+
 <link href="/MyEmag/css/form.css" rel="stylesheet" type="text/css" media="all" />
 <title>Insert title here</title>
 </head>
@@ -268,13 +275,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="clearfix"> </div>
 			<!---->
 			<div class="tab-head">
-	<nav class="nav-sidebar">
-		<ul class="nav tabs">
-          <li class="active"><a href="#tab1" data-toggle="tab">Product Description</a></li>
-          <li class=""><a href="#tab2" data-toggle="tab">Additional Information</a></li> 
-          <li class=""><a href="#tab3" data-toggle="tab">Reviews</a></li>  
-		</ul>
-	</nav>
+	
+	<!-- test reviews -->
+	<c:if test="${fn:length(product.reviews) gt 0}">
+	<h1>Reviews</h1>	
+		<c:forEach items="${product.reviews}" var="review">
+		 <blockquote>  			
+		    <header>
+		      <span data-rating=5>
+		        <i class=ion-star></i>
+		        <i class=ion-star></i>
+		        <i class=ion-star></i>
+		        <i class=ion-star></i>
+		        <i class=ion-star></i>
+		      </span>
+		      <i>${review.comment}</i><br>
+		      <span>${review.date}</span><br>
+		      <span>By <em>${review.user.username}</em></span>      
+		    </header>
+		 </blockquote>  
+		</c:forEach>
+	</c:if>
+	<!-- //test reviews -->
+		
 	<div class="tab-content one">
   </div>
   <div class="clearfix"></div>
@@ -327,10 +350,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </body>
 </html>
-
-
-
-
 
 <!--  
 <body>

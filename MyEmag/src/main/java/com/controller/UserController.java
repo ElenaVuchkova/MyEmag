@@ -109,6 +109,7 @@ public class UserController {
 				return "login";
 			} catch (SQLException e) {
 				session.setAttribute("register", "The user already exists!");
+				System.out.println(e.getMessage());
 			}
 		}
         return "register";
