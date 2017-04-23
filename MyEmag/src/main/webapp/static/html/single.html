@@ -7,6 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
+//OTTUKA
 <title>Shopin A Ecommerce Category Flat Bootstrap Responsive Website Template | Single :: w3layouts</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
@@ -88,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="head-top">
 			
 		 <div class="col-sm-8 col-md-offset-2 h_menu4">
-				<nav class="navbar nav_bottom" role="navigation">
+<nav class="navbar nav_bottom" role="navigation">
  
  <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header nav_2">
@@ -104,138 +105,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav nav_1">
             <li><a class="color" href="index.html">Home</a></li>
-          <li class="dropdown mega-dropdown active">
-			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">Women<span class="caret"></span></a>				
+            
+    		<li class="dropdown mega-dropdown active">
+			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>				
 				<div class="dropdown-menu ">
                     <div class="menu-top">
 						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu1</h4>
-									<ul>
-										<li><a href="product.html">Accessories</a></li>
-										<li><a href="product.html">Bags</a></li>
-										<li><a href="product.html">Caps & Hats</a></li>
-										<li><a href="product.html">Hoodies & Sweatshirts</a></li>
+							<div class="h_nav">		
+							
+										<c:forEach items="${catAndSubcat}" var="catAndSubcat">								
+											<h4>${catAndSubcat.key}</h4>
+											<c:forEach items="${catAndSubcat.value}" var="subcategory">
+											<ul>
+												<li><a href="product.html"><c:out value="${subcategory}"></c:out></a></li>
+											</ul>
+											</c:forEach>
+										</c:forEach>	
 										
-									</ul>	
 							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu2</h4>
-								<ul>
-										<li><a href="product.html">Jackets & Coats</a></li>
-										<li><a href="product.html">Jeans</a></li>
-										<li><a href="product.html">Jewellery</a></li>
-										<li><a href="product.html">Jumpers & Cardigans</a></li>
-										<li><a href="product.html">Leather Jackets</a></li>
-										<li><a href="product.html">Long Sleeve T-Shirts</a></li>
-									</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu3</h4>
-									<ul>
-										<li><a href="product.html">Shirts</a></li>
-										<li><a href="product.html">Shoes, Boots & Trainers</a></li>
-										<li><a href="product.html">Sunglasses</a></li>
-										<li><a href="product.html">Sweatpants</a></li>
-										<li><a href="product.html">Swimwear</a></li>
-										<li><a href="product.html">Trousers & Chinos</a></li>
-										
-									</ul>	
-								
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu4</h4>
-								<ul>
-									<li><a href="product.html">T-Shirts</a></li>
-									<li><a href="product.html">Underwear & Socks</a></li>
-									<li><a href="product.html">Vests</a></li>
-									<li><a href="product.html">Jackets & Coats</a></li>
-									<li><a href="product.html">Jeans</a></li>
-									<li><a href="product.html">Jewellery</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1 col5">
-						<img src="images/me.png" class="img-responsive" alt="">
-						</div>
-						<div class="clearfix"></div>
-					</div>                  
-				</div>				
-			</li>
-			<li class="dropdown mega-dropdown active">
-			    <a class="color2" href="#" class="dropdown-toggle" data-toggle="dropdown">Men<span class="caret"></span></a>				
-				<div class="dropdown-menu mega-dropdown-menu">
-                    <div class="menu-top">
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu1</h4>
-									<ul>
-										<li><a href="product.html">Accessories</a></li>
-										<li><a href="product.html">Bags</a></li>
-										<li><a href="product.html">Caps & Hats</a></li>
-										<li><a href="product.html">Hoodies & Sweatshirts</a></li>
-										
-									</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu2</h4>
-								<ul>
-										<li><a href="product.html">Jackets & Coats</a></li>
-										<li><a href="product.html">Jeans</a></li>
-										<li><a href="product.html">Jewellery</a></li>
-										<li><a href="product.html">Jumpers & Cardigans</a></li>
-										<li><a href="product.html">Leather Jackets</a></li>
-										<li><a href="product.html">Long Sleeve T-Shirts</a></li>
-									</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu3</h4>
-								
-<ul>
-										<li><a href="product.html">Shirts</a></li>
-										<li><a href="product.html">Shoes, Boots & Trainers</a></li>
-										<li><a href="product.html">Sunglasses</a></li>
-										<li><a href="product.html">Sweatpants</a></li>
-										<li><a href="product.html">Swimwear</a></li>
-										<li><a href="product.html">Trousers & Chinos</a></li>
-										
-									</ul>	
-								
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu4</h4>
-								<ul>
-									<li><a href="product.html">T-Shirts</a></li>
-									<li><a href="product.html">Underwear & Socks</a></li>
-									<li><a href="product.html">Vests</a></li>
-									<li><a href="product.html">Jackets & Coats</a></li>
-									<li><a href="product.html">Jeans</a></li>
-									<li><a href="product.html">Jewellery</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1 col5">
-						<img src="images/me1.png" class="img-responsive" alt="">
-						</div>
-						<div class="clearfix"></div>
+						</div>						
 					</div>                  
 				</div>				
 			</li>
 			<li><a class="color3" href="product.html">Sale</a></li>
 			<li><a class="color4" href="404.html">About</a></li>
-            <li><a class="color5" href="typo.html">Short Codes</a></li>
             <li ><a class="color6" href="contact.html">Contact</a></li>
         </ul>
      </div><!-- /.navbar-collapse -->
@@ -252,9 +145,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</ul>
 					<div class="cart box_1">
 						<a href="checkout.html">
-						<h3> <div class="total">
+						<h3> 
+							<div class="total">
 							<span class="simpleCart_total"></span></div>
-							<img src="images/cart.png" alt=""/></h3>
+							<img src="images/cart.png" alt=""/>
+						</h3>
 						</a>
 						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 
@@ -492,119 +387,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							});
 						</script>
 <!--//menu-->
- <section  class="sky-form">
-					<h4 class="cate">Discounts</h4>
-					 <div class="row row1 scroll-pane">
-						 <div class="col col-4">
-								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10% (20)</label>
-						 </div>
-						 <div class="col col-4">
-								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>40% - 50% (5)</label>
-								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
-								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
-								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
-						 </div>
-					 </div>
-				 </section> 				 				 
-				 
-					
-					 <!---->
-					 <section  class="sky-form">
-						<h4 class="cate">Type</h4>
-							<div class="row row1 scroll-pane">
-								<div class="col col-4">
-									<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Sofa Cum Beds (30)</label>
-								</div>
-								<div class="col col-4">
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bags  (30)</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Caps & Hats (30)</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Jackets & Coats   (30)</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Jeans  (30)</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Shirts   (30)</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Sunglasses  (30)</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Swimwear  (30)</label>
-								</div>
-							</div>
-				   </section>
-				   		<section  class="sky-form">
-						<h4 class="cate">Brand</h4>
-							<div class="row row1 scroll-pane">
-								<div class="col col-4">
-									<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Roadstar</label>
-								</div>
-								<div class="col col-4">
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Levis</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Persol</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Edwin</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>New Balance</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Paul Smith</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Ray-Ban</label>
-								</div>
-							</div>
-				   </section>		
 		</div>
 		<div class="clearfix"> </div>
 	</div>
-	
-			<!--brand-->
-		<div class="container">
-			<div class="brand">
-				<div class="col-md-3 brand-grid">
-					<img src="images/ic.png" class="img-responsive" alt="">
-				</div>
-				<div class="col-md-3 brand-grid">
-					<img src="images/ic1.png" class="img-responsive" alt="">
-				</div>
-				<div class="col-md-3 brand-grid">
-					<img src="images/ic2.png" class="img-responsive" alt="">
-				</div>
-				<div class="col-md-3 brand-grid">
-					<img src="images/ic3.png" class="img-responsive" alt="">
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			</div>
-			<!--//brand-->
 		</div>	
 		
 	<!--//content-->
-		<!--//footer-->
+	<!--//footer-->
 	<div class="footer">
 	<div class="footer-middle">
 				<div class="container">
-					<div class="col-md-3 footer-middle-in">
-						<a href="index.html"><img src="images/log.png" alt=""></a>
-						<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna tristique ante. adipiscing varius. Vestibulum dolor lorem.</p>
-					</div>
-					
-					<div class="col-md-3 footer-middle-in">
-						<h6>Information</h6>
-						<ul class=" in">
-							<li><a href="404.html">About</a></li>
-							<li><a href="contact.html">Contact Us</a></li>
-							<li><a href="#">Returns</a></li>
-							<li><a href="contact.html">Site Map</a></li>
-						</ul>
-						<ul class="in in1">
-							<li><a href="#">Order History</a></li>
-							<li><a href="wishlist.html">Wish List</a></li>
-							<li><a href="login.html">Login</a></li>
-						</ul>
-						<div class="clearfix"></div>
-					</div>
-					<div class="col-md-3 footer-middle-in">
-						<h6>Tags</h6>
-						<ul class="tag-in">
-							<li><a href="#">Lorem</a></li>
-							<li><a href="#">Sed</a></li>
-							<li><a href="#">Ipsum</a></li>
-							<li><a href="#">Contrary</a></li>
-							<li><a href="#">Chunk</a></li>
-							<li><a href="#">Amet</a></li>
-							<li><a href="#">Omnis</a></li>
-						</ul>
-					</div>
+										
 					<div class="col-md-3 footer-middle-in">
 						<h6>Newsletter</h6>
 						<span>Sign up for News Letter</span>
@@ -616,38 +409,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="clearfix"> </div>
 				</div>
 			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<ul class="footer-bottom-top">
-						<li><a href="#"><img src="images/f1.png" class="img-responsive" alt=""></a></li>
-						<li><a href="#"><img src="images/f2.png" class="img-responsive" alt=""></a></li>
-						<li><a href="#"><img src="images/f3.png" class="img-responsive" alt=""></a></li>
-					</ul>
-					<p class="footer-class">&copy; 2016 Shopin. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-					<div class="clearfix"> </div>
-				</div>
-			</div>
 		</div>
 		<!--//footer-->
-<script src="js/imagezoom.js"></script>
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script defer src="js/jquery.flexslider.js"></script>
-<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-
-<script>
-// Can also be used with $(document).ready()
-$(window).load(function() {
-  $('.flexslider').flexslider({
-    animation: "slide",
-    controlNav: "thumbnails"
-  });
-});
-</script>
-
-	<script src="js/simpleCart.min.js"> </script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/simpleCart.min.js"> </script>
 <!-- slide -->
 <script src="js/bootstrap.min.js"></script>
+<!--light-box-files -->
+		<script src="js/jquery.chocolat.js"></script>
+		<link rel="stylesheet" href="css/chocolat.css" type="text/css" media="screen" charset="utf-8">
+		<!--light-box-files -->
+		<script type="text/javascript" charset="utf-8">
+		$(function() {
+			$('a.picture').Chocolat();
+		});
+		</script>
 
 
 </body>

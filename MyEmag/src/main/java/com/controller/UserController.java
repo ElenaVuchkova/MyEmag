@@ -29,7 +29,7 @@ public class UserController {
 	
 		
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String indexpage(Model m){		
+	public String indexpage(Model m, HttpSession session){		
 		ArrayList<String> categories=new ArrayList<>();
 		ArrayList<String> subcategories=new ArrayList<>();
 		HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
@@ -44,7 +44,8 @@ public class UserController {
 					catAndSubcat.get(c).add(s);
 				}				
 			}
-			m.addAttribute("catAndSubcat", catAndSubcat);			
+			m.addAttribute("catAndSubcat", catAndSubcat);		
+			session.setAttribute("catAndSubcat", catAndSubcat);
 			HashMap<Integer, Product> allProducts= ProductDAO.getInstance().getAllProducts();
 			m.addAttribute("allproducts", allProducts);
 			System.out.println("vsichki produkti za index page");
