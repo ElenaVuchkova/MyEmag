@@ -12,11 +12,13 @@ public class Review {
 	private LocalDateTime date;
 	
 
-	public Review(String comment, int rating, User user, Product product) {
+	public Review(String comment, int rating, User user, Product product, LocalDateTime date) {
 		this.comment = comment;
 		this.rating = rating;
 		this.user = user;
 		this.product = product;
+		this.date=date;
+		
 	}
 
 	public int getReviewId() {

@@ -40,7 +40,7 @@ public class ProductController {
 	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public String indexpage(Model m){		
 			
-		HashMap<Integer, Product> allProducts=null;
+		/*HashMap<Integer, Product> allProducts=null;
 		try {
 			allProducts = ProductDAO.getInstance().getAllProducts();
 			for (Product p: allProducts.values()){
@@ -49,7 +49,7 @@ public class ProductController {
 			m.addAttribute("allproducts", allProducts);
 		} catch (SQLException e) {
 			System.out.println("kdxjfd");
-		}		
+		}	*/	
 		return "test";
 	}	
 	
