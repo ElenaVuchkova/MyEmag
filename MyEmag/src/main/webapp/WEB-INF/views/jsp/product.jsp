@@ -277,13 +277,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	<c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
 		<p class="quick_desc">Current quantity: ${product.quantity}</p>
+		<!-- form CHANGE -->
 		<form action="${product.productId}/changeQuantity" method="post">
-		  Current quantity:<input type="text" name="quantity" value="${product.quantity}">
+		  Current quantity:<input  type="text" name="quantity" value="${product.quantity}">
 		  <br>		 
-		  <input type="submit" value="Update">
+		  <input class="quick_desc" type="submit" value="Update">
 		</form> 
-		<a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>
+		<!-- END form CHANGE -->
+		
+		<!-- form DELETE -->
+		<!-- <a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>-->
+		<form action="${product.productId}/delete" method="post">		 
+		  <input class="add-to item_add hvr-skew-backward" type="submit" value="Delete">
+		</form> 
+		<!-- END form DELETE -->
+		
+		<!-- form DISCOUNT -->
+		<c:if test="${sessionScope.messageDiscount!=null}">
+			<c:out value="${sessionScope.messageDiscount}"/>
+		</c:if>
 		<a href="#" class="add-to item_add hvr-skew-backward">Set discount</a>	
+		<form action="${product.productId}/setDiscount" method="post">
+		Enter 1-100:<input placeholder="Percent number" type="text" name="discount" >
+		  <br>		 
+		  <input class="quick_desc" type="submit" value="Set discount">
+		</form> 
+		<!-- END form DISCOUNT -->
 	</c:if>
 
 <!-- //if admin -->

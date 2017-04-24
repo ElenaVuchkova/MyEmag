@@ -27,8 +27,7 @@ import com.model.dao.UserDAO;
 public class ProductController {
 	
 	//view product
-	//@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
-	@RequestMapping(value="/{productId}",method = RequestMethod.GET)
+	@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
 	public static String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {
 		try {
 			if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {

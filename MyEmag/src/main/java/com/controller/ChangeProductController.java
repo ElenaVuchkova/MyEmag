@@ -35,34 +35,40 @@ public class ChangeProductController {
 	
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.GET)
-	public String createProduct (Model m) {
-		ArrayList<String> categories=new ArrayList<>();
-		ArrayList<String> subcategories=new ArrayList<>();
-		HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
-		try {
-			categories=CategoryDAO.getInstance().getAllCategories();
-			for(String c: categories){
-				System.out.println(c);
-				if (!catAndSubcat.containsKey(c)) {
-					catAndSubcat.put(c, new ArrayList<>());
+	public String createProduct (Model m, HttpSession session) {
+//		User user = (User)session.getAttribute("user");
+//		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			ArrayList<String> categories=new ArrayList<>();
+			ArrayList<String> subcategories=new ArrayList<>();
+			HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
+			try {
+				categories=CategoryDAO.getInstance().getAllCategories();
+				for(String c: categories){
+					System.out.println(c);
+					if (!catAndSubcat.containsKey(c)) {
+						catAndSubcat.put(c, new ArrayList<>());
+					}
+					subcategories=SubcategoryDAO.getInstance().getAllSubcategoryByCategory(c);
+					for(String s:subcategories){
+						catAndSubcat.get(c).add(s);
+						System.out.println(s);
+					}
+					
 				}
-				subcategories=SubcategoryDAO.getInstance().getAllSubcategoryByCategory(c);
-				for(String s:subcategories){
-					catAndSubcat.get(c).add(s);
-					System.out.println(s);
-				}
-				
+				System.out.println(catAndSubcat.size());
+				m.addAttribute("catAndSubcat", catAndSubcat);
+			} catch (SQLException e) {
+				System.out.println("sql index controller"+e.getMessage());
 			}
-			System.out.println(catAndSubcat.size());
-			m.addAttribute("catAndSubcat", catAndSubcat);
-		} catch (SQLException e) {
-			System.out.println("sql index controller"+e.getMessage());
-		}
-		return "addProduct";
+			return "addProduct";
+//		}
+//		else{
+//			return "login";
+//		}
 	}
 	
 	@RequestMapping(value="/addProduct",method = RequestMethod.POST)
-	public String addPost(Model model,@RequestParam("picture") MultipartFile multiPartPicture, HttpServletRequest req,HttpSession session) {
+	public String addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture, HttpServletRequest req,HttpSession session) {
 		//if(session.getAttribute("username") != null && (Boolean)session.getAttribute("logged")) {
 			String title=req.getParameter("title");
 			int quantity=Integer.parseInt(req.getParameter("quantity"));
@@ -101,15 +107,15 @@ public class ChangeProductController {
 				jspName= "addProduct";
 				System.out.println(e.getMessage());
 			}
-		//}
+//		}
 //		else {
 //			jspName = "login";
 //		}		
 		return jspName;
 	}
 	
-	//uspeshno triene ama neuspeshno preprashtane kum index
-	@RequestMapping(value="product/{productId}/delete", method=RequestMethod.GET)
+	
+	@RequestMapping(value="product/{productId}/delete", method=RequestMethod.POST)
 	public String deleteProduct (@PathVariable(value="productId") Integer productId, HttpSession session) {
 		//check user is admin 
 		//check user session
@@ -144,13 +150,30 @@ public class ChangeProductController {
 	}
 	
 	
+	@RequestMapping(value="product/{productId}/setDiscount", method=RequestMethod.POST)
+	public String setDiscount (@PathVariable(value="productId") Integer productId, HttpSession session, 
+			HttpServletRequest req, Model model) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			int discount=Integer.parseInt(req.getParameter("discount"));
+			if(discount>1 && discount<=100){
+				try {
+					ProductDAO.getInstance().makeSaleForOneProduct(productId, discount);					
+				} catch (SQLException e) {
+					System.out.println("sql setDiscount "+e.getMessage());
+					return "404";
+				}
+			}
+			else{
+				session.setAttribute("messageDiscount", "Please, enter number between 1 and 100!");
+			}			
+		}
+		return ProductController.viewProduct(model, productId, session);	
+	}
 	
 	
-	
-	
-	
-	
-	
-	
+		
 
 }
