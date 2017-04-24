@@ -247,7 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 				
 <!-- if user -->
-	<c:if test="${sessionScope.user.role == 1}">
+	<c:if test="${sessionScope.logged && sessionScope.user.role == 1}">
 		    <div class="wish-list">
 			 	<ul>
 			 		<li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
@@ -275,15 +275,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- if admin -->
 	
-	<c:if test="${sessionScope.user.role == 0}">
+	<c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
 		<p class="quick_desc">Current quantity: ${product.quantity}</p>
+		<form action="${product.productId}/changeQuantity" method="post">
+		  Current quantity:<input type="text" name="quantity" value="${product.quantity}">
+		  <br>		 
+		  <input type="submit" value="Update">
+		</form> 
 		<a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>
-		<a href="#" class="add-to item_add hvr-skew-backward">Change quantity</a>
 		<a href="#" class="add-to item_add hvr-skew-backward">Set discount</a>	
 	</c:if>
 
 <!-- //if admin -->
-
 	
 	<!-- test reviews -->
 	<c:if test="${fn:length(product.reviews) gt 0}">

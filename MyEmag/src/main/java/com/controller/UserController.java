@@ -63,7 +63,7 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginPage(Model model, HttpSession session) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
-			return new ModelAndView("main", "user", new User());
+			return new ModelAndView("index", "user", new User());
 		}
 		return new ModelAndView("login", "user", new User());
 	}

@@ -33,13 +33,13 @@ public class ProductController {
 	//view product
 	//@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
 	@RequestMapping(value="/{productId}",method = RequestMethod.GET)
-	public String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {			
+	public static String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {			
 		try {
 			if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
 				Product p=ProductDAO.getInstance().getProduct(productId);
 				model.addAttribute("product",p);
 				session.setAttribute("product", p);
-				return "productPage";
+				return "product";
 			} 
 			else {
 				return "index";
@@ -74,7 +74,7 @@ public class ProductController {
 		}		
 		
 		@RequestMapping(value = "{productId}/review", method = RequestMethod.POST)
-		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req){
+		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model){
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 				try {
 					if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
@@ -85,8 +85,7 @@ public class ProductController {
 						Product product=ProductDAO.getInstance().getProduct(productId);
 						Review r=new Review(comment, rating, user, product, LocalDateTime.now());
 						ReviewDAO.getInstance().addReview(r);
-						//kak da se vurnem kum stanicata na toq product??
-						return "product/"+ productId;
+						return viewProduct(model, productId, session);
 						}
 				} catch (NumberFormatException | SQLException e) {
 					System.out.println("SQL" + e.getMessage());
