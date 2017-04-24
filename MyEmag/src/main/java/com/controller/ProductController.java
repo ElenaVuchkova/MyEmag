@@ -24,18 +24,17 @@ import com.model.dao.SubcategoryDAO;
 import com.model.dao.UserDAO;
 
 @Controller
-@RequestMapping(value="/product")
 public class ProductController {
 	
 	//view product
-	@RequestMapping(value="/{productId}",method = RequestMethod.GET)
+	@RequestMapping(value="/product/{productId}",method = RequestMethod.GET)
 	public String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {			
 		try {
 			if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
 				Product p=ProductDAO.getInstance().getProduct(productId);
 				model.addAttribute("product",p);
 				session.setAttribute("product", p);
-				return "productPage";
+				return "product";
 			} 
 			else {
 				return "index";
@@ -63,15 +62,15 @@ public class ProductController {
 	}	
 	
 	//view review
-		@RequestMapping(value="{productId}/review",method = RequestMethod.GET)
+		@RequestMapping(value="/product/{productId}/review",method = RequestMethod.GET)
 		public String review (@PathVariable(value="productId") Integer productId) {		
 			System.out.println("find review jsp++++++++++++++");
 			return "review";
 		}		
 
 		
-		@RequestMapping(value = "{productId}/review", method = RequestMethod.POST)
-		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req){
+		@RequestMapping(value = "/product/{productId}/review", method = RequestMethod.POST)
+		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model){
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 				try {
 					if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
@@ -83,7 +82,7 @@ public class ProductController {
 						Review r=new Review(comment, rating, user, product, LocalDateTime.now());
 						ReviewDAO.getInstance().addReview(r);
 						//kak da se vurnem kum stanicata na toq product??
-						return "product/"+ productId;
+						return viewProduct(model, productId, session);
 						}
 				} catch (NumberFormatException | SQLException e) {
 					System.out.println("SQL" + e.getMessage());

@@ -46,6 +46,8 @@ public class ReviewDAO {
 		rs.next();
 		int reviewId=rs.getInt(1);
 		r.setReviewId(reviewId);
+		Product p=ProductDAO.getInstance().getProduct(productId);
+		p.addReview(r);
 	}
 
 	public ArrayList<Review> getAllReviewsByProduct(int productId) throws SQLException {

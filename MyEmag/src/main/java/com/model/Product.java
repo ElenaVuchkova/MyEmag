@@ -184,6 +184,10 @@ public class Product implements Comparable<Product> {
 	public List<Review> getReviews() {
 		return Collections.unmodifiableList(reviews);
 	}
+	
+	public void addReview(Review r){
+		this.reviews.add(r);
+	}
 
 
 	public void setReviews(ArrayList<Review> reviews) {
