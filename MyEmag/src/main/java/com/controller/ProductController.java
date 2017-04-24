@@ -1,6 +1,7 @@
 package com.controller;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,21 +20,16 @@ import com.model.Review;
 import com.model.User;
 import com.model.dao.ProductDAO;
 import com.model.dao.ReviewDAO;
+import com.model.dao.SubcategoryDAO;
 import com.model.dao.UserDAO;
 
 @Controller
-@RequestMapping(value="/product")
 public class ProductController {
-
-//	@RequestMapping(value="/product", method=RequestMethod.GET)
-//	public String view (Model m) {
-//		return "productPage";
-//	}
-		
+	
 	//view product
 	//@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
 	@RequestMapping(value="/{productId}",method = RequestMethod.GET)
-	public static String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {			
+	public static String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {
 		try {
 			if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
 				Product p=ProductDAO.getInstance().getProduct(productId);
@@ -66,14 +62,16 @@ public class ProductController {
 		return "test";
 	}	
 	
-	//view product
-		@RequestMapping(value="{productId}/review",method = RequestMethod.GET)
+	//view review
+		@RequestMapping(value="/product/{productId}/review",method = RequestMethod.GET)
 		public String review (@PathVariable(value="productId") Integer productId) {		
 			System.out.println("find review jsp++++++++++++++");
 			return "review";
 		}		
+
 		
-		@RequestMapping(value = "{productId}/review", method = RequestMethod.POST)
+
+		@RequestMapping(value = "/product/{productId}/review", method = RequestMethod.POST)
 		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model){
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 				try {
@@ -94,5 +92,24 @@ public class ProductController {
 				return "index";
 				}
 			return "login";
+			}
+		
+		@RequestMapping(value="/{subcategory}", method = RequestMethod.GET)
+		public String viewProductsBySubcategory (Model model, @PathVariable(value="subcategory") String subcategory, HttpSession session) {
+			System.out.println("sdsfdsfdsfdfsgdfg======================== vleze");
+			try {
+				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
+					ArrayList<Product> allProductsBySubcategorySortedByDate=ProductDAO.getInstance().getAllProductsBySubcategorySortedByDate(subcategory);
+					model.addAttribute("products",allProductsBySubcategorySortedByDate);
+					return "allProductsBySubcategory";
+				} 
+				else {
+					return "index";
+				}				
+			} 
+			catch (SQLException e) {
+				System.out.println("SQL - allProductsBySubcategory" + e.getMessage());
+				return "404";
+			}			
 		}
 }

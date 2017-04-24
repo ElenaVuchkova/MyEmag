@@ -14,7 +14,7 @@ import com.model.User;
 public class UserDAO {
 	
 	private static UserDAO instance;
-	private static final HashMap<String, User> allUsers = new HashMap<>();//username - > user
+	private static final HashMap<String, User> ALL_USERS = new HashMap<>();//username - > user
 	
 	private UserDAO() throws SQLException{		
 		getAllUsers();	
@@ -62,10 +62,10 @@ public class UserDAO {
 				u.setIsSubscriber(res.getInt("isSubscriber"));
 				int id=res.getInt("user_id");
 				u.setUserId(id);
-				allUsers.put(u.getUsername(), u);
+				ALL_USERS.put(u.getUsername(), u);
 			}
 	//	}
-		return allUsers;
+		return ALL_USERS;
 	}
 	
 	public synchronized boolean validLogin(String username, String password) throws SQLException {
@@ -89,11 +89,11 @@ public class UserDAO {
 		}
 		
 		getAllUsers();
-		for(User u: allUsers.values()){
+		for(User u: ALL_USERS.values()){
 			System.out.println(u);
 		}
-		if (allUsers.containsKey(username)) {
-			User u=allUsers.get(username);			
+		if (ALL_USERS.containsKey(username)) {
+			User u=ALL_USERS.get(username);			
 			return u.getPassword().equals(res2);
 		}
 		return false;
@@ -101,8 +101,8 @@ public class UserDAO {
 	
 	
 	public int getUserId (String username) {
-		if (allUsers.containsKey(username)) {
-			User u=allUsers.get(username);
+		if (ALL_USERS.containsKey(username)) {
+			User u=ALL_USERS.get(username);
 			int id=u.getUserId();
 			return id;
 		}
@@ -110,16 +110,16 @@ public class UserDAO {
 	}
 	
 	public User getUser (String username) {
-		if (allUsers.containsKey(username)) {
-			User u=allUsers.get(username);
+		if (ALL_USERS.containsKey(username)) {
+			User u=ALL_USERS.get(username);
 			return u;			
 		}
 		return null;
 	}
 	
 	public void subscribe (String username) {
-		if (allUsers.containsKey(username)) {
-			User u=allUsers.get(username);
+		if (ALL_USERS.containsKey(username)) {
+			User u=ALL_USERS.get(username);
 			u.setIsSubscriber(1);		
 		}
 	}

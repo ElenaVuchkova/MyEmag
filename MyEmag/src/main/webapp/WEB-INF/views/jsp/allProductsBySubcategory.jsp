@@ -106,7 +106,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<h4>${catAndSubcat.key}</h4>
 									<c:forEach items="${catAndSubcat.value}" var="subcategory">
 									<ul>
-										<li><a href="${subcategory}"><c:out value="${subcategory}"></c:out></a></li>
+										<li><a href="product.html"><c:out value="${subcategory}"></c:out></a></li>
 									</ul>
 									</c:forEach>
 								</c:forEach>	
@@ -142,87 +142,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					</div>
 					<div class="clearfix"> </div>
-					
-						<!----->
-
-						<!---pop-up-box---->					  
-			<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
-			<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-			<!---//pop-up-box---->
-			<div id="small-dialog" class="mfp-hide">
-				<div class="search-top">
-					<div class="login-search">
-						<input type="submit" value="">
-						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">		
-					</div>
-					<p>Shopin</p>
-				</div>				
-			</div>
-		 <script>
-			$(document).ready(function() {
-			$('.popup-with-zoom-anim').magnificPopup({
-			type: 'inline',
-			fixedContentPos: false,
-			fixedBgPos: true,
-			overflowY: 'auto',
-			closeBtnInside: true,
-			preloader: false,
-			midClick: true,
-			removalDelay: 300,
-			mainClass: 'my-mfp-zoom-in'
-			});
-																						
-			});
-		</script>		
-						<!----->
-			</div>
-			<div class="clearfix"></div>
-		</div>	
-	</div>	
-</div>
-<!--banner-->
-<div class="banner">
-<div class="container">
-<section class="rw-wrapper">
-				<h1 class="rw-sentence">
-					<span>MyEmag</span>
-					<div class="rw-words rw-words-1">
-						<span>TV</span>
-						<span>ELEKTRONIKA</span>
-						
-					</div>
-					<div class="rw-words rw-words-2">
-						<span>KAKVOTO POJELAETE</span>
-						<span>MOJE DA SI KUPITE</span>
-						
-					</div>
-				</h1>
-			</section>
-			</div>
-</div>
-	<!--content-->
 		<div class="content">
 			<div class="container">				
 				<!--products-->
 			<div class="content-mid">
-				<h3>Top rated</h3>
+				<h3>${subcategory}</h3>
 				<label class="line"></label>
-			<c:forEach items="${sessionScope.allproducts}" var="product">	
+			<c:forEach items="${products}" var="product">	
 				<div class="mid-popular">
 					<div class="col-md-3 item-grid simpleCart_shelfItem">
 					<div class=" mid-pop">
 					<div class="pro-img">
 						
-						<img src="${product.value.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
+						<img src="${product.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
 						<div class="zoom-icon ">
-						 <a class="picture" href="${product.value.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
-						<a href="product/${product.value.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
+						 <a class="picture" href="${product.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+						<a href="product/${product.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
 						</div>
 						</div>
 						<div class="mid-1">
 						<div class="women">
 						<div class="women-top">
-							<span><a href="single">${product.value.title}</a></span>
+							<span><a href="single">${product.title}</a></span>
 							</div>
 							<div class="img item_add">
 								<a href="#"><img src="images/ca.png" alt=""></a>
@@ -230,7 +171,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="clearfix"></div>
 							</div>
 							<div class="mid-2">
-								<span>$${product.value.price}</span>
+								<span>$${product.price}</span>
 								  <div class="block">
 									<div class="starbox small ghosting"> </div>
 								</div>								
