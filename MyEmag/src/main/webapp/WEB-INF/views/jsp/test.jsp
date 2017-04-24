@@ -28,100 +28,41 @@
     </header>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
   </blockquote>
-  <blockquote>
-    <header>
-      <span data-rating=4>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-      </span>
-      <strong>Voluptate velit cillum essunt</strong>
-      <span>, May 17</span>
-      <span>By <em>Theo K</em></span>
-      <span>Verified Purchase</span>
-    </header>
-    <p>Voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-  </blockquote>
-  <blockquote>
-    <header>
-      <span data-rating=5>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-      </span>
-      <strong>Occaecat? No deserunt!!</strong>
-      <span>, May 8</span>
-      <span>By <em>Jeff Thomas</em> (Bent River, AB)</span>
-      <span>Verified Purchase</span>
-    </header>
-    <p>Sint occaecat cupidatat NON proident, sunt in culpa qui officia deserunt mollit!</p>
-  </blockquote>
-  <blockquote>
-    <header>
-      <span data-rating=5>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-      </span>
-      <strong>Ullamco ut aliquip</strong>
-      <span>, April 28</span>
-      <span>By <em>Linda</em></span>
-      <span></span>
-    </header>
-    <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-  </blockquote>
-  <blockquote>
-    <header>
-      <span data-rating=3>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-      </span>
-      <strong>Reprehenderit in eu fugiat nulla!</strong>
-      <span>, April 3</span>
-      <span>By <em>Michael "Mikko"</em> (California, USA)</span>
-      <span>Verified Purchase</span>
-    </header>
-  </blockquote>
-  <blockquote>
-    <header>
-      <span data-rating=4>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-      </span>
-      <strong>Laboris ni si laborum.</strong>
-      <span>, February 16</span>
-      <span>By <em>Paul</em> (Perth, Ontario)</span>
-      <span>Verified Purchase</span>
-    </header>
-    <p>Pretosund us velit esse cillum dolore eu fugiat nulla pariatur noparatur sint coleomusa.</p>
-  </blockquote>
-  <blockquote>
-    <header>
-      <span data-rating=5>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-        <i class=ion-star></i>
-      </span>
-      <strong>PROIDENT! Sunt in culpa qui officia :)</strong>
-      <span>, January 30</span>
-      <span>By <em>FastestCowboy</em></span>
-      <span>Verified Purchase</span>
-    </header>
-  </blockquote>
 </div>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script type="text/javascript">
+   		$(function() {    		
+			$('input[type=submit]').click(function() {
+				$('p').html('<span class="stars">'+parseFloat($('input[name=amount]').val())+'</span>');
+				$('span.stars').stars();
+			});    		
+			$('input[type=submit]').click();
+		});
+
+		$.fn.stars = function() {
+			return $(this).each(function() {
+				$(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 16));
+			});
+		}
+	</script>
+	<style type="text/css">
+		span.stars, span.stars span {
+			display: block;
+			background: url(http://www.ulmanen.fi/stuff/stars.png) 0 -16px repeat-x;
+			width: 80px;
+			height: 16px;
+		}
+	
+		span.stars span {
+			background-position: 0 0;
+		}
+	</style>
+</head>
+<body>
+
+	<input type="text" name="amount" value="2.53" />
+	<input type="submit" value="update">
+<p>
+ 
 </body>
 </html>

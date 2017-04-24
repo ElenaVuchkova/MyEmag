@@ -14,12 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.model.Product;
+import com.model.User;
 import com.model.dao.CategoryDAO;
 import com.model.dao.ProductDAO;
 import com.model.dao.SubcategoryDAO;
@@ -27,8 +29,8 @@ import com.model.dao.SubcategoryDAO;
 @Controller
 @MultipartConfig
 public class ChangeProductController {
-	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	private String jspName;
 	
 	
@@ -102,10 +104,31 @@ public class ChangeProductController {
 		//}
 //		else {
 //			jspName = "login";
-//		}
-		
+//		}		
 		return jspName;
 	}
+	
+	//uspeshno triene ama neuspeshno preprashtane kum index
+	@RequestMapping(value="product/{productId}/delete", method=RequestMethod.GET)
+	public String deleteProduct (@PathVariable(value="productId") Integer productId, HttpSession session) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			try {
+				ProductDAO.getInstance().deleteProduct(productId);
+			} catch (SQLException e) {
+				System.out.println("sql deleteProduct"+e.getMessage());
+				return "404";
+			}
+		}
+		return "redirect:/index";		
+	}
+	
+	
+	
+	
+	
 	
 	
 

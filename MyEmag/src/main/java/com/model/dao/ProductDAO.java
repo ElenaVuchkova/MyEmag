@@ -216,6 +216,7 @@ public class ProductDAO {
 		Product p=allproducts.get(id);
 		p.setDescrValue3(descrValue3);
 	}
+	
 	public synchronized void deleteProduct (int id) throws SQLException{
 		String sql1 = "DELETE FROM reviews WHERE product_id=?";
 		String sql2 = "DELETE FROM images WHERE product_id=?";
@@ -229,6 +230,9 @@ public class ProductDAO {
 			st1 = con.prepareStatement(sql1);
 			st2 = con.prepareStatement(sql2);
 			st3 = con.prepareStatement(sql3);
+			st1.setInt(1, id);
+			st2.setInt(1, id);
+			st3.setInt(1, id);
 			st1.executeUpdate();
 			st2.executeUpdate();
 			st3.executeUpdate();

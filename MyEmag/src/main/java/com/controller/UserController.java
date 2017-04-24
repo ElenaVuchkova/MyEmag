@@ -74,6 +74,8 @@ public class UserController {
 			String username=userHelper.getUsername();
 			String password=userHelper.getPassword();
 			if(UserDAO.getInstance().validLogin(username, password)){
+				User u=UserDAO.getInstance().getUser(username);
+				session.setAttribute("user", u);
 				session.setAttribute("username", username);
 				session.setAttribute("logged", true);	
 				return "index";
