@@ -33,7 +33,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<h2><a href="index">Home</a><label>/</label>Login</h2>
 	</div>
 </div>
-
+	<!-- Messege for login failed -->
 	<c:if test="${sessionScope.login!=null}">
 		<c:out value="${sessionScope.login}"/>
 	</c:if>

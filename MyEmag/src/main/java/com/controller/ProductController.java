@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,22 +46,6 @@ public class ProductController {
 		}			
 	}
 	
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public String indexpage(Model m){		
-			
-		/*HashMap<Integer, Product> allProducts=null;
-		try {
-			allProducts = ProductDAO.getInstance().getAllProducts();
-			for (Product p: allProducts.values()){
-				System.out.println(p);
-			}
-			m.addAttribute("allproducts", allProducts);
-		} catch (SQLException e) {
-			System.out.println("kdxjfd");
-		}	*/	
-		return "test";
-	}	
-	
 	//view review
 		@RequestMapping(value="/product/{productId}/review",method = RequestMethod.GET)
 		public String review (@PathVariable(value="productId") Integer productId) {		
@@ -95,7 +80,6 @@ public class ProductController {
 		
 		@RequestMapping(value="/{subcategory}", method = RequestMethod.GET)
 		public String viewProductsBySubcategory (Model model, @PathVariable(value="subcategory") String subcategory, HttpSession session) {
-			System.out.println("sdsfdsfdsfdfsgdfg======================== vleze");
 			try {
 				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
 					ArrayList<Product> allProductsBySubcategorySortedByDate=ProductDAO.getInstance().getAllProductsBySubcategorySortedByDate(subcategory);
@@ -105,6 +89,48 @@ public class ProductController {
 				else {
 					return "index";
 				}				
+			} 
+			catch (SQLException e) {
+				System.out.println("SQL - allProductsBySubcategory" + e.getMessage());
+				return "404";
+			}			
+		}
+		
+		@RequestMapping(value="/{subcategory}", method = RequestMethod.POST)
+		public String viewProductsBySubcategoryOrderByParam (Model model, @PathVariable(value="subcategory") String subcategory,
+				HttpServletRequest req, HttpSession session) {
+			System.out.println("assdadsfdsfdsdsdsdgdfgdf");
+			try {
+				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
+					String param=req.getParameter("param");
+					if (param.equals("price desc.")) {
+						ArrayList<Product> allProductsBySubcategorySortedByPriceDesc=ProductDAO.getInstance().getAllProductsBySubcategorySortedByPriceDesc(subcategory);
+						model.addAttribute("products",allProductsBySubcategorySortedByPriceDesc);
+						return "allProductsBySubcategory";
+					}
+					if (param.equals("price asc.")) {
+						ArrayList<Product> allProductsBySubcategorySortedByPriceAsc=ProductDAO.getInstance().getAllProductsBySubcategorySortedByPriceAsc(subcategory);
+						model.addAttribute("products",allProductsBySubcategorySortedByPriceAsc);
+						return "allProductsBySubcategory";
+					}
+					if (param.equals("most reviews")) {
+						TreeSet<Product> allProductsBySubcategorySortedByMostReviews=ProductDAO.getInstance().getAllProductsBySubcategorySortedByMostReviews(subcategory);
+						model.addAttribute("products",allProductsBySubcategorySortedByMostReviews);
+						return "allProductsBySubcategory";
+					}
+					if (param.equals("sale desc.")) {
+						ArrayList<Product> allProductsBySubcategorySortedBySaleDesc=ProductDAO.getInstance().getAllProductsBySubcategorySortedBySaleDesc(subcategory);
+						model.addAttribute("products",allProductsBySubcategorySortedBySaleDesc);
+						return "allProductsBySubcategory";
+					}
+					if (param.equals("date")) {
+						ArrayList<Product> allProductsBySubcategorySortedByDate=ProductDAO.getInstance().getAllProductsBySubcategorySortedByDate(subcategory);
+						model.addAttribute("products",allProductsBySubcategorySortedByDate);
+						return "allProductsBySubcategory";
+					}
+				}
+				model.addAttribute("select", "Please select your option.");
+				return "allProductsBySubcategory";
 			} 
 			catch (SQLException e) {
 				System.out.println("SQL - allProductsBySubcategory" + e.getMessage());
