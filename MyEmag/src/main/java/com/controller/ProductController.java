@@ -67,8 +67,8 @@ public class ProductController {
 		public String review (@PathVariable(value="productId") Integer productId) {		
 			System.out.println("find review jsp++++++++++++++");
 			return "review";
-		}
-			
+		}		
+
 		
 		@RequestMapping(value = "{productId}/review", method = RequestMethod.POST)
 		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req){
@@ -82,6 +82,7 @@ public class ProductController {
 						Product product=ProductDAO.getInstance().getProduct(productId);
 						Review r=new Review(comment, rating, user, product, LocalDateTime.now());
 						ReviewDAO.getInstance().addReview(r);
+						//kak da se vurnem kum stanicata na toq product??
 						return "product/"+ productId;
 						}
 				} catch (NumberFormatException | SQLException e) {

@@ -55,7 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 		<div class="head">
 			<div class=" logo">
-				<a href="index.html"><img src="/MyEmag/images/logo.png" alt=""></a>	
+				<a href="index.html"><img src="/MyEmag/images/emaglogo.png" alt=""></a>	
 			</div>
 		</div>
 	</div>
@@ -63,22 +63,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
-						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
-						<li><a href="checkout.html">Checkout</a></li>
+						<c:if test="${sessionScope.logged}">
+							<li><a href="logout">Logout</a></li>
+						</c:if>
+						<c:if test="${!sessionScope.logged}">
+							<li><a href="login">Login</a></li>
+							<li><a href="register">Register</a></li>
+						</c:if>
 					</ul>
 				</div>
-				
-			<div class="col-sm-5 header-social">		
-					<ul >
-						<li><a href="#"><i></i></a></li>
-						<li><a href="#"><i class="ic1"></i></a></li>
-						<li><a href="#"><i class="ic2"></i></a></li>
-						<li><a href="#"><i class="ic3"></i></a></li>
-						<li><a href="#"><i class="ic4"></i></a></li>
-					</ul>
-					
-			</div>
 				<div class="clearfix"> </div>
 		</div>
 		</div>

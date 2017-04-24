@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PRODUCT</title>
 <link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/test.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
 <link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
@@ -46,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		</script>
 <!---//End-rate---->
-<link href="/MyEmag/css/test.css" rel="stylesheet" type="text/css" media="all" />
+
 
 <!---for reviews---->
 
@@ -62,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 		<div class="head">
 			<div class=" logo">
-				<a href="index.html"><img src="/MyEmag/images/logo.png" alt=""></a>	
+				<a href="index.html"><img src="/MyEmag/images/emaglogo.png" alt=""></a>	
 			</div>
 		</div>
 	</div>
@@ -70,22 +71,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
-						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
-						<li><a href="checkout.html">Checkout</a></li>
+						<c:if test="${sessionScope.logged}">
+							<li><a href="logout">Logout</a></li>
+						</c:if>
+						<c:if test="${!sessionScope.logged}">
+							<li><a href="login">Login</a></li>
+							<li><a href="register">Register</a></li>
+						</c:if>
 					</ul>
 				</div>
-				
-			<div class="col-sm-5 header-social">		
-					<ul >
-						<li><a href="#"><i></i></a></li>
-						<li><a href="#"><i class="ic1"></i></a></li>
-						<li><a href="#"><i class="ic2"></i></a></li>
-						<li><a href="#"><i class="ic3"></i></a></li>
-						<li><a href="#"><i class="ic4"></i></a></li>
-					</ul>
-					
-			</div>
 				<div class="clearfix"> </div>
 		</div>
 		</div>
@@ -238,21 +232,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p class="quick_desc">${product.descrKey3}: ${product.descrValue3}</p>
 				
 				
-			    <div class="wish-list">
-				 	<ul>
-				 		<li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
-				 	    
-				 	</ul>
-				 </div>
-				 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-							<!--quantity-->
-	<script>
+				<script>
     $('.value-plus').on('click', function(){
     	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
     	divUpd.text(newVal);
@@ -264,16 +244,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 	</script>
 	<!--quantity-->
-				 
-			<a href="#" class="add-to item_add hvr-skew-backward">Add to cart</a><br>
-			<a href="${product.productId}/review" class="add-to item_add hvr-skew-backward">Make review</a>
-			<div class="clearfix"> </div>
-			</div>
-		
-					</div>
-			<div class="clearfix"> </div>
+				
+				
+<!-- if user -->
+	<c:if test="${sessionScope.user.role == 1}">
+		    <div class="wish-list">
+			 	<ul>
+			 		<li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
+			 	</ul>
+			 </div>
+			 <div class="quantity"> 
+							<div class="quantity-select">                           
+								<div class="entry value-minus">&nbsp;</div>
+								<div class="entry value"><span>1</span></div>
+								<div class="entry value-plus active">&nbsp;</div>
+							</div>
+			 </div>
+	
+				<a href="#" class="add-to item_add hvr-skew-backward">Add to cart</a><br>
+				<a href="${product.productId}/review" class="add-to item_add hvr-skew-backward">Make review</a>
+				<div class="clearfix"> </div>
+	</c:if>
+	</div>
+</div>
+			<div class="clearfix"> </div> 
 			<!---->
-			<div class="tab-head">
+			<div class="tab-head"> 
+			
+<!-- //if user -->
+
+<!-- if admin -->
+	
+	<c:if test="${sessionScope.user.role == 0}">
+		<p class="quick_desc">Current quantity: ${product.quantity}</p>
+		<a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>
+		<a href="#" class="add-to item_add hvr-skew-backward">Change quantity</a>
+		<a href="#" class="add-to item_add hvr-skew-backward">Set discount</a>	
+	</c:if>
+
+<!-- //if admin -->
+
 	
 	<!-- test reviews -->
 	<c:if test="${fn:length(product.reviews) gt 0}">
