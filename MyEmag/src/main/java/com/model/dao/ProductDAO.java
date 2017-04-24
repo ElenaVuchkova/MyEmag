@@ -19,7 +19,7 @@ import com.mysql.jdbc.Statement;
 public class ProductDAO {
 	
 	private static ProductDAO instance;
-	private static final HashMap<Integer, Product> allproducts = new HashMap<>();//produuctId - > product
+	private static final HashMap<Integer, Product> ALL_PRODUCTS = new HashMap<>();//produuctId - > product
 	
 	private ProductDAO() throws SQLException{
 			getAllProducts();
@@ -74,7 +74,7 @@ public class ProductDAO {
 	}
 	
 	public HashMap<Integer, Product> getAllProducts() throws SQLException{
-		if(allproducts.isEmpty()){
+		if(ALL_PRODUCTS.isEmpty()){
 			String sql = "SELECT p.product_id, p.title, quantity, p.price, 	p.descr_key1, p.descr_value1," 
 					+"p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, p.sale_price, s.name as subcategory,"
 					+"c.name AS category	FROM products p JOIN subcategories s ON (p.subcategory_id=s.subcategory_id) "
@@ -104,15 +104,15 @@ public class ProductDAO {
 					r.setProduct(p);
 				}
 				p.setReviews(reviews);
-				allproducts.put(productId, p);		
+				ALL_PRODUCTS.put(productId, p);		
 			}
 		}
-		return allproducts;
+		return ALL_PRODUCTS;
 	}
 	
 	public Product getProduct (int productId) {
-		if (allproducts.containsKey(productId)) {
-			Product p=allproducts.get(productId);
+		if (ALL_PRODUCTS.containsKey(productId)) {
+			Product p=ALL_PRODUCTS.get(productId);
 			return p;			
 		}
 		return null;
@@ -160,7 +160,7 @@ public class ProductDAO {
 	
 	public synchronized ArrayList<Product> searchProduct (String word) {
 		ArrayList<Product> products=new ArrayList<>();
-		for (Product p : allproducts.values()) {
+		for (Product p : ALL_PRODUCTS.values()) {
 			String title=p.getTitle();
 			if (title.toLowerCase().contains(word.toLowerCase())) {
 				products.add(p);
@@ -175,7 +175,7 @@ public class ProductDAO {
 		st.setInt(1, quantity);
 		st.setInt(2, id);
 		st.executeUpdate();
-		Product p=allproducts.get(id);
+		Product p=ALL_PRODUCTS.get(id);
 		p.setQuantity(quantity);
 	}
 	
@@ -185,7 +185,7 @@ public class ProductDAO {
 		st.setString(1, title);
 		st.setInt(2, id);
 		st.executeUpdate();
-		Product p=allproducts.get(id);
+		Product p=ALL_PRODUCTS.get(id);
 		p.setTitle(title);
 	}
 	
@@ -195,7 +195,7 @@ public class ProductDAO {
 		st.setString(1, descrValue1);
 		st.setInt(2, id);
 		st.executeUpdate();
-		Product p=allproducts.get(id);
+		Product p=ALL_PRODUCTS.get(id);
 		p.setDescrValue1(descrValue1);
 	}
 	public synchronized void updateDescr2 (int id, String descrValue2) throws SQLException{
@@ -204,7 +204,7 @@ public class ProductDAO {
 		st.setString(1, descrValue2);
 		st.setInt(2, id);
 		st.executeUpdate();
-		Product p=allproducts.get(id);
+		Product p=ALL_PRODUCTS.get(id);
 		p.setDescrValue2(descrValue2);
 	}
 	public synchronized void updateDescr3 (int id, String descrValue3) throws SQLException{
@@ -213,7 +213,7 @@ public class ProductDAO {
 		st.setString(1, descrValue3);
 		st.setInt(2, id);
 		st.executeUpdate();
-		Product p=allproducts.get(id);
+		Product p=ALL_PRODUCTS.get(id);
 		p.setDescrValue3(descrValue3);
 	}
 	public synchronized void deleteProduct (int id) throws SQLException{
@@ -243,12 +243,12 @@ public class ProductDAO {
 		} finally {
 			con.setAutoCommit(true);
 		}
-		allproducts.remove(id);
+		ALL_PRODUCTS.remove(id);
 	}
 	
 	public void makeSaleForOneProduct (int id, int percent) throws SQLException {
 		if (percent>0 && percent<100) {
-			Product p=allproducts.get(id);
+			Product p=ALL_PRODUCTS.get(id);
 			double price=p.getPrice();
 			double salePrice=price-(price*percent/100);
 			p.setSalePrice(salePrice);
@@ -274,7 +274,7 @@ public class ProductDAO {
 	
 	public ArrayList<Product> getAllProductsWithSale () {
 		ArrayList<Product> productsWithSale = new ArrayList<>();
-		for (Product p : allproducts.values()) {
+		for (Product p : ALL_PRODUCTS.values()) {
 			if (p.getSalePrice()!=0) {
 				productsWithSale.add(p);
 			}
@@ -432,7 +432,7 @@ public class ProductDAO {
 	
 	public synchronized TreeSet<Product> getAllProductsSortedByMostRevies (String subcategory) throws SQLException {
 		TreeSet<Product> productsSortedByMostReviews = new TreeSet<>();
-		for (Product p: allproducts.values()) {
+		for (Product p: ALL_PRODUCTS.values()) {
 			productsSortedByMostReviews.add(p);
 		}
 		return productsSortedByMostReviews;
