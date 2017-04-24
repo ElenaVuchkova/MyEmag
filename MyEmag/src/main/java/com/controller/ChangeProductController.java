@@ -126,6 +126,27 @@ public class ChangeProductController {
 	}
 	
 	
+	@RequestMapping(value="product/{productId}/changeQuantity", method=RequestMethod.POST)
+	public String changeQuantity (@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			int quantity=Integer.parseInt(req.getParameter("quantity"));
+			try {
+				ProductDAO.getInstance().updateQuantity(productId, quantity);
+			} catch (SQLException e) {
+				System.out.println("sql changeQuantity "+ e.getMessage());
+				return "404";
+			}
+		}
+		return ProductController.viewProduct(model, productId, session);	
+	}
+	
+	
+	
+	
+	
 	
 	
 	

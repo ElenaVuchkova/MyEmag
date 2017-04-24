@@ -28,8 +28,9 @@ import com.model.dao.UserDAO;
 public class ProductController {
 	
 	//view product
-	@RequestMapping(value="/product/{productId}",method = RequestMethod.GET)
-	public String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {			
+	//@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
+	@RequestMapping(value="/{productId}",method = RequestMethod.GET)
+	public static String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {
 		try {
 			if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
 				Product p=ProductDAO.getInstance().getProduct(productId);
@@ -54,6 +55,7 @@ public class ProductController {
 		}		
 
 		
+
 		@RequestMapping(value = "/product/{productId}/review", method = RequestMethod.POST)
 		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model){
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
@@ -66,7 +68,6 @@ public class ProductController {
 						Product product=ProductDAO.getInstance().getProduct(productId);
 						Review r=new Review(comment, rating, user, product, LocalDateTime.now());
 						ReviewDAO.getInstance().addReview(r);
-						//kak da se vurnem kum stanicata na toq product??
 						return viewProduct(model, productId, session);
 						}
 				} catch (NumberFormatException | SQLException e) {
