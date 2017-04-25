@@ -49,6 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</select>
 					<input type="submit" value="Submit" >
 					</form>
+		<c:if test="${sortedProducts == null}">
 			<c:forEach items="${products}" var="product">	
 				<div class="mid-popular">
 					<div class="col-md-3 item-grid simpleCart_shelfItem">
@@ -83,6 +84,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>					
 				</div>						
 			</c:forEach>
+			</c:if>
+			
+			<c:if test="${sortedProducts != null}">
+			<c:forEach items="${sortedProducts}" var="sortedProduct">	
+				<div class="mid-popular">
+					<div class="col-md-3 item-grid simpleCart_shelfItem">
+					<div class=" mid-pop">
+					<div class="pro-img">
+						<img src="${sortedProduct.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
+						<div class="zoom-icon ">
+						 <a class="picture" href="${sortedProduct.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+						<a href="product/${sortedProduct.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
+						</div>
+						</div>
+						<div class="mid-1">
+						<div class="women">
+						<div class="women-top">
+							<span><a href="single">${sortedProduct.title}</a></span>
+							</div>
+							<div class="img item_add">
+								<a href="#"><img src="images/ca.png" alt=""></a>
+							</div>
+							<div class="clearfix"></div>
+							</div>
+							<div class="mid-2">
+								<span>$${sortedProduct.price}</span>
+								  <div class="block">
+									<div class="starbox small ghosting"> </div>
+								</div>								
+								<div class="clearfix"></div>
+							</div>
+							
+						</div>
+					</div>
+					</div>					
+				</div>						
+			</c:forEach>
+			</c:if>
+			
 			</div>				
 			</div> 	
 		</div>	

@@ -1,18 +1,19 @@
 package com.controller;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import java.util.Comparator;
+
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -82,8 +83,10 @@ public class ProductController {
 		public String viewProductsBySubcategory (Model model, @PathVariable(value="subcategory") String subcategory, HttpSession session) {
 			try {
 				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
-					ArrayList<Product> allProductsBySubcategorySortedByDate=ProductDAO.getInstance().getAllProductsBySubcategorySortedByDate(subcategory);
-					model.addAttribute("products",allProductsBySubcategorySortedByDate);
+					ProductDAO pDao=ProductDAO.getInstance();
+					HashSet<Product> allProductsBySubcategory=pDao.getAllProductsBySubcategory(subcategory);
+					model.addAttribute("products",allProductsBySubcategory);
+					model.addAttribute("sortedProducts", null);
 					return "allProductsBySubcategory";
 				} 
 				else {
@@ -96,40 +99,100 @@ public class ProductController {
 			}			
 		}
 		
+		
 		@RequestMapping(value="/{subcategory}", method = RequestMethod.POST)
-		public String viewProductsBySubcategoryOrderByParam (Model model, @PathVariable(value="subcategory") String subcategory,
+		public String viewProductsBySubcategoryOrderByParam2 (Model model, @PathVariable(value="subcategory") String subcategory,
 				HttpServletRequest req, HttpSession session) {
 			System.out.println("assdadsfdsfdsdsdsdgdfgdf");
 			try {
 				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
+					ProductDAO pDao=ProductDAO.getInstance();
+					HashSet<Product> allProductsBySubcategory=pDao.getAllProductsBySubcategory(subcategory);
 					String param=req.getParameter("param");
-					if (param.equals("price desc.")) {
-						ArrayList<Product> allProductsBySubcategorySortedByPriceDesc=ProductDAO.getInstance().getAllProductsBySubcategorySortedByPriceDesc(subcategory);
-						model.addAttribute("products",allProductsBySubcategorySortedByPriceDesc);
-						return "allProductsBySubcategory";
+					TreeSet<Product> allProductsBySubcategorySorted=null;
+					Comparator<Product> comp=null;
+					switch (param) {
+					
+					case "price desc.":
+						comp=new Comparator<Product>() {
+							@Override
+							public int compare(Product o1, Product o2) {
+								double razlika= o1.getPrice()-o2.getPrice();
+								if (razlika>0) {
+									return -1;
+								}
+								if (razlika<0) {
+									return 1;
+								}
+								return 0;
+							}
+						};
+						break;
+					case "price asc.":
+						comp=new Comparator<Product>() {
+							@Override
+							public int compare(Product o1, Product o2) {
+								double razlika= o1.getPrice()-o2.getPrice();
+								if (razlika>0) {
+									return 1;
+								}
+								if (razlika<0) {
+									return -1;
+								}
+								return 0;
+							}
+						};
+						break;
+					case "most reviews":
+						comp=new Comparator<Product>() {
+							@Override
+							public int compare(Product o1, Product o2) {
+								int size1=0;
+								int size2=0;
+								if (o1.getReviews()!=null) {
+									size1=o1.getReviews().size();
+								}
+								if (o2.getReviews()==null) {
+									size2=o2.getReviews().size();
+								}
+								return size2-size1;
+							}
+						};
+						break;
+					case "sale desc.":
+						comp=new Comparator<Product>() {
+							@Override
+							public int compare(Product o1, Product o2) {
+								double razlika1=o1.getPrice()-o1.getSalePrice();
+								double razlika2=o2.getPrice()-o2.getSalePrice();
+								double razlika=razlika1-razlika2;
+								if (razlika>0) {
+									return -1;
+								}
+								return 1;
+							}
+						};
+						break;
+					case "date":
+						comp=new Comparator<Product>() {
+							@Override
+							public int compare(Product o1, Product o2) {
+								return o1.getProductId()-o2.getProductId()*(-1);
+							}
+						};
+						break;
+					default:
+						model.addAttribute("select", "Please select your option.");
+						break;
 					}
-					if (param.equals("price asc.")) {
-						ArrayList<Product> allProductsBySubcategorySortedByPriceAsc=ProductDAO.getInstance().getAllProductsBySubcategorySortedByPriceAsc(subcategory);
-						model.addAttribute("products",allProductsBySubcategorySortedByPriceAsc);
-						return "allProductsBySubcategory";
-					}
-					if (param.equals("most reviews")) {
-						TreeSet<Product> allProductsBySubcategorySortedByMostReviews=ProductDAO.getInstance().getAllProductsBySubcategorySortedByMostReviews(subcategory);
-						model.addAttribute("products",allProductsBySubcategorySortedByMostReviews);
-						return "allProductsBySubcategory";
-					}
-					if (param.equals("sale desc.")) {
-						ArrayList<Product> allProductsBySubcategorySortedBySaleDesc=ProductDAO.getInstance().getAllProductsBySubcategorySortedBySaleDesc(subcategory);
-						model.addAttribute("products",allProductsBySubcategorySortedBySaleDesc);
-						return "allProductsBySubcategory";
-					}
-					if (param.equals("date")) {
-						ArrayList<Product> allProductsBySubcategorySortedByDate=ProductDAO.getInstance().getAllProductsBySubcategorySortedByDate(subcategory);
-						model.addAttribute("products",allProductsBySubcategorySortedByDate);
-						return "allProductsBySubcategory";
+					if (comp!=null) {
+						allProductsBySubcategorySorted=new TreeSet<Product>(comp);
+						for (Product p: allProductsBySubcategory) {
+							allProductsBySubcategorySorted.add(p);
+						}
+						model.addAttribute("sortedProducts", allProductsBySubcategorySorted);
 					}
 				}
-				model.addAttribute("select", "Please select your option.");
 				return "allProductsBySubcategory";
 			} 
 			catch (SQLException e) {
