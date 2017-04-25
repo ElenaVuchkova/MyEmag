@@ -125,4 +125,12 @@ public class UserController {
 		}
 		return "index";
 	}
+	
+	@RequestMapping(value="/cart", method=RequestMethod.GET)
+	public ModelAndView cartPage(Model model, HttpSession session) {
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			return new ModelAndView("cart", "user", new User());
+		}
+		return new ModelAndView("login", "user", new User());
+	}
 }
