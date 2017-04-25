@@ -331,7 +331,7 @@ public class ProductDAO {
 		String sql = "SELECT p.product_id, p.title, quantity, p.price, 	p.descr_key1, p.descr_value1," 
 				+"p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, p.sale_price, s.name as subcategory,"
 				+"c.name AS category	FROM products p JOIN subcategories s ON (p.subcategory_id=s.subcategory_id) "
-				+"JOIN categories c ON (s.category_id=c.category_id) WHERE(SELECT COUNT(products_id) FROM reviws LIMIT 12)";	
+				+"JOIN categories c ON (s.category_id=c.category_id) WHERE(SELECT COUNT(product_id) FROM reviews LIMIT 12)";	
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		ResultSet res = st.executeQuery();
 		while(res.next()){
