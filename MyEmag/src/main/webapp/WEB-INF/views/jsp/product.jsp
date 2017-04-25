@@ -5,10 +5,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>PRODUCT</title>
+<title>MyEmag</title>
 <link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/MyEmag/css/test.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
 <link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
@@ -22,181 +20,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <script src="/MyEmag/js/jquery.min.js"></script>
-<!--- start-rate---->
-<script src="/MyEmag/js/jstarbox.js"></script>
-	<link rel="stylesheet" href="/MyEmag/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
-		<script type="text/javascript">
-			jQuery(function() {
-			jQuery('.starbox').each(function() {
-				var starbox = jQuery(this);
-					starbox.starbox({
-					average: starbox.attr('data-start-value'),
-					changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
-					ghosting: starbox.hasClass('ghosting'),
-					autoUpdateAverage: starbox.hasClass('autoupdate'),
-					buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
-					stars: starbox.attr('data-star-count') || 5
-					}).bind('starbox-value-changed', function(event, value) {
-					if(starbox.hasClass('random')) {
-					var val = Math.random();
-					starbox.next().text(' '+val);
-					return val;
-					} 
-				})
-			});
-		});
-		</script>
-<!---//End-rate---->
-
-
-<!---for reviews---->
-
-<!---//for reviews---->
-
-<link href="/MyEmag/css/form.css" rel="stylesheet" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-
 <body>
-<!--header-->
-<div class="header">
-<div class="container">
-		<div class="head">
-			<div class=" logo">
-				<a href="index.html"><img src="/MyEmag/images/emaglogo.png" alt=""></a>	
-			</div>
-		</div>
-	</div>
-	<div class="header-top">
-		<div class="container">
-		<div class="col-sm-5 col-md-offset-2  header-login">
-					<ul >
-						<c:if test="${sessionScope.logged}">
-							<li><a href="logout">Logout</a></li>
-						</c:if>
-						<c:if test="${!sessionScope.logged}">
-							<li><a href="login">Login</a></li>
-							<li><a href="register">Register</a></li>
-						</c:if>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
-		</div>
-		</div>
-		
-		<div class="container">
-		
-			<div class="head-top">
-			
-		 <div class="col-sm-8 col-md-offset-2 h_menu4">
-<nav class="navbar nav_bottom" role="navigation">
- 
- <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header nav_2">
-      <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-     
-   </div> 
-   <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-        <ul class="nav navbar-nav nav_1">
-            <li><a class="color" href="index.html">Home</a></li>
-            
-    		<li class="dropdown mega-dropdown active">
-			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>				
-				<div class="dropdown-menu ">
-                    <div class="menu-top">
-						<div class="col1">
-							<div class="h_nav">									
-								<c:forEach items="${sessionScope.catAndSubcat}" var="catAndSubcat">								
-									<h4>${catAndSubcat.key}</h4>
-									<c:forEach items="${catAndSubcat.value}" var="subcategory">
-									<ul>
-										<li><a href="product.html"><c:out value="${subcategory}"></c:out></a></li>
-									</ul>
-									</c:forEach>
-								</c:forEach>	
-							</div>							
-						</div>						
-					</div>                  
-				</div>				
-			</li>
-			<li><a class="color3" href="product.html">Sale</a></li>
-			<li><a class="color4" href="404.html">About</a></li>
-            <li ><a class="color6" href="contact.html">Contact</a></li>
-        </ul>
-     </div><!-- /.navbar-collapse -->
-
-</nav>
-			</div>
-			<div class="col-sm-2 search-right">
-				<ul class="heart">
-				<li>
-				<a href="wishlist.html" >
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				</a></li>
-				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li>
-					</ul>
-					<div class="cart box_1">
-						<a href="checkout.html">
-						<h3> 
-							<div class="total">
-							<span class="simpleCart_total"></span></div>
-							<img src="/MyEmag/images/cart.png" alt=""/>
-						</h3>
-						</a>
-						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-
-					</div>
-					<div class="clearfix"> </div>
-
-						<!---pop-up-box---->					  
-			<link href="/MyEmag/css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
-			<script src="/MyEmag/js/jquery.magnific-popup.js" type="text/javascript"></script>
-			<!---//pop-up-box---->
-			<div id="small-dialog" class="mfp-hide">
-				<div class="search-top">
-					<div class="login-search">
-						<input type="submit" value="">
-						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">		
-					</div>
-					<p>Shopin</p>
-				</div>				
-			</div>
-		 <script>
-			$(document).ready(function() {
-			$('.popup-with-zoom-anim').magnificPopup({
-			type: 'inline',
-			fixedContentPos: false,
-			fixedBgPos: true,
-			overflowY: 'auto',
-			closeBtnInside: true,
-			preloader: false,
-			midClick: true,
-			removalDelay: 300,
-			mainClass: 'my-mfp-zoom-in'
-			});
-																						
-			});
-		</script>		
-						<!----->
-			</div>
-			<div class="clearfix"></div>
-		</div>	
-	</div>	
-</div>
-<!--banner-->
-<div class="banner-top">
-	<div class="container">
-		<h1>Single</h1>
-		<em></em>
-		<h2><a href="index.html">Home</a><label>/</label>Single</h2>
-	</div>
-</div>
+<jsp:include page="insertHeader.jsp" />
 <div class="single">
 
 <div class="container">
@@ -218,7 +46,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			    <div class="price_single">
 				  <span class="reducedfrom item_price">$${product.price}</span>
 				  <c:if test="${product.salePrice != 0}">
-   					 <span class="reducedfrom item_price">$${product.salePrice}</span>
+   					 <br><span class="reducedfrom item_price">Sale: $${product.salePrice}</span>
 				  </c:if>
 				 
 			
@@ -232,7 +60,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p class="quick_desc">${product.descrKey3}: ${product.descrValue3}</p>
 				
 				
-				<script>
+	<script>
     $('.value-plus').on('click', function(){
     	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
     	divUpd.text(newVal);
@@ -253,6 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			 		<li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
 			 	</ul>
 			 </div>
+			 <!-- 
 			 <div class="quantity"> 
 							<div class="quantity-select">                           
 								<div class="entry value-minus">&nbsp;</div>
@@ -260,9 +89,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="entry value-plus active">&nbsp;</div>
 							</div>
 			 </div>
-	
+			-->
 				<a href="#" class="add-to item_add hvr-skew-backward">Add to cart</a><br>
-				<a href="${product.productId}/review" class="add-to item_add hvr-skew-backward">Make review</a>
+				<a href="/MyEmag/product/${product.productId}/review" class="add-to item_add hvr-skew-backward">Make review</a>
 				<div class="clearfix"> </div>
 	</c:if>
 	</div>
@@ -343,51 +172,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<div class="clearfix"> </div>
 	</div>
-		</div>	
+</div>	
 		
 	<!--//content-->
-	<!--//footer-->
-	<div class="footer">
-	<div class="footer-middle">
-				<div class="container">
-										
-					<div class="col-md-3 footer-middle-in">
-						<h6>Newsletter</h6>
-						<span>Sign up for News Letter</span>
-							<form>
-								<input type="text" value="Enter your E-mail" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Enter your E-mail';}">
-								<input type="submit" value="Subscribe">	
-							</form>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-			</div>
-		</div>
-		<!--//footer-->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/MyEmag/js/simpleCart.min.js"> </script>
-<!-- slide -->
-<script src="/MyEmag/js/bootstrap.min.js"></script>
-<!--light-box-files -->
-		<script src="/MyEmag/js/jquery.chocolat.js"></script>
-		<link rel="stylesheet" href="/MyEmag/css/chocolat.css" type="text/css" media="screen" charset="utf-8">
-		<!--light-box-files -->
-		<script type="text/javascript" charset="utf-8">
-		$(function() {
-			$('a.picture').Chocolat();
-		});
-		</script>
-
-
+<jsp:include page="insertFooter.jsp" />
 </body>
 </html>
-
-<!--  
-<body>
-			Title:<c:out value="${sessionScope.product.title}"></c:out><br>
-			Price:<c:out value="${sessionScope.product.price}"></c:out><br>
-			Path::<c:out value="${product.imagePaths[0]}"></c:out><br>
-			<img src="${product.imagePaths[0]}"> <br>	
-</body>
-</html>
--->

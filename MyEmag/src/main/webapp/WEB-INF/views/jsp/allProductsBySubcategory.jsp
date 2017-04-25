@@ -3,10 +3,10 @@
  <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>login</title>
+<title>MyEmag</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
@@ -16,27 +16,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--theme-style-->
 <link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <script src="js/jquery.min.js"></script>
-
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <body>
 
-
-<!--banner-->
-<div class="banner-top">
-	<div class="container">
-		<h1>Login</h1>
-		<em></em>
-		<h2><a href="index">Home</a><label>/</label>Login</h2>
-	</div>
-</div>
-
-	<c:if test="${sessionScope.login!=null}">
-		<c:out value="${sessionScope.login}"/>
-	</c:if>
+<jsp:include page="insertHeader.jsp" />
 
 <div class="content">
 			<div class="container">				
@@ -96,36 +86,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>				
 			</div> 	
 		</div>	
-
-	<div class="footer">
-	<div class="footer-middle">
-				<div class="container">		
-					<div class="col-md-3 footer-middle-in">
-						<h6>Information</h6>
-						<ul class=" in">
-							<li><a href="contact.html">Contact Us</a></li>
-							<li><a href="wishlist.html">Wish List</a></li>
-						</ul>
-					</div>
-					
-					<!-- da! -->
-					<div class="col-md-3 footer-middle-in">
-						<h6>Newsletter</h6>
-						<span>Sign up for News Letter</span>
-							<form>
-								<input type="text" value="Enter your E-mail" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Enter your E-mail';}">
-								<input type="submit" value="Subscribe">	
-							</form>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-			</div>
-			
-		</div>
-
-	<script src="js/simpleCart.min.js"> </script>
-<!-- slide -->
-<script src="js/bootstrap.min.js"></script>
+<jsp:include page="insertFooter.jsp" />
  
 </body>
 </html>
