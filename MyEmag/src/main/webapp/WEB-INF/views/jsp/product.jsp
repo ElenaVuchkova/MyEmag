@@ -88,9 +88,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="entry value"><span>1</span></div>
 								<div class="entry value-plus active">&nbsp;</div>
 							</div>
-			 </div>
-			-->
-				<a href="#" class="add-to item_add hvr-skew-backward">Add to cart</a><br>
+			 </div>	
+			 -->
+				<a href="/MyEmag/product/${product.productId}/addToCart" class="add-to item_add hvr-skew-backward">Add to cart</a><br>
 				<a href="/MyEmag/product/${product.productId}/review" class="add-to item_add hvr-skew-backward">Make review</a>
 				<div class="clearfix"> </div>
 	</c:if>

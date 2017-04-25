@@ -112,7 +112,6 @@ public class ProductController {
 					TreeSet<Product> allProductsBySubcategorySorted=null;
 					Comparator<Product> comp=null;
 					switch (param) {
-					
 					case "price desc.":
 						comp=new Comparator<Product>() {
 							@Override
@@ -199,5 +198,23 @@ public class ProductController {
 				System.out.println("SQL - allProductsBySubcategory" + e.getMessage());
 				return "404";
 			}			
+		}
+		
+		@RequestMapping(value="/product/{productId}/addToCart",method = RequestMethod.GET)
+		public String addToCart (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
+			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+				HashSet<Product> productsInCart=(HashSet<Product>) session.getAttribute("cart");
+				try {
+					if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
+						Product p=ProductDAO.getInstance().getProduct(productId);
+						productsInCart.add(p);
+						return viewProduct(model, productId, session);
+					}
+				} catch (SQLException e) {
+					System.out.println("SQL add products to cart " + e.getMessage());
+					return "404";
+				}
+			}
+			return "login";
 		}
 }
