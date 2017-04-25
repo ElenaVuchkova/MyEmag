@@ -325,4 +325,40 @@ public class ProductDAO {
 		}
 		return allProductsBySubcategory;
 	}
+	
+	public synchronized ArrayList<Product> getTopTwelveReviewedProducts () throws SQLException {
+		ArrayList<Product> topTwelveReviewedProducts=new ArrayList<>();
+		String sql = "SELECT p.product_id, p.title, quantity, p.price, 	p.descr_key1, p.descr_value1," 
+				+"p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, p.sale_price, s.name as subcategory,"
+				+"c.name AS category	FROM products p JOIN subcategories s ON (p.subcategory_id=s.subcategory_id) "
+				+"JOIN categories c ON (s.category_id=c.category_id) WHERE(SELECT COUNT(product_id) FROM reviews LIMIT 12)";	
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ResultSet res = st.executeQuery();
+		while(res.next()){
+			int productId=res.getInt("product_id");
+			Product p=new Product(res.getString("category"), 
+					res.getString("subcategory"), 
+					res.getString("title"),
+					res.getInt("quantity"), 
+					res.getDouble("price"),  
+					res.getString("descr_key1"),
+					res.getString("descr_value1"),
+					res.getString("descr_key2"), 
+					res.getString("descr_value2"), 
+					res.getString("descr_key3"), 
+					res.getString("descr_value3"),
+					res.getDouble("sale_price")
+					);
+			p.setProductId(productId);
+			ArrayList<String> imagePaths=ImageDAO.getInstance().getAllImagePathsByProduct(productId);
+			p.setImagePaths(imagePaths);
+			ArrayList<Review> reviews=ReviewDAO.getInstance().getAllReviewsByProduct(productId);
+			for (Review r : reviews) {
+				r.setProduct(p);
+			}
+			p.setReviews(reviews);
+			topTwelveReviewedProducts.add(p);
+		}
+		return topTwelveReviewedProducts;
+	}
 }

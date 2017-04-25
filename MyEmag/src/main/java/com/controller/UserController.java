@@ -29,7 +29,7 @@ import com.model.dao.UserDAO;
 @Controller
 public class UserController {		
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String indexpage(Model m, HttpSession session){		
+	public String indexpage(Model m){		
 		ArrayList<String> categories=new ArrayList<>();
 		ArrayList<String> subcategories=new ArrayList<>();
 		HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
@@ -45,12 +45,12 @@ public class UserController {
 				}				
 			}
 			m.addAttribute("catAndSubcat", catAndSubcat);		
-			session.setAttribute("catAndSubcat", catAndSubcat);
-			HashMap<Integer, Product> allProducts= ProductDAO.getInstance().getAllProducts();
-			m.addAttribute("allproducts", allProducts);
-			session.setAttribute("allproducts", allProducts);
+			//session.setAttribute("catAndSubcat", catAndSubcat);
+			ArrayList<Product> topRatedProducts= ProductDAO.getInstance().getTopTwelveReviewedProducts();
+			m.addAttribute("topRatedProducts", topRatedProducts);
+			System.out.println("Sled login");
 			System.out.println("vsichki produkti za index page");
-			for (Product p: allProducts.values()){
+			for (Product p: topRatedProducts){
 				System.out.println(p);
 			}
 		} catch (SQLException e) {
@@ -69,7 +69,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute("user") User userHelper, HttpSession session) {	
+	public String login(@ModelAttribute("user") User userHelper, HttpSession session, Model m) {	
 		try {
 			String username=userHelper.getUsername();
 			String password=userHelper.getPassword();
@@ -79,7 +79,7 @@ public class UserController {
 				session.setAttribute("username", username);
 				session.setAttribute("logged", true);
 				session.setAttribute("cart", new HashSet<>());
-				return "index";
+				return indexpage(m);
 			}
 			else{
 				session.setAttribute("logged", false);
@@ -124,7 +124,7 @@ public class UserController {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 			session.invalidate();
 		}
-		return "index";
+		return indexpage(model);
 	}
 	
 
