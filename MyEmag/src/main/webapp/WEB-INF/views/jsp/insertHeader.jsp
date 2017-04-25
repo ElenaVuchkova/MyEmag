@@ -52,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 		<div class="head">
 			<div class=" logo">
-				<a href="index.html"><img src="/MyEmag/images/ebaglogo.jpg" alt=""></a>	
+				<a href="/MyEmag/index"><img src="/MyEmag/images/ebaglogo.jpg" alt=""></a>	
 			</div>
 		</div>
 	</div>
@@ -182,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<h1>eBAG</h1>
 		<em></em>
-		<h2><a href="index">Home</a><label>
+		<h2><a href="/MyEmag/index">Home</a><label>
 	</div>
 </div>
 

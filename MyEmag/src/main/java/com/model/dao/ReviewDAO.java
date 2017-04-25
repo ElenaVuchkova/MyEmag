@@ -52,7 +52,7 @@ public class ReviewDAO {
 
 	public ArrayList<Review> getAllReviewsByProduct(int productId) throws SQLException {
 		ArrayList<Review> reviews=new ArrayList<>();
-		String sql="SELECT r.review_id, r.comment, r.date, r.rating, u.username FROM reviews r JOIN users u ON (r.user_id=r.user_id) JOIN products p ON (r.product_id=p.product_id) WHERE r.product_id=?;";
+		String sql="SELECT r.review_id, r.comment, r.date, r.rating, u.username FROM reviews r JOIN users u ON (r.user_id=u.user_id) JOIN products p ON (r.product_id=p.product_id) WHERE r.product_id=?;";
 		PreparedStatement st;
 		st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setInt(1, productId);
@@ -64,7 +64,7 @@ public class ReviewDAO {
 			Review r=new Review(res.getString("comment"), res.getInt("rating"), user, null, date);
 			r.setReviewId(reviewId);
 			reviews.add(r);
-			}
+		}
 		return reviews;
 	}
 	

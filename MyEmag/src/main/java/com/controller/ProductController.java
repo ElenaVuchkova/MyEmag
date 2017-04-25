@@ -101,7 +101,7 @@ public class ProductController {
 		
 		
 		@RequestMapping(value="/{subcategory}", method = RequestMethod.POST)
-		public String viewProductsBySubcategoryOrderByParam2 (Model model, @PathVariable(value="subcategory") String subcategory,
+		public String viewProductsBySubcategoryOrderByParam (Model model, @PathVariable(value="subcategory") String subcategory,
 				HttpServletRequest req, HttpSession session) {
 			System.out.println("assdadsfdsfdsdsdsdgdfgdf");
 			try {
