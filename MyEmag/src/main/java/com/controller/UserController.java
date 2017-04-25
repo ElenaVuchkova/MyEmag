@@ -46,11 +46,10 @@ public class UserController {
 			}
 			m.addAttribute("catAndSubcat", catAndSubcat);		
 			session.setAttribute("catAndSubcat", catAndSubcat);
-			HashMap<Integer, Product> allProducts= ProductDAO.getInstance().getAllProducts();
-			m.addAttribute("allproducts", allProducts);
-			session.setAttribute("allproducts", allProducts);
+			ArrayList<Product> topRatedProducts= ProductDAO.getInstance().getTopTwelveReviewedProducts();
+			m.addAttribute("topRatedProducts", topRatedProducts);
 			System.out.println("vsichki produkti za index page");
-			for (Product p: allProducts.values()){
+			for (Product p: topRatedProducts){
 				System.out.println(p);
 			}
 		} catch (SQLException e) {
