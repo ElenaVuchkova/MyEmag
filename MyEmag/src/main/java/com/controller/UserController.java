@@ -27,10 +27,7 @@ import com.model.dao.UserDAO;
 
 
 @Controller
-public class UserController {
-	
-	
-		
+public class UserController {		
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String indexpage(Model m, HttpSession session){		
 		ArrayList<String> categories=new ArrayList<>();
@@ -130,6 +127,12 @@ public class UserController {
 		return "index";
 	}
 	
+
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public String test() {
+		return "test";
+	}
+
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
 	public ModelAndView viewCart(Model model, HttpSession session) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){

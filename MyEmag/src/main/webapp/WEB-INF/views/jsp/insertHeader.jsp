@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>MyEmag</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,12 +16,12 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--theme-style-->
-<link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
-<script src="js/jquery.min.js"></script>
+<script src="/MyEmag/js/jquery.min.js"></script>
 <!--- start-rate---->
-<script src="js/jstarbox.js"></script>
-	<link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+<script src="/MyEmag/js/jstarbox.js"></script>
+	<link rel="stylesheet" href="/MyEmag/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
 		<script type="text/javascript">
 			jQuery(function() {
 			jQuery('.starbox').each(function() {
@@ -52,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 		<div class="head">
 			<div class=" logo">
-				<a href="index"><img src="images/ebaglogo.jpg" alt=""></a>	
+				<a href="index.html"><img src="/MyEmag/images/ebaglogo.jpg" alt=""></a>	
 			</div>
 		</div>
 	</div>
@@ -61,11 +61,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
 						<c:if test="${sessionScope.logged}">
-							<li><a href="logout">Logout</a></li>
+							<li><a href="/MyEmag/logout">Logout</a></li>
 						</c:if>
 						<c:if test="${!sessionScope.logged}">
-							<li><a href="login">Login</a></li>
-							<li><a href="register">Register</a></li>
+							<li><a href="/MyEmag/login">Login</a></li>
+							<li><a href="/MyEmag/register">Register</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -92,7 +92,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    </div> 
    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-        <ul class="nav navbar-nav nav_1">            
+        <ul class="nav navbar-nav nav_1">
+            
     		<li class="dropdown mega-dropdown active">
 			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>				
 				<div class="dropdown-menu ">
@@ -131,19 +132,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li>
 					</ul>
 					<div class="cart box_1">
-						<a href="cart">
+						<a href="checkout.html">
 						<h3> <div class="total">
 							<span class="simpleCart_total"></span></div>
-							<img src="images/cart.png" alt=""/></h3>
+							<img src="/MyEmag/images/cart.png" alt=""/></h3>
 						</a>
+						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+
 					</div>
 					<div class="clearfix"> </div>
 					
 						<!----->
 
 						<!---pop-up-box---->					  
-			<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
-			<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+			<link href="/MyEmag/css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+			<script src="/MyEmag/js/jquery.magnific-popup.js" type="text/javascript"></script>
 			<!---//pop-up-box---->
 			<div id="small-dialog" class="mfp-hide">
 				<div class="search-top">
@@ -176,104 +179,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>	
 	</div>	
 </div>
-<!--banner-->
-<div class="banner">
-<div class="container">
-<section class="rw-wrapper">
-				<h1 class="rw-sentence">
-					<span>eBag</span>
-					<div class="rw-words rw-words-1">
-						<span>TV</span>
-						<span>ELEKTRONIKA</span>
-						
-					</div>
-					<div class="rw-words rw-words-2">
-						<span>KAKVOTO POJELAETE</span>
-						<span>MOJE DA SI KUPITE</span>
-						
-					</div>
-				</h1>
-			</section>
-			</div>
-</div>
-	<!--content-->
-		<div class="content">
-			<div class="container">				
-				<!--products-->
-			<div class="content-mid">
-				<h3>Top rated</h3>
-				<label class="line"></label>
-			<c:forEach items="${sessionScope.allproducts}" var="product">	
-				<div class="mid-popular">
-					<div class="col-md-3 item-grid simpleCart_shelfItem">
-					<div class=" mid-pop">
-					<div class="pro-img">
-						
-						<img src="${product.value.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
-						<div class="zoom-icon ">
-						 <a class="picture" href="${product.value.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
-						<a href="product/${product.value.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
-						</div>
-						</div>
-						<div class="mid-1">
-						<div class="women">
-						<div class="women-top">
-							<span><a href="single">${product.value.title}</a></span>
-							</div>
-							<div class="img item_add">
-								<a href="#"><img src="images/ca.png" alt=""></a>
-							</div>
-							<div class="clearfix"></div>
-							</div>
-							<div class="mid-2">
-								<span>$${product.value.price}</span>
-								  <div class="block">
-									<div class="starbox small ghosting"> </div>
-								</div>								
-								<div class="clearfix"></div>
-							</div>
-							
-						</div>
-					</div>
-					</div>					
-				</div>						
-			</c:forEach>
-			</div>				
-			</div> 	
-		</div>
-	<!--//content-->
-	<!--//footer-->
-	<div class="footer">
-	<div class="footer-middle">
-				<div class="container">
-										
-					<div class="col-md-3 footer-middle-in">
-						<h6>Newsletter</h6>
-						<span>Sign up for News Letter</span>
-							<form>
-								<input type="text" value="Enter your E-mail" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Enter your E-mail';}">
-								<input type="submit" value="Subscribe">	
-							</form>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-			</div>
-		</div>
-		<!--//footer-->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/simpleCart.min.js"> </script>
-<!-- slide -->
-<script src="js/bootstrap.min.js"></script>
-<!--light-box-files -->
-		<script src="js/jquery.chocolat.js"></script>
-		<link rel="stylesheet" href="css/chocolat.css" type="text/css" media="screen" charset="utf-8">
-		<!--light-box-files -->
-		<script type="text/javascript" charset="utf-8">
-		$(function() {
-			$('a.picture').Chocolat();
-		});
-		</script>
 
+<div class="banner-top">
+	<div class="container">
+		<h1>eBAG</h1>
+		<em></em>
+		<h2><a href="index">Home</a><label>
+	</div>
+</div>
 
 </body>
 </html>
