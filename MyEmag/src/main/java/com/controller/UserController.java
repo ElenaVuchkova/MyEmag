@@ -4,12 +4,15 @@ package com.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -77,7 +80,8 @@ public class UserController {
 				User u=UserDAO.getInstance().getUser(username);
 				session.setAttribute("user", u);
 				session.setAttribute("username", username);
-				session.setAttribute("logged", true);	
+				session.setAttribute("logged", true);
+				session.setAttribute("cart", new HashSet<>());
 				return "index";
 			}
 			else{
@@ -127,10 +131,28 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
-	public ModelAndView cartPage(Model model, HttpSession session) {
+	public ModelAndView viewCart(Model model, HttpSession session) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
-			return new ModelAndView("cart", "user", new User());
+			return new ModelAndView("cart");
 		}
+		return new ModelAndView("login", "user", new User());
+	}
+	
+	@RequestMapping(value="/cart/delete/{productId}", method=RequestMethod.POST)
+	public ModelAndView cartPage(Model model, HttpSession session, @PathVariable(value="productId") Integer productId) {
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			HashSet<Product> productsInCart=(HashSet<Product>) session.getAttribute("cart");
+			Product product;
+			try {
+				product = ProductDAO.getInstance().getProduct(productId);
+				if(productsInCart.contains(product)) {
+					productsInCart.remove(product);
+				}
+			} catch (SQLException e) {
+				return new ModelAndView("404");
+			}
+			return viewCart(model, session);
+			}
 		return new ModelAndView("login", "user", new User());
 	}
 }
