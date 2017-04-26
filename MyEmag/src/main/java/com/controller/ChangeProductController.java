@@ -173,6 +173,29 @@ public class ChangeProductController {
 		return ProductController.viewProduct(model, productId, session);	
 	}
 	
+	@RequestMapping(value="{subcategory}/setDiscount", method=RequestMethod.POST)
+	public String setDiscountForSubcat (@PathVariable(value="subcategory") String subcategory, HttpSession session, HttpServletRequest req, Model model) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			try {
+				if(SubcategoryDAO.getInstance().isSubcategory(subcategory)){					
+					int discount=Integer.parseInt(req.getParameter("discount"));
+					if(discount>=1 && discount<100){
+						ProductDAO.getInstance().makeSaleForAllProductsBySubcategory(subcategory, discount);
+					}
+					else{
+						session.setAttribute("messageDiscount", "Please, enter number between 1 and 100!");
+					}	
+				}
+			} catch (SQLException e) {
+				System.out.println("sql setDiscountForSubcat "+e.getMessage());
+				return "404";
+			}
+		}
+		return ProductController.viewProductsBySubcategory(model, subcategory, session);
+	}
 	
 		
 

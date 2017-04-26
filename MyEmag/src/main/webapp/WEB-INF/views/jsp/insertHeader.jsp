@@ -92,24 +92,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    </div> 
    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-        <ul class="nav navbar-nav nav_1">
-            
+        <ul class="nav navbar-nav nav_1">            
     		<li class="dropdown mega-dropdown active">
 			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span></a>				
 				<div class="dropdown-menu ">
                     <div class="menu-top">
 						<div class="col1">
 							<div class="h_nav">		
-							
-								<c:forEach items="${sessionScope.catAndSubcat}" var="catAndSubcat">								
+							  <c:forEach items="${applicationScope['catAndSubcat']}" var="catAndSubcat">								
 									<h4>${catAndSubcat.key}</h4>
 									<c:forEach items="${catAndSubcat.value}" var="subcategory">
 									<ul>
 										<li><a href="${subcategory}"><c:out value="${subcategory}"></c:out></a></li>
 									</ul>
 									</c:forEach>
-								</c:forEach>	
-										
+								</c:forEach>										
 							</div>							
 						</div>						
 					</div>                  

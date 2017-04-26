@@ -98,8 +98,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="dropdown-menu ">
                     <div class="menu-top">
 						<div class="col1">
-							<div class="h_nav">		
-							
+							<div class="h_nav">								
 								<c:forEach items="${catAndSubcat}" var="catAndSubcat">								
 									<h4>${catAndSubcat.key}</h4>
 									<c:forEach items="${catAndSubcat.value}" var="subcategory">
@@ -107,8 +106,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li><a href="${subcategory}"><c:out value="${subcategory}"></c:out></a></li>
 									</ul>
 									</c:forEach>
-								</c:forEach>	
-										
+								</c:forEach>											
 							</div>							
 						</div>						
 					</div>                  
@@ -116,7 +114,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</li>
 			<li><a class="color3" href="product.html">Sale</a></li>
 			<li><a class="color4" href="404.html">About</a></li>
-            <li ><a class="color6" href="contact.html">Contact</a></li>
+            <li ><a class="color6" href="contact.html">Contact</a></li>      
+            <!-- if admin -->      
+            <c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
+             <li ><a class="color6" href="addProduct">Add product</a></li>
+            </c:if>
+             <!-- //if admin -->    
         </ul>
      </div><!-- /.navbar-collapse -->
 

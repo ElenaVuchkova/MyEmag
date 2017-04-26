@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class UserController {
 				}				
 			}
 			m.addAttribute("catAndSubcat", catAndSubcat);		
+			//kak?? application.setAttribute("catAndSubcats", catAndSubcat);
 			//session.setAttribute("catAndSubcat", catAndSubcat);
 			ArrayList<Product> topRatedProducts= ProductDAO.getInstance().getTopTwelveReviewedProducts();
 			m.addAttribute("topRatedProducts", topRatedProducts);
