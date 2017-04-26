@@ -115,7 +115,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>                  
 				</div>				
 			</li>
-			<li><a class="color3" href="product.html">Sale</a></li>
+			<li><a class="color3" href="/MyEmag/sale">Sale</a></li>
 			<li><a class="color4" href="404.html">About</a></li>
             <li ><a class="color6" href="contact.html">Contact</a></li>
         </ul>
