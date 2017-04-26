@@ -7,8 +7,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +33,7 @@ import com.model.dao.UserDAO;
 @Controller
 public class UserController {		
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String indexpage(Model m){		
+	public String indexpage(Model m, HttpServletRequest req){		
 		ArrayList<String> categories=new ArrayList<>();
 		ArrayList<String> subcategories=new ArrayList<>();
 		HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
@@ -46,7 +49,9 @@ public class UserController {
 				}				
 			}
 			m.addAttribute("catAndSubcat", catAndSubcat);		
-			//kak?? application.setAttribute("catAndSubcats", catAndSubcat);
+			//add to application
+			ServletContext sc = req.getServletContext();
+			sc.setAttribute("catAndSubcat", catAndSubcat);
 			//session.setAttribute("catAndSubcat", catAndSubcat);
 			ArrayList<Product> topRatedProducts= ProductDAO.getInstance().getTopTwelveReviewedProducts();
 			m.addAttribute("topRatedProducts", topRatedProducts);
@@ -72,7 +77,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute("user") User userHelper, HttpSession session, Model m) {	
+	public String login(@ModelAttribute("user") User userHelper, HttpSession session, Model m, HttpServletRequest req) {	
 		try {
 			String username=userHelper.getUsername();
 			String password=userHelper.getPassword();
@@ -82,7 +87,7 @@ public class UserController {
 				session.setAttribute("username", username);
 				session.setAttribute("logged", true);
 				session.setAttribute("cart", new HashSet<>());
-				return indexpage(m);
+				return indexpage(m, req);
 			}
 			else{
 				session.setAttribute("logged", false);
@@ -123,11 +128,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout(HttpSession session, Model model) {
+	public String logout(HttpSession session, Model model, HttpServletRequest req) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 			session.invalidate();
 		}
-		return indexpage(model);
+		return indexpage(model, req);
 	}
 	
 
