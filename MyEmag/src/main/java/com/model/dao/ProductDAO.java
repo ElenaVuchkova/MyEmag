@@ -278,11 +278,15 @@ public class ProductDAO {
 		}
 	}
 	
-	public ArrayList<Product> getAllProductsWithSale () {
-		ArrayList<Product> productsWithSale = new ArrayList<>();
+	public HashMap<String,ArrayList<Product>> getAllProductsWithSale () {
+		HashMap<String,ArrayList<Product>> productsWithSale = new HashMap<>();
 		for (Product p : ALL_PRODUCTS.values()) {
 			if (p.getSalePrice()!=0) {
-				productsWithSale.add(p);
+				String subcategory=p.getSubcategory();
+				if (!productsWithSale.containsKey(subcategory)) {
+					productsWithSale.put(subcategory, new ArrayList<>());
+				}
+				productsWithSale.get(subcategory).add(p);
 			}
 		}
 		return productsWithSale;

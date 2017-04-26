@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.model.Product;
 import com.model.User;
 import com.model.dao.CategoryDAO;
-import com.model.dao.DBManager;
 import com.model.dao.ProductDAO;
 import com.model.dao.SubcategoryDAO;
 import com.model.dao.UserDAO;
@@ -57,6 +56,7 @@ public class UserController {
 			}
 		} catch (SQLException e) {
 			System.out.println("sql index controller"+e.getMessage());
+			return "404";
 		}
 		return "index";
 	}	
@@ -160,4 +160,25 @@ public class UserController {
 			}
 		return new ModelAndView("login", "user", new User());
 	}
+	
+	@RequestMapping(value="/sale", method=RequestMethod.GET)
+	public String salePage(Model m){
+		System.out.println("v sale +++++++++++++++++++++++++++++++++++++++");
+		try {		
+			HashMap<String,ArrayList<Product>> allProductsWithSale= ProductDAO.getInstance().getAllProductsWithSale();
+			m.addAttribute("allProductsWithSale", allProductsWithSale);
+			for (java.util.Map.Entry<String,ArrayList<Product>> entry: allProductsWithSale.entrySet() ) {
+				ArrayList<Product> products=entry.getValue();
+				System.out.println(entry.getKey());
+				for (Product p:products ){
+					System.out.println(p);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("sql index controller"+e.getMessage());
+			return "404";
+		}
+		return "sale";
+	}	
+	
 }
