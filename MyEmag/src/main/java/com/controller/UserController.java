@@ -231,4 +231,19 @@ public class UserController {
 		}
 		return new ModelAndView("login");
 	}
+	
+	@RequestMapping(value="/subscribe", method = RequestMethod.POST)
+	public void  subscribe (HttpSession session, Model model) {		
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			System.out.println("subscribeeeeeeeeeeeeeeeeeeee");
+			User u=(User) session.getAttribute("user");
+			String username=u.getUsername();
+			try {
+				UserDAO.getInstance().subscribe(username);
+			} catch (SQLException e) {
+				System.out.println("SQL - subscribe " + e.getMessage());
+			}
+			
+		}
+	}	
 }

@@ -7,8 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.commons.codec.binary.Hex;
+
+import com.model.Product;
 import com.model.User;
 
 public class UserDAO {
@@ -117,10 +120,27 @@ public class UserDAO {
 		return null;
 	}
 	
-	public void subscribe (String username) {
+	public void subscribe (String username) throws SQLException {
 		if (ALL_USERS.containsKey(username)) {
 			User u=ALL_USERS.get(username);
-			u.setIsSubscriber(1);		
+			if (u.getRole()!=0) {
+			u.setIsSubscriber(1);
+			String sql = "UPDATE users SET isSubscriber=? WHERE username=?";
+			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			st.setInt(1, 1);
+			st.setString(2, username);
+			st.executeUpdate();
+			}
 		}
+	}
+	
+	public ArrayList<User> allSubscribers () {
+		ArrayList<User> subscribers=new ArrayList<>();
+		for (User u : ALL_USERS.values()) {
+			if (u.getIsSubscriber()==1) {
+				subscribers.add(u);
+			}
+		}
+		return subscribers;
 	}
 }
