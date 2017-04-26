@@ -34,6 +34,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="content-mid">
 				<h3>${subcategory}</h3>
 				<label class="line"></label>
+				<!-- if admin -->      
+	            <c:if test="${sessionScope.logged && sessionScope.user.role == 0}">	             
+	             <form action="${subcategory}/setDiscount" method="post">
+				  Enter 1-100:<input placeholder="Percent number" type="text" name="discount" >
+				  <br>		 
+				  <input class="quick_desc" type="submit" value="Set discount">
+				</form> 
+	             
+	            </c:if>
+	             <!-- //if admin -->  
+				
 				<c:if test="${select!=null}">
 					<c:out value="${select}"/>
 				</c:if>
@@ -58,7 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<img src="${product.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
 						<div class="zoom-icon ">
 						 <a class="picture" href="${product.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
-						<a href="product/${product.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
+						<a href="/MyEmag/product/${product.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
 						</div>
 						</div>
 						<div class="mid-1">

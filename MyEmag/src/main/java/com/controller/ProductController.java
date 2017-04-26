@@ -81,7 +81,7 @@ public class ProductController {
 			}
 		
 		@RequestMapping(value="/{subcategory}", method = RequestMethod.GET)
-		public String viewProductsBySubcategory (Model model, @PathVariable(value="subcategory") String subcategory, HttpSession session) {
+		public static String viewProductsBySubcategory (Model model, @PathVariable(value="subcategory") String subcategory, HttpSession session) {
 			try {
 				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
 					ProductDAO pDao=ProductDAO.getInstance();
