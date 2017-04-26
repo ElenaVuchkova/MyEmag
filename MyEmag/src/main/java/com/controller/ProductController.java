@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.model.Product;
 import com.model.Review;
 import com.model.User;
+import com.model.dao.FavouriteProductsDAO;
 import com.model.dao.ProductDAO;
 import com.model.dao.ReviewDAO;
 import com.model.dao.SubcategoryDAO;
@@ -200,7 +201,7 @@ public class ProductController {
 			}			
 		}
 		
-		@RequestMapping(value="/product/{productId}/addToCart",method = RequestMethod.GET)
+		@RequestMapping(value="/product/{productId}/addToCart",method = RequestMethod.POST)
 		public String addToCart (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 				HashSet<Product> productsInCart=(HashSet<Product>) session.getAttribute("cart");
@@ -217,4 +218,24 @@ public class ProductController {
 			}
 			return "login";
 		}
-}
+		
+		@RequestMapping(value="/product/{productId}/addToWishList",method = RequestMethod.POST)
+		public String addToWishList (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
+			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+				User u=(User) session.getAttribute("user");
+				int userId=u.getUserId();
+				try {
+					if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
+						FavouriteProductsDAO.getInstance().addFavouriteProduct(userId, productId);
+						return viewProduct(model, productId, session);
+					}
+				} catch (SQLException e) {
+					System.out.println("SQL add to favourite products " + e.getMessage());
+					return "404";
+				}
+			}
+			return "login";
+		}
+		
+		
+	}
