@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.mail.MessagingException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.model.Product;
 import com.model.User;
 import com.model.dao.CategoryDAO;
+import com.model.dao.EmailSender;
 import com.model.dao.ProductDAO;
 import com.model.dao.SubcategoryDAO;
 
@@ -149,6 +151,13 @@ public class ChangeProductController {
 		return ProductController.viewProduct(model, productId, session);	
 	}
 	
+	//TODO
+	private void sendEmail(ArrayList<User> users) throws MessagingException{
+		EmailSender sender=EmailSender.getInstance();
+		for(User u : users){
+			sender.notify(u.getEmail());
+		}
+	}
 	
 	@RequestMapping(value="product/{productId}/setDiscount", method=RequestMethod.POST)
 	public String setDiscount (@PathVariable(value="productId") Integer productId, HttpSession session, 

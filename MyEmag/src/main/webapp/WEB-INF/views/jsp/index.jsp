@@ -99,7 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="menu-top">
 						<div class="col1">
 							<div class="h_nav">								
-								<c:forEach items="${catAndSubcat}" var="catAndSubcat">								
+								<c:forEach items="${applicationScope['catAndSubcat']}" var="catAndSubcat">								
 									<h4>${catAndSubcat.key}</h4>
 									<c:forEach items="${catAndSubcat.value}" var="subcategory">
 									<ul>
