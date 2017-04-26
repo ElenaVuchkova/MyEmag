@@ -24,14 +24,63 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 <jsp:include page="insertHeader.jsp" />
-Payments: 
+
+<form action="order" method="post" >
+Danni za poruchka<br>
+++++++++++<br>
+1. Danni za dostavka<br>
+	Dostavka s kurier<br>
+	<div class="login-mail">
+		<input type="text" name="address" placeholder="Enter your address" required="required" />
+		<i class="glyphicon glyphicon-user"></i>
+	</div>	
+	
+2. Nachin za plashtane: <br>
+
 	<select name ="wayToPay" >
 		<c:forEach var="way" items="${waysToPay}">
 	        <option  value="${way}"><c:out value="${way}"></c:out></option>
 		</c:forEach>
     </select> <br>	
 
+    
+3. Informacia za user<br>
 
+Ime : <c:out value="${sessionScope.username}"/>
+
+4. Informaciq za produkti
+<table class="table-heading simpleCart_shelfItem">
+			  <tr>
+				<th class="table-grid">Item</th>		
+				<th>Prices</th>
+			  </tr>
+			  <c:forEach items="${sessionScope.cart}" var="product">
+			  <tr class="cart-header">
+				<td class="ring-in"><a href="product" class="at-in"><img src="${product.imagePaths[0]}" class="img-responsive"  alt=""></a>
+				
+				<div class="clearfix"> </div>
+				<div class="close1"> </div></td>
+				<td> <c:if test="${product.salePrice != 0}">
+	   					 $${product.salePrice}
+					  </c:if>
+					  <c:if test="${product.salePrice == 0}">
+	   					 $${product.price}
+					  </c:if>
+				</td>
+				<td class="add-check">
+				</td> 
+			  </tr>
+			  </c:forEach>
+		</table>
+
+5. Cena na poruchkata<br>
+
+<c:out value="${price}"/>
+
+
+<button type="submit" class="btn btn-primary btn-block btn-large">Order</button>
+
+</form>
 <jsp:include page="insertFooter.jsp" />
 
 </body>

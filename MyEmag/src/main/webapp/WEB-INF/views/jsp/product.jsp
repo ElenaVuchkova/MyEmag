@@ -76,7 +76,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    <div class="wish-list">
 			 	<ul>
 			 		<li class="wish">
-				 		<form action="${product.productId}/addToWishList" method="post">		 
+			 		<c:if test="${message!=null}">
+						<c:out value="${message}"/>
+					</c:if>
+				 		<form action="/MyEmag/product/${product.productId}/addToWishList" method="post">		 
 			  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to wishlist">
 						</form> 
 			 		</li>
@@ -91,10 +94,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 			 </div>	
 			 -->
-			 	<form action="${product.productId}/addToCart" method="post">		 
+			 
+			 	<form action="/MyEmag/product/${product.productId}/addToCart" method="post">		 
 		  			<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to cart">
 				</form>
-				<form action="${product.productId}/review" method="get">		 
+				<form action="/MyEmag/product/${product.productId}/review" method="get">		 
 			  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
 				</form>  
 				<div class="clearfix"> </div>

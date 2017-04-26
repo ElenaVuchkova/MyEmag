@@ -231,7 +231,8 @@ public class ProductController {
 					}
 				} catch (SQLException e) {
 					System.out.println("SQL add to favourite products " + e.getMessage());
-					return "404";
+					model.addAttribute("message","Your wishlist contains this product!");
+					return viewProduct(model, productId, session);
 				}
 			}
 			return "login";

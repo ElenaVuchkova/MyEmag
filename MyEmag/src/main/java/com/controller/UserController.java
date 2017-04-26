@@ -1,7 +1,12 @@
 package com.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,12 +24,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.model.Order;
 import com.model.Product;
 import com.model.User;
 import com.model.dao.CategoryDAO;
 import com.model.dao.FavouriteProductsDAO;
+import com.model.dao.OrderDAO;
+import com.model.dao.PaymentDAO;
 import com.model.dao.ProductDAO;
 import com.model.dao.SubcategoryDAO;
 import com.model.dao.UserDAO;
@@ -236,4 +246,44 @@ public class UserController {
 		}
 		return new ModelAndView("login");
 	}
+	
+	
+	@RequestMapping(value="/order", method=RequestMethod.GET)
+	public String order (Model model, HttpSession session) {
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			HashSet<Product> productsInCart=(HashSet<Product>) session.getAttribute("cart");
+			double price=0;
+			for (Product p: productsInCart) {
+				price+=p.getPrice();
+			}
+			try {
+				ArrayList<String> waysToPay=PaymentDAO.getInstance().getAllPayments();
+				model.addAttribute("waysToPay", waysToPay);
+				session.setAttribute("price", price);
+			} catch (SQLException e) {
+				System.out.println("sql order "+e.getMessage());
+			}			
+			return "order";
+		}
+		return "login";
+	}
+	
+	@RequestMapping(value="/order",method = RequestMethod.POST)
+	public String makeOrder (Model model, HttpServletRequest req,HttpSession session) {
+		if(session.getAttribute("username") != null && (Boolean)session.getAttribute("logged")) {
+			HashSet<Product> products=(HashSet<Product>) session.getAttribute("cart");
+			String payment=req.getParameter("wayToPay");
+			User user=(User)session.getAttribute("user");
+			Order o=new Order(products, LocalDateTime.now(), user, payment);
+			try {
+				OrderDAO.getInstance().addOrder(o);
+			} catch (SQLException e) {
+				System.out.println("SQL- make order " + e.getMessage());
+				return "404";
+			}
+			return "index";
+		}
+		return "login";
+	}
+
 }

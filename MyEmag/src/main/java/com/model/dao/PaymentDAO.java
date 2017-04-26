@@ -28,10 +28,11 @@ public class PaymentDAO {
 	}
 
 	public synchronized int getPaymentId (String type) throws SQLException{
-		String sql = "SELECT id FROM payments WHERE type=?";
+		String sql = "SELECT payment_id FROM payments WHERE type=?";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setString(1, type);
 		ResultSet rs=st.executeQuery();
+		rs.next();
 		int paymentId=rs.getInt(1);
 		return paymentId;
 	}

@@ -1,20 +1,21 @@
 package com.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+
+import java.util.Set;
 
 public class Order {
 	
 	private int orderId;
-	private ArrayList<Product> products;
+	private HashSet<Product> products;
 	private double price;
 	private LocalDateTime date;
 	private User user;
 	private String payment;
 	
-	public Order(ArrayList<Product> products,LocalDateTime date, User user, String payment) {
+	public Order(HashSet<Product> products,LocalDateTime date, User user, String payment) {
 		this.products=products;
 		this.date =date;
 		this.user = user;
@@ -70,11 +71,11 @@ public class Order {
 		this.payment = payment;
 	}
 
-	public List<Product> getProducts() {
-		return Collections.unmodifiableList(products);
+	public Set<Product> getProducts() {
+		return Collections.unmodifiableSet(products);
 	}
 
-	public void setProducts(ArrayList<Product> products) {
+	public void setProducts(HashSet<Product> products) {
 		this.products = products;
 	}
 	
