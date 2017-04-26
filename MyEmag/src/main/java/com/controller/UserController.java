@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.model.Product;
 import com.model.User;
 import com.model.dao.CategoryDAO;
+import com.model.dao.FavouriteProductsDAO;
 import com.model.dao.ProductDAO;
 import com.model.dao.SubcategoryDAO;
 import com.model.dao.UserDAO;
@@ -186,4 +187,53 @@ public class UserController {
 		return "sale";
 	}	
 	
+	@RequestMapping(value="/wishlist", method=RequestMethod.GET)
+	public ModelAndView wishlistPage(Model model, HttpSession session) {
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			User u=(User) session.getAttribute("user");
+			String username=u.getUsername();
+			ArrayList<Product> fovuriteProducts=new ArrayList<>(); 
+			try {
+				fovuriteProducts=FavouriteProductsDAO.getInstance().getAllFavouriteProductsByUser(username);
+				return new ModelAndView("wishlist", "fovuriteProducts", fovuriteProducts);
+			} catch (SQLException e) {
+				return new ModelAndView("404");
+			}
+		}
+		return new ModelAndView("login", "user", new User());
+	}
+	
+	@RequestMapping(value="/wishlist/delete/{productId}",method = RequestMethod.POST)
+	public ModelAndView deleteFromWishlist (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			User u=(User) session.getAttribute("user");
+			int userId=u.getUserId(); 
+			try {
+				FavouriteProductsDAO.getInstance().deleteFavouriteProduct(userId, productId);
+				return wishlistPage(model, session);
+			} catch (SQLException e) {
+				System.out.println("SQL delete favourite product - " + e.getMessage());
+				return new ModelAndView("404");
+			}
+		}
+		return new ModelAndView("login", "user", new User());
+	}
+	
+	@RequestMapping(value="/wishlist/addToCart/{productId}",method = RequestMethod.POST)
+	public ModelAndView  addToCartFromWishlist (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			HashSet<Product> productsInCart=(HashSet<Product>) session.getAttribute("cart");
+			try {
+				if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
+					Product p=ProductDAO.getInstance().getProduct(productId);
+					productsInCart.add(p);
+					return wishlistPage(model, session);
+				}
+			} catch (SQLException e) {
+				System.out.println("SQL add products to cart " + e.getMessage());
+				return new ModelAndView("404");
+			}
+		}
+		return new ModelAndView("login");
+	}
 }

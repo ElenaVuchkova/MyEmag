@@ -31,6 +31,14 @@ public class FavouriteProductsDAO {
 		st.setInt(2, productId);
 		st.executeUpdate();
 	}
+	
+	public synchronized void deleteFavouriteProduct (int userId, int productId) throws SQLException{
+		String sql = "DELETE FROM favouriteproducts WHERE user_id=? AND product_id=?";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, userId);
+		st.setInt(2, productId);
+		st.executeUpdate();
+	}
 
 	public synchronized ArrayList<Product> getAllFavouriteProductsByUser (String username) throws SQLException {
 		ArrayList<Product> products=new ArrayList<>(); 

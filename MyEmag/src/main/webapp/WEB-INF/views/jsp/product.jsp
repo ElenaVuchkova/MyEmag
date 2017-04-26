@@ -75,7 +75,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<c:if test="${sessionScope.logged && sessionScope.user.role == 1}">
 		    <div class="wish-list">
 			 	<ul>
-			 		<li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
+			 		<li class="wish">
+				 		<form action="${product.productId}/addToWishList" method="post">		 
+			  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to wishlist">
+						</form> 
+			 		</li>
 			 	</ul>
 			 </div>
 			 <!-- 
@@ -87,8 +91,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 			 </div>	
 			 -->
-				<a href="/MyEmag/product/${product.productId}/addToCart" class="add-to item_add hvr-skew-backward">Add to cart</a><br>
-				<a href="/MyEmag/product/${product.productId}/review" class="add-to item_add hvr-skew-backward">Make review</a>
+			 	<form action="${product.productId}/addToCart" method="post">		 
+		  			<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to cart">
+				</form>
+				<form action="${product.productId}/review" method="get">		 
+			  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
+				</form>  
 				<div class="clearfix"> </div>
 	</c:if>
 	</div>
