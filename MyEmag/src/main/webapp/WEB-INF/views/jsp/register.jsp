@@ -65,38 +65,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!--//register-->	
 	<!--//content-->
-		<!--//footer-->
-	<div class="footer">
-		<div class="footer-middle">
-				<div class="container">		
-					<div class="col-md-3 footer-middle-in">
-						<h6>Information</h6>
-						<ul class=" in">
-							<li><a href="contact.html">Contact Us</a></li>
-							<li><a href="wishlist.html">Wish List</a></li>
-						</ul>
-					</div>
-					
-					<!-- da! -->
-					<div class="col-md-3 footer-middle-in">
-						<h6>Newsletter</h6>
-						<span>Sign up for News Letter</span>
-							<form>
-								<input type="text" value="Enter your E-mail" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Enter your E-mail';}">
-								<input type="submit" value="Subscribe">	
-							</form>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-			</div>
-			
-		</div>
-		<!--//footer-->
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
-	<script src="js/simpleCart.min.js"> </script>
-<!-- slide -->
-<script src="js/bootstrap.min.js"></script>
- 
+ <jsp:include page="insertFooter.jsp" />
 </body>
 </html>
