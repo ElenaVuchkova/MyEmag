@@ -43,7 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<td class="ring-in"><a href="product" class="at-in"><img src="${product.imagePaths[0]}" class="img-responsive"  alt=""></a>
 				
 				<div class="clearfix"> </div>
-				<div class="close1"> </div></td>
+				</td>
 				<td> <c:if test="${product.salePrice != 0}">
 	   					 $${product.salePrice}
 					  </c:if>

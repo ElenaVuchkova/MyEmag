@@ -7,6 +7,8 @@
 <head>
 <title>MyEmag</title>
 <link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/test.css" rel="stylesheet" type="text/css" media="all" />
+
 <!-- Custom Theme files -->
 <!--theme-style-->
 <link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
@@ -46,7 +48,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			    <div class="price_single">
 				  <span class="reducedfrom item_price">$${product.price}</span>
 				  <c:if test="${product.salePrice != 0}">
-   					 <br><span class="reducedfrom item_price">Sale: $${product.salePrice}</span>
+   					<span class="reducedfrom item_price sale-bg-color">Sale: $${product.salePrice}</span>
 				  </c:if>		 
 			
 				 <div class="clearfix"></div>
@@ -79,9 +81,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			 		<c:if test="${message!=null}">
 						<c:out value="${message}"/>
 					</c:if>
-				 		<form action="/MyEmag/product/${product.productId}/addToWishList" method="post">		 
+				 		<form class="wish-button" action="/MyEmag/product/${product.productId}/addToWishList" method="post">		 
 			  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to wishlist">
 						</form> 
+						<form class="wish-button" action="/MyEmag/product/${product.productId}/addToCart" method="post">		 
+		  					<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to cart">
+						</form>
+						<form class="wish-button" action="/MyEmag/product/${product.productId}/review" method="get">		 
+					  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
+						</form>  
 			 		</li>
 			 	</ul>
 			 </div>
@@ -95,12 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			 </div>	
 			 -->
 			 
-			 	<form action="/MyEmag/product/${product.productId}/addToCart" method="post">		 
-		  			<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to cart">
-				</form>
-				<form action="/MyEmag/product/${product.productId}/review" method="get">		 
-			  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
-				</form>  
+			 	
 				<div class="clearfix"> </div>
 	</c:if>
 	</div>
@@ -113,36 +116,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- if admin -->
 	
-	<c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
-		<!-- form CHANGE -->
-		<form action="${product.productId}/changeQuantity" method="post">
-		  Current quantity:<input  type="text" name="quantity" value="${product.quantity}">
-		  <br>		 
-		  <input class="quick_desc" type="submit" value="Update">
-		</form> 
-		<!-- END form CHANGE -->
-		
-		<!-- form DELETE -->
-		<!-- <a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>-->
-		<form action="${product.productId}/delete" method="post">		 
-		  <input class="add-to item_add hvr-skew-backward" type="submit" value="Delete">
-		</form> 
-		<!-- END form DELETE -->
-		
-		<!-- form DISCOUNT -->
-		<c:if test="${sessionScope.messageDiscount!=null}">
-			<c:out value="${sessionScope.messageDiscount}"/>
-		</c:if>
-		<form action="${product.productId}/setDiscount" method="post">
-		Enter 1-100:<input placeholder="Percent number" type="text" name="discount" >
-		  <br>		 
-		  <input class="quick_desc" type="submit" value="Set discount">
-		</form> 
-		<!-- END form DISCOUNT -->
-	</c:if>
-
-<!-- //if admin -->
+	<div class="admin-panel">
+		<c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
+			<!-- form CHANGE -->
+			<form action="${product.productId}/changeQuantity" method="post">
+				Current quantity:
+			  	<input  type="text" name="quantity" value="${product.quantity}" />	 
+			  	<input type="submit" value="Update" />
+			</form> 
+			<!-- END form CHANGE -->
+			
+			<!-- form DISCOUNT -->
+			<c:if test="${sessionScope.messageDiscount!=null}">
+				<c:out value="${sessionScope.messageDiscount}"/>
+			</c:if>
+			<form action="${product.productId}/setDiscount" method="post">
+			Enter 1-100:
+				<input type="text" name="discount" placeholder="Percent number" />
+			  	<input type="submit" value="Set discount" />
+			</form> 
+			<!-- END form DISCOUNT -->
 	
+			<!-- form DELETE -->
+			<!-- <a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>-->
+			<form action="${product.productId}/delete" method="post">		 
+			  <input type="submit" value="Delete">
+			</form> 
+			<!-- END form DELETE -->
+			
+		</c:if>
+	</div>
+<!-- //if admin -->
+	<div class="amazing-reviews">
 	<!-- test reviews -->
 	<c:if test="${fn:length(product.reviews) gt 0}">
 	<h1>Reviews</h1>	
@@ -164,9 +169,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</c:forEach>
 	</c:if>
 	<!-- //test reviews -->
-		
-	<div class="tab-content one">
-  </div>
+	</div>
   <div class="clearfix"></div>
   </div>
 			<!---->	

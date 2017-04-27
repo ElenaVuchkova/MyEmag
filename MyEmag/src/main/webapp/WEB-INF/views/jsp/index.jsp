@@ -136,7 +136,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="cart box_1">
 						<a href="/MyEmag/cart">
 						<h3> <div class="total">
-							<span class="simpleCart_total"></span></div>
+						<!-- 	<span class="simpleCart_total"></span></div> -->
 							<img src="/MyEmag/images/cart.png" alt=""/></h3>
 						</a>
 					</div>
@@ -182,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 <section class="rw-wrapper">
 				<h1 class="rw-sentence">
-					<span>eBag</span>
+					<span><!-- eBag</span>
 					<div class="rw-words rw-words-1">
 						<span>TV</span>
 						<span>ELEKTRONIKA</span>
@@ -192,7 +192,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span>KAKVOTO POJELAETE</span>
 						<span>MOJE DA SI KUPITE</span>
 						
-					</div>
+					</div>-->
 				</h1>
 			</section>
 			</div>

@@ -103,7 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<h4>${catAndSubcat.key}</h4>
 									<c:forEach items="${catAndSubcat.value}" var="subcategory">
 									<ul>
-										<li><a href="${subcategory}"><c:out value="${subcategory}"></c:out></a></li>
+										<li><a href="/MyEmag/${subcategory}"><c:out value="${subcategory}"></c:out></a></li>
 									</ul>
 									</c:forEach>
 								</c:forEach>										
@@ -131,7 +131,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="cart box_1">
 						<a href="/MyEmag/cart">
 						<h3> <div class="total">
-							<span class="simpleCart_total"></span></div>
+							<!-- <span class="simpleCart_total"></span></div>-->
 							<img src="/MyEmag/images/cart.png" alt=""/></h3>
 						</a>
 					</div>

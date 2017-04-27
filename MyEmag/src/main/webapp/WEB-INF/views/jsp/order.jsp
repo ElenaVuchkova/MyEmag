@@ -26,29 +26,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <jsp:include page="insertHeader.jsp" />
 
 <form action="order" method="post" >
-Danni za poruchka<br>
-++++++++++<br>
-1. Danni za dostavka<br>
-	Dostavka s kurier<br>
-	<div class="login-mail">
-		<input type="text" name="address" placeholder="Enter your address" required="required" />
-		<i class="glyphicon glyphicon-user"></i>
-	</div>	
+<h2>Order data<br /> </h2>
+<div class="order-box">
+	1. Delivery data<br />
+		Delivery by courier<br />
+		<div class="login-mail">
+			<input type="text" name="address" placeholder="Enter your address" required="required" />
+			<i class="glyphicon glyphicon-user"></i>
+		</div>	
+</div>
 	
-2. Nachin za plashtane: <br>
+2. Payment method: <br />
 
 	<select name ="wayToPay" >
 		<c:forEach var="way" items="${waysToPay}">
 	        <option  value="${way}"><c:out value="${way}"></c:out></option>
 		</c:forEach>
-    </select> <br>	
+    </select> <br />	
 
     
-3. Informacia za user<br>
+3. User information<br />
 
 Ime : <c:out value="${sessionScope.username}"/>
 
-4. Informaciq za produkti
+4. Products information
 <table class="table-heading simpleCart_shelfItem">
 			  <tr>
 				<th class="table-grid">Item</th>		
@@ -59,7 +60,7 @@ Ime : <c:out value="${sessionScope.username}"/>
 				<td class="ring-in"><a href="product" class="at-in"><img src="${product.imagePaths[0]}" class="img-responsive"  alt=""></a>
 				
 				<div class="clearfix"> </div>
-				<div class="close1"> </div></td>
+				</td>
 				<td> <c:if test="${product.salePrice != 0}">
 	   					 $${product.salePrice}
 					  </c:if>
@@ -73,13 +74,10 @@ Ime : <c:out value="${sessionScope.username}"/>
 			  </c:forEach>
 		</table>
 
-5. Cena na poruchkata<br>
+5. Order price<br />
 
 <c:out value="${price}"/>
-
-
 <button type="submit" class="btn btn-primary btn-block btn-large">Order</button>
-
 </form>
 <jsp:include page="insertFooter.jsp" />
 
