@@ -203,7 +203,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 <section class="rw-wrapper">
 				<h1 class="rw-sentence">
-					<span><!-- eBag</span>
+				<!--	<span> eBag</span>
 					<div class="rw-words rw-words-1">
 						<span>TV</span>
 						<span>ELEKTRONIKA</span>
@@ -223,17 +223,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="container">				
 				<!--products-->
 			<div class="content-mid">
-				<h3>Top rated</h3>
+				<h3>New Products</h3>
 				<label class="line"></label>
-			<c:forEach items="${topRatedProducts}" var="product">	
+				
+			<c:forEach items="${newProducts}" var="product">	
 				<div class="mid-popular">
 					<div class="col-md-3 item-grid simpleCart_shelfItem">
 					<div class=" mid-pop">
-					<div class="pro-img">
-						
-						<img src="${product.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
+					<div class="pro-img">						
+					<!-- new images-->
+						<c:set var="index" value="${0}"/>
+						<img src="/MyEmag/image/${product.productId}/${index}" height=200 width=200 class="img-responsive" alt=""> 
 						<div class="zoom-icon ">
-						 <a class="picture" href="${product.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+						 <a class="picture" href="/MyEmag/image/${product.productId}/${index}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
 						<a href="product/${product.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
 						</div>
 						</div>

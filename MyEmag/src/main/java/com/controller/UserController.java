@@ -63,11 +63,11 @@ public class UserController {
 			ServletContext sc = req.getServletContext();
 			sc.setAttribute("catAndSubcat", catAndSubcat);
 			//session.setAttribute("catAndSubcat", catAndSubcat);
-			ArrayList<Product> topRatedProducts= ProductDAO.getInstance().getTopTwelveReviewedProducts();
-			m.addAttribute("topRatedProducts", topRatedProducts);
+			ArrayList<Product> newProducts= ProductDAO.getInstance().getTopTwelveNewProducts();
+			m.addAttribute("newProducts", newProducts);
 			System.out.println("Sled login");
 			System.out.println("vsichki produkti za index page");
-			for (Product p: topRatedProducts){
+			for (Product p: newProducts){
 				System.out.println(p);
 			}
 		} catch (SQLException e) {

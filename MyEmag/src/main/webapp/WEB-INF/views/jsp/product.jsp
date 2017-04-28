@@ -22,6 +22,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <script src="/MyEmag/js/jquery.min.js"></script>
+<style>
+
+ #wrapper {
+  display: inline-block;
+    padding-bottom: 2em;
+    width: 100%;
+  }
+  
+  #leftCarousel {
+	float: left;
+	width: 350px;
+  }
+  #rightInfo {
+  float:right;
+  }
+
+</style>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -30,19 +49,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="single">
 
 <div class="container">
-<div class="col-md-9">
-	<div class="col-md-5 grid">		
-		<div class="flexslider">
-			<c:forEach items="${product.imagePaths}" var="imagePath">
-			<ul class="slides">
-				 <li data-thumb="${imagePath}">
-			        <div class="thumb-image"> <img src="${imagePath}" data-imagezoom="true" class="img-responsive"> </div>
-			    </li>
-			</ul>
-			</c:forEach>			  
+<div class="col-md-12">
+
+<!-- slide images -->
+
+	<div id="wrapper"> 
+		<div class="container" id="leftCarousel">		
+		  <div id="myCarousel" class="carousel slide" data-ride="carousel">		    	
+		    <!-- Wrapper for slides -->
+		    <div class="carousel-inner" >
+		    
+		    <div class="item active" >
+		    	<c:set var="index" value="${0}"/>
+		        <img src="/MyEmag/image/${product.productId}/${index}"  style="width:100%;">
+		      </div> 
+		    
+		    <c:forEach var="i" begin="1" end="${fn:length(product.imagePaths)-1}">
+		      <div class="item">
+		        <img src="/MyEmag/image/${product.productId}/${i}"  style="width:100%;">
+		      </div> 
+			</c:forEach>
+		     
+		    </div>
+		
+		    <!-- Left and right controls -->
+		    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+		      <span class="glyphicon glyphicon-chevron-left"></span>
+		      <span class="sr-only">Previous</span>
+		    </a>
+		    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+		      <span class="glyphicon glyphicon-chevron-right"></span>
+		      <span class="sr-only">Next</span>
+		    </a>
+		  </div>
 		</div>
-	</div>	
-<div class="col-md-7 single-top-in">
+
+
+<!-- //slide images -->
+	
+<div class="col-md-7 single-top-in" id="rightInfo">
 		<div class="span_2_of_a1 simpleCart_shelfItem">
 				<h3>${product.title}</h3>
 			    <div class="price_single">
@@ -129,7 +174,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<c:if test="${sessionScope.messageDiscount!=null}">
 				<c:out value="${sessionScope.messageDiscount}"/>
 			</c:if>
-			<form action="${product.productId}/setDiscount" method="post">
+			<form action="/MyEmag/product/${product.productId}/setDiscount" method="post">
 			Enter 1-100:
 				<input type="text" name="discount" placeholder="Percent number" />
 			  	<input type="submit" value="Set discount" />
@@ -137,8 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- END form DISCOUNT -->
 	
 			<!-- form DELETE -->
-			<!-- <a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>-->
-			<form action="${product.productId}/delete" method="post">		 
+			<form action="/MyEmag/product/${product.productId}/delete" method="post">		 
 			  <input type="submit" value="Delete">
 			</form> 
 			<!-- END form DELETE -->
@@ -182,7 +226,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="clearfix"> </div>
 	</div>
 </div>	
-		
+	
+	
+</div>	
 	<!--//content-->
 <jsp:include page="insertFooter.jsp" />
 </body>

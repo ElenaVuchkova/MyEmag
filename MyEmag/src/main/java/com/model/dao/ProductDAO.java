@@ -338,12 +338,12 @@ public class ProductDAO {
 		return allProductsBySubcategory;
 	}
 	
-	public synchronized ArrayList<Product> getTopTwelveReviewedProducts () throws SQLException {
-		ArrayList<Product> topTwelveReviewedProducts=new ArrayList<>();
-		String sql = "SELECT p.product_id, p.title, quantity, p.price, 	p.descr_key1, p.descr_value1," 
+	public synchronized ArrayList<Product> getTopTwelveNewProducts () throws SQLException {
+		ArrayList<Product> topTwelveNewProducts=new ArrayList<>();
+		String sql = "SELECT p.product_id, p.title, quantity, p.price, 	p.descr_key1, p.descr_value1,"
 				+"p.descr_key2, p.descr_value2, p.descr_key3, p.descr_value3, p.sale_price, s.name as subcategory,"
-				+"c.name AS category	FROM products p JOIN subcategories s ON (p.subcategory_id=s.subcategory_id) "
-				+"JOIN categories c ON (s.category_id=c.category_id) WHERE(SELECT COUNT(product_id) FROM reviews LIMIT 12)";	
+				+"c.name AS category	FROM products p JOIN subcategories s ON (p.subcategory_id=s.subcategory_id)"
+				+"JOIN categories c ON (s.category_id=c.category_id) order by product_id desc LIMIT 12";	
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		ResultSet res = st.executeQuery();
 		while(res.next()){
@@ -369,8 +369,8 @@ public class ProductDAO {
 				r.setProduct(p);
 			}
 			p.setReviews(reviews);
-			topTwelveReviewedProducts.add(p);
+			topTwelveNewProducts.add(p);
 		}
-		return topTwelveReviewedProducts;
+		return topTwelveNewProducts;
 	}
 }
