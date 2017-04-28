@@ -1,7 +1,7 @@
 package com.controller;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import java.util.HashSet;
@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.model.Product;
 import com.model.Review;
 import com.model.User;
@@ -28,6 +30,11 @@ import com.model.dao.UserDAO;
 
 @Controller
 public class ProductController {
+	public static final String DATE="date";
+	public static final String PRICE_ASC="price asc.";
+	public static final String PRICE_DESC="price desc.";
+	public static final String SALE_DESC="sale desc.";
+	public static final String MOST_REVIEWS="most reviews";
 	
 	//view product
 	@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
@@ -113,7 +120,7 @@ public class ProductController {
 					TreeSet<Product> allProductsBySubcategorySorted=null;
 					Comparator<Product> comp=null;
 					switch (param) {
-					case "price desc.":
+					case PRICE_DESC:
 						comp=new Comparator<Product>() {
 							@Override
 							public int compare(Product o1, Product o2) {
@@ -128,7 +135,7 @@ public class ProductController {
 							}
 						};
 						break;
-					case "price asc.":
+					case PRICE_ASC:
 						comp=new Comparator<Product>() {
 							@Override
 							public int compare(Product o1, Product o2) {
@@ -143,7 +150,7 @@ public class ProductController {
 							}
 						};
 						break;
-					case "most reviews":
+					case MOST_REVIEWS:
 						comp=new Comparator<Product>() {
 							@Override
 							public int compare(Product o1, Product o2) {
@@ -159,7 +166,7 @@ public class ProductController {
 							}
 						};
 						break;
-					case "sale desc.":
+					case SALE_DESC:
 						comp=new Comparator<Product>() {
 							@Override
 							public int compare(Product o1, Product o2) {
@@ -173,7 +180,7 @@ public class ProductController {
 							}
 						};
 						break;
-					case "date":
+					case DATE:
 						comp=new Comparator<Product>() {
 							@Override
 							public int compare(Product o1, Product o2) {
@@ -219,6 +226,7 @@ public class ProductController {
 			return "login";
 		}
 		
+
 		@RequestMapping(value="/product/{productId}/addToWishList",method = RequestMethod.POST)
 		public String addToWishList (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
@@ -238,5 +246,19 @@ public class ProductController {
 			return "login";
 		}
 		
+		@RequestMapping (value="/search", method=RequestMethod.GET)
+		public String searchProducts(HttpServletRequest request,Model model ) {
+			String keyword = request.getParameter("keyword").toLowerCase().trim();
+			String[] keywords = keyword.split(" ");
+			HashSet<Product> searchResult = new HashSet<>();
+			try {
+				searchResult=ProductDAO.getInstance().searchProduct(keywords);
+			} catch (SQLException e) {
+				System.out.println("SQL- search product- " + e.getMessage());
+				return "404";
+			}
+			model.addAttribute("searchResult", searchResult.size() > 0?searchResult:null);
+			return "search";
+		}
 		
 	}
