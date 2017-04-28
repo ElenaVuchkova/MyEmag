@@ -115,8 +115,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     	if(newVal>=1) divUpd.text(newVal);
     });
 	</script>
-	<!--quantity-->
-				
+	<!--quantity-->			
 				
 <!-- if user -->
 	<c:if test="${sessionScope.logged && sessionScope.user.role == 1}">
@@ -126,7 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			 		<c:if test="${message!=null}">
 						<c:out value="${message}"/>
 					</c:if>
-				 		<form class="wish-button" action="/MyEmag/product/${product.productId}/addToWishList" method="post">		 
+			  			<form class="wish-button" action="/MyEmag/product/${product.productId}/addToWishList" method="post">		 
 			  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to wishlist">
 						</form> 
 						<form class="wish-button" action="/MyEmag/product/${product.productId}/addToCart" method="post">		 

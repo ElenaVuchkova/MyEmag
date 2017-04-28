@@ -116,45 +116,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<li><a class="color4" href="404.html">About</a></li>
             <li ><a class="color6" href="contact.html">Contact</a></li>
         </ul>
+         <!--Search product-->
+        <div class="menu-top">
+			<div class="col1">
+				<div class="h_nav">	
+     				<form action="search" method="GET">
+			          	 <input type="text"  class="glyphicon glyphicon-search" name="keyword" placeholder="Search for product..." value="" required> 		
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--/Search product-->
      </div><!-- /.navbar-collapse -->
 
 </nav>
-			</div>
+</div>
 			<div class="col-sm-2 search-right">
 				<ul class="heart">
 				<li>
 				<a href="/MyEmag/wishlist" >
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				</a></li>
-				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li>
-					</ul>
-					<div class="cart box_1">
-						<a href="/MyEmag/cart">
-						<h3> <div class="total">
-							<!-- <span class="simpleCart_total"></span></div>-->
-							<img src="/MyEmag/images/cart.png" alt=""/></h3>
-						</a>
+				</a>
+				</li>	
+				<div class="cart box_1">
+					<a href="/MyEmag/cart">
+					<h3> <div class="total"></div>
+						<!-- <span class="simpleCart_total"></span>-->
+						<img src="/MyEmag/images/cart.png" alt=""/>
+					</h3>
+					</a>
 					</div>
-					<div class="clearfix"> </div>
-					
-						<!----->
-
-						<!---pop-up-box---->					  
-			<link href="/MyEmag/css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
-			<script src="/MyEmag/js/jquery.magnific-popup.js" type="text/javascript"></script>
-			<!---//pop-up-box---->
-			<div id="small-dialog" class="mfp-hide">
-				<div class="search-top">
-					<div class="login-search">
-						<input type="submit" value="">
-						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">		
-					</div>
-					<p>Shopin</p>
-				</div>				
+				</ul>
 			</div>
-			<!----->
-			</div>
-			<div class="clearfix"></div>
 		</div>	
 	</div>	
 </div>

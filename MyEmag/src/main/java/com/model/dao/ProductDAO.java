@@ -160,12 +160,14 @@ public class ProductDAO {
 //		return products;
 //	}
 	
-	public synchronized ArrayList<Product> searchProduct (String word) {
-		ArrayList<Product> products=new ArrayList<>();
+	public synchronized HashSet<Product> searchProduct (String [] keywords) {
+		HashSet<Product> products=new HashSet<>();
 		for (Product p : ALL_PRODUCTS.values()) {
 			String title=p.getTitle();
-			if (title.toLowerCase().contains(word.toLowerCase())) {
-				products.add(p);
+			for (int i=0; i<keywords.length; i++) {
+				if (title.toLowerCase().contains(keywords[i])) {
+					products.add(p);
+				}
 			}
 		}
 		return products;

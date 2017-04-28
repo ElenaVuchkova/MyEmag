@@ -31,8 +31,8 @@ import com.model.dao.SubcategoryDAO;
 @Controller
 @MultipartConfig
 public class ChangeProductController {
-	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	private String jspName;
 	
 	

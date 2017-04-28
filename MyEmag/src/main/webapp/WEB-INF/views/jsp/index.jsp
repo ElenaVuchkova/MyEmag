@@ -119,20 +119,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
              <li ><a class="color6" href="addProduct">Add product</a></li>
             </c:if>
-             <!-- //if admin -->    
+             <!-- //if admin -->   
         </ul>
+        <!--Search product-->
+        <div class="menu-top">
+			<div class="col1">
+				<div class="h_nav">	
+     				<form action="search" method="GET">
+			          	 <input type="text"  class="glyphicon glyphicon-search" name="keyword" placeholder="Search for product..." value="" required> 		
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--/Search product-->
      </div><!-- /.navbar-collapse -->
 
 </nav>
-			</div>
+</div>
+			
 			<div class="col-sm-2 search-right">
 				<ul class="heart">
 				<li>
 				<a href="/MyEmag/wishlist" >
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				</a></li>
-				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li>
-					</ul>
+					
 					<div class="cart box_1">
 						<a href="/MyEmag/cart">
 						<h3> <div class="total">
@@ -140,6 +151,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<img src="/MyEmag/images/cart.png" alt=""/></h3>
 						</a>
 					</div>
+					</ul>
 					<div class="clearfix"> </div>
 					
 						<!---pop-up-box---->					  
