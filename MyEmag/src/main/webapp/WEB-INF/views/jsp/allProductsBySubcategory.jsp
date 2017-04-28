@@ -66,9 +66,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="col-md-3 item-grid simpleCart_shelfItem">
 					<div class=" mid-pop">
 					<div class="pro-img">
-						<img src="${product.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
+						<c:set var="index" value="${0}"/>
+						<img src="/MyEmag/image/${product.productId}/${index}" height=200 width=200 class="img-responsive" alt=""> 
 						<div class="zoom-icon ">
-						 <a class="picture" href="${product.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+						 <a class="picture" href="/MyEmag/image/${product.productId}/${index}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
 						<a href="/MyEmag/product/${product.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
 						</div>
 						</div>
@@ -103,9 +104,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="col-md-3 item-grid simpleCart_shelfItem">
 					<div class=" mid-pop">
 					<div class="pro-img">
-						<img src="${sortedProduct.imagePaths[0]}" height=200 width=200 class="img-responsive" alt=""> 
+						<img src="${sortedProduct.productId}" height=200 width=200 class="img-responsive" alt=""> 
 						<div class="zoom-icon ">
-						 <a class="picture" href="${sortedProduct.imagePaths[0]}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+						 <c:set var="index" value="${0}"/>
+						 <a class="picture" href="/MyEmag/image/${sortedProduct.productId}/${index}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
 						<a href="product/${sortedProduct.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
 						</div>
 						</div>

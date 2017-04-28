@@ -69,7 +69,10 @@ public class ChangeProductController {
 	}
 	
 	@RequestMapping(value="/addProduct",method = RequestMethod.POST)
-	public String addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture, HttpServletRequest req,HttpSession session) {
+	public String addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture,
+										@RequestParam("picture1") MultipartFile multiPartPicture1, 
+										@RequestParam("picture2") MultipartFile multiPartPicture2, 
+										HttpServletRequest req,HttpSession session) {
 		if(session.getAttribute("username") != null && (Boolean)session.getAttribute("logged")) {
 			String title=req.getParameter("title");
 			int quantity=Integer.parseInt(req.getParameter("quantity"));
@@ -92,18 +95,49 @@ public class ChangeProductController {
 			//check size
 			//FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\"
 			//zapisvame snimkata v bazata
+			
+			ArrayList<String> paths = new ArrayList<>();
+			
 			if(multiPartPicture.getSize() != 0) {			
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture.getOriginalFilename());
 					Files.copy(multiPartPicture.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					ArrayList<String> paths = new ArrayList<>();
+					//ArrayList<String> paths = new ArrayList<>();
 					//samo original name
 					paths.add(multiPartPicture.getOriginalFilename());
-					p.setImagePaths(paths);
+					//p.setImagePaths(paths);
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
 			}
+			
+			if(multiPartPicture1.getSize() != 0) {			
+				try {
+					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture1.getOriginalFilename());
+					Files.copy(multiPartPicture1.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					//ArrayList<String> paths = new ArrayList<>();
+					//samo original name
+					paths.add(multiPartPicture1.getOriginalFilename());
+					//p.setImagePaths(paths);
+				} catch (IOException e) {
+					System.out.println("io exception int check size comment"+e.getMessage());
+				}
+			}
+			
+			if(multiPartPicture1.getSize() != 0) {			
+				try {
+					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture2.getOriginalFilename());
+					Files.copy(multiPartPicture2.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					//ArrayList<String> paths = new ArrayList<>();
+					//samo original name
+					paths.add(multiPartPicture2.getOriginalFilename());
+					//p.setImagePaths(paths);
+				} catch (IOException e) {
+					System.out.println("io exception int check size comment"+e.getMessage());
+				}
+			}
+			
+			p.setImagePaths(paths);
 			
 			try {
 				ProductDAO.getInstance().addProduct(p);

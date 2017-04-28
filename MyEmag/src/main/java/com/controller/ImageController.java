@@ -42,18 +42,25 @@ public class ImageController {
 	
 	private static final String FILE_PATH = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
 	//vizualizaciq na kartinkata
-	@RequestMapping (value="/image/{productId}", method=RequestMethod.GET)
+	@RequestMapping (value="/image/{productId}/{index}", method=RequestMethod.GET)
 	@ResponseBody
-	public void getImage(Model viewModel, @PathVariable("productId") Integer productId, HttpServletResponse response){
+	public void getImage(Model viewModel, @PathVariable("productId") Integer productId,
+										  @PathVariable("index") Integer index, 
+										  HttpServletResponse response){
 		ArrayList<String> pics;
 		try {
 			pics = ImageDAO.getInstance().getAllImagePathsByProduct(productId);
-			for(String pic: pics){
-				//imeto na snimkata s product s id=productId
-				File file = new File(FILE_PATH + pic);
-				System.out.println("Koq kartinka zarejda -> "+FILE_PATH+pic);
-				Files.copy(file.toPath(), response.getOutputStream());
-			}
+			String p=pics.get(index);
+			File file = new File(FILE_PATH + p);
+			System.out.println("Koq kartinka zarejda -> "+FILE_PATH+p);
+			Files.copy(file.toPath(), response.getOutputStream());
+			
+//			for(String pic: pics){
+//				//imeto na snimkata s product s id=productId
+//				File file = new File(FILE_PATH + pic);
+//				System.out.println("Koq kartinka zarejda -> "+FILE_PATH+pic);
+//				Files.copy(file.toPath(), response.getOutputStream());
+//			}
 		} catch (SQLException | IOException e) {
 			System.out.println("image controller - getImage - "+e.getMessage());
 		}		

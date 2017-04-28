@@ -30,7 +30,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="col-md-9">
 	<div class="col-md-5 grid">		
 		<div class="flexslider">
-			 <div class="thumb-image"> <img src="${product.imagePaths[0]}" data-imagezoom="true" class="img-responsive"> </div>
+			 <c:set var="index" value="${0}"/>
+			 <div class="thumb-image"> <img src="/MyEmag/image/${product.productId}/${index}" data-imagezoom="true" class="img-responsive"> </div>
 		</div>	
 	<div class="col-md-7 single-top-in">
 		<div class="span_2_of_a1 simpleCart_shelfItem">

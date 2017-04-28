@@ -57,7 +57,8 @@ Ime : <c:out value="${sessionScope.username}"/>
 			  </tr>
 			  <c:forEach items="${sessionScope.cart}" var="product">
 			  <tr class="cart-header">
-				<td class="ring-in"><a href="product" class="at-in"><img src="${product.imagePaths[0]}" class="img-responsive"  alt=""></a>
+			  	<c:set var="index" value="${0}"/>
+				<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${product.productId}/${index}" class="img-responsive"  alt=""></a>
 				
 				<div class="clearfix"> </div>
 				</td>

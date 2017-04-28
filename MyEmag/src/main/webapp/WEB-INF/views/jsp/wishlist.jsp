@@ -40,7 +40,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  </tr>
 			  <c:forEach items="${fovuriteProducts}" var="product">
 			  <tr class="cart-header">
-				<td class="ring-in"><a href="product" class="at-in"><img src="${product.imagePaths[0]}" class="img-responsive"  alt=""></a>
+			    <c:set var="index" value="${0}"/>
+				<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${product.productId}/${index}" class="img-responsive"  alt=""></a>
 				
 				<div class="clearfix"> </div>
 				<div class="close1"> </div></td>
