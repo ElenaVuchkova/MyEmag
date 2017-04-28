@@ -38,8 +38,8 @@ public class ChangeProductController {
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.GET)
 	public String createProduct (Model m, HttpSession session) {
-//		User user = (User)session.getAttribute("user");
-//		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			ArrayList<String> categories=new ArrayList<>();
 			ArrayList<String> subcategories=new ArrayList<>();
 			HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
@@ -54,8 +54,7 @@ public class ChangeProductController {
 					for(String s:subcategories){
 						catAndSubcat.get(c).add(s);
 						System.out.println(s);
-					}
-					
+					}					
 				}
 				System.out.println(catAndSubcat.size());
 				m.addAttribute("catAndSubcat", catAndSubcat);
@@ -63,15 +62,15 @@ public class ChangeProductController {
 				System.out.println("sql index controller"+e.getMessage());
 			}
 			return "addProduct";
-//		}
-//		else{
-//			return "login";
-//		}
+		}
+		else{
+			return "login";
+		}
 	}
 	
 	@RequestMapping(value="/addProduct",method = RequestMethod.POST)
 	public String addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture, HttpServletRequest req,HttpSession session) {
-		//if(session.getAttribute("username") != null && (Boolean)session.getAttribute("logged")) {
+		if(session.getAttribute("username") != null && (Boolean)session.getAttribute("logged")) {
 			String title=req.getParameter("title");
 			int quantity=Integer.parseInt(req.getParameter("quantity"));
 			double price = Double.parseDouble(req.getParameter("price"));
@@ -88,15 +87,18 @@ public class ChangeProductController {
 			//create product
 			Product p=new Product(category, subcategory, title, quantity, price, descrKey1, descrValue1,
 					descrKey2, descrValue2, descrKey3, descrValue3,0.0);
-			
+		
 			
 			//check size
+			//FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\"
+			//zapisvame snimkata v bazata
 			if(multiPartPicture.getSize() != 0) {			
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture.getOriginalFilename());
 					Files.copy(multiPartPicture.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 					ArrayList<String> paths = new ArrayList<>();
-					paths.add(FILE_LOCATION+multiPartPicture.getOriginalFilename());
+					//samo original name
+					paths.add(multiPartPicture.getOriginalFilename());
 					p.setImagePaths(paths);
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment"+e.getMessage());
@@ -109,10 +111,10 @@ public class ChangeProductController {
 				jspName= "addProduct";
 				System.out.println(e.getMessage());
 			}
-//		}
-//		else {
-//			jspName = "login";
-//		}		
+		}
+		else {
+			jspName = "login";
+		}		
 		return jspName;
 	}
 	

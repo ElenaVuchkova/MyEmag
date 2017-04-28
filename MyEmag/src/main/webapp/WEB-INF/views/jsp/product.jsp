@@ -35,8 +35,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="flexslider">
 			<c:forEach items="${product.imagePaths}" var="imagePath">
 			<ul class="slides">
-				 <li data-thumb="${imagePath}">
-			        <div class="thumb-image"> <img src="${imagePath}" data-imagezoom="true" class="img-responsive"> </div>
+				 <li data-thumb="/MyEmag/image/${product.productId}">
+			        <div class="thumb-image"> <img src="/MyEmag/image/${product.productId}" data-imagezoom="true" class="img-responsive"> </div>
 			    </li>
 			</ul>
 			</c:forEach>			  
@@ -130,7 +130,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<c:if test="${sessionScope.messageDiscount!=null}">
 				<c:out value="${sessionScope.messageDiscount}"/>
 			</c:if>
-			<form action="${product.productId}/setDiscount" method="post">
+			<form action="/MyEmag/product/${product.productId}/setDiscount" method="post">
 			Enter 1-100:
 				<input type="text" name="discount" placeholder="Percent number" />
 			  	<input type="submit" value="Set discount" />
@@ -138,8 +138,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- END form DISCOUNT -->
 	
 			<!-- form DELETE -->
-			<!-- <a href="${product.productId}/delete" class="add-to item_add hvr-skew-backward">Delete product</a>-->
-			<form action="${product.productId}/delete" method="post">		 
+			<form action="/MyEmag/product/${product.productId}/delete" method="post">		 
 			  <input type="submit" value="Delete">
 			</form> 
 			<!-- END form DELETE -->

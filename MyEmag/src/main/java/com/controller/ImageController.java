@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletResponse;
@@ -19,25 +21,45 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.model.Product;
+import com.model.dao.ImageDAO;
 
 @Controller
 //@SessionAttributes("filename")
 @MultipartConfig
 public class ImageController {
 	
-	private String vzemiToqImage;
 
-	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
-	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+//	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+//	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+//	
+//	
+//	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)
+//	@ResponseBody
+//	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
+//		File file = new File(FILE_LOCATION + vzemiToqImage);
+//		Files.copy(file.toPath(), resp.getOutputStream());
+//	}
 	
-	
-	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)
+	private static final String FILE_PATH = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	//vizualizaciq na kartinkata
+	@RequestMapping (value="/image/{productId}", method=RequestMethod.GET)
 	@ResponseBody
-	public void prepareForUpload(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
-		File file = new File(FILE_LOCATION + vzemiToqImage);
-		Files.copy(file.toPath(), resp.getOutputStream());
+	public void getImage(Model viewModel, @PathVariable("productId") Integer productId, HttpServletResponse response){
+		ArrayList<String> pics;
+		try {
+			pics = ImageDAO.getInstance().getAllImagePathsByProduct(productId);
+			for(String pic: pics){
+				//imeto na snimkata s product s id=productId
+				File file = new File(FILE_PATH + pic);
+				System.out.println("Koq kartinka zarejda -> "+FILE_PATH+pic);
+				Files.copy(file.toPath(), response.getOutputStream());
+			}
+		} catch (SQLException | IOException e) {
+			System.out.println("image controller - getImage - "+e.getMessage());
+		}		
 	}
 	
+	/*
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public String prepareForUpload(HttpSession session) {		
 		Product p=(Product)session.getAttribute("product");
@@ -52,5 +74,5 @@ public class ImageController {
 		vzemiToqImage = multiPartFile.getOriginalFilename();
 		model.addAttribute("filename", multiPartFile.getOriginalFilename());
 		return "upload";
-	}
+	}*/
 }

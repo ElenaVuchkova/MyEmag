@@ -83,6 +83,8 @@ function fillSubcategories(){
 		        </select> <br>      
 		        
 				<label for="photo"> Select picture:  </label> <br>			
+				<input type="file" name="picture" size="50" placeholder="Upload Image" ><br><br>	
+				<label for="photo"> Select picture:  </label> <br>			
 				<input type="file" name="picture" size="50" placeholder="Upload Image" ><br><br>			 	
 				<input type="submit" value = "Add product"></br>
 		</form>
