@@ -45,6 +45,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</script>
 <!---//End-rate---->
 
+<style>	
+	#searchInput {
+	height: 2em;
+	margin-left: 1em;
+	border: 1px solid black;
+	text-align: center;
+	}
+</style>
 </head>
 <body>
 <!--header-->
@@ -121,7 +129,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col1">
 				<div class="h_nav">	
      				<form action="search" method="GET">
-			          	 <input type="text"  class="glyphicon glyphicon-search" name="keyword" placeholder="Search for product..." value="" required> 		
+			          	 <input type="text"  class="glyphicon glyphicon-search" name="keyword" placeholder="Search for product..." value="" required id="searchInput"> 		
 					</form>
 				</div>
 			</div>

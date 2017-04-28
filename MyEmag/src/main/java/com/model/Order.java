@@ -26,7 +26,12 @@ public class Order {
 	public void calculatePrice() {
 		if (this.products!=null) {
 			for (Product p: products) {
-				this.price+=p.getPrice();
+				double price=p.getPrice();
+				double salePrice=p.getSalePrice();
+				if (salePrice!=0) {
+					this.price+=salePrice;
+				}
+				this.price+=price;
 			}
 		}
 	}

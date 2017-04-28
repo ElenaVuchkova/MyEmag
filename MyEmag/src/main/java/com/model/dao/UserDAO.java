@@ -45,14 +45,14 @@ public class UserDAO {
 		res.next();
 		int userId =res.getInt(1);
 		u.setUserId(userId);
-		//allUsers.put(u.getUsername(), u);
-		
+		User u1=UserDAO.getInstance().getUserFromDB(userId);
+		ALL_USERS.put(u1.getUsername(), u1);
 	}
 	
 	//get all users from db
 	//TODO 
 	private HashMap<String, User> getAllUsers() throws SQLException{
-		//if(allUsers.isEmpty()){
+		if(ALL_USERS.isEmpty()){
 			String sql = "SELECT user_id, username, password, email, role, isSubscriber FROM users;";
 			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ResultSet res = st.executeQuery();
@@ -67,7 +67,7 @@ public class UserDAO {
 				u.setUserId(id);
 				ALL_USERS.put(u.getUsername(), u);
 			}
-	//	}
+		}
 		return ALL_USERS;
 	}
 	
@@ -142,5 +142,23 @@ public class UserDAO {
 			}
 		}
 		return subscribers;
+	}
+	
+	public synchronized User getUserFromDB (int id) throws SQLException {
+		String sql = "SELECT user_id, username, password, email, role, isSubscriber FROM users WHERE user_id=?;";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, id);
+		ResultSet res = st.executeQuery();
+		while(res.next()){
+			User u =new User();
+			u.setUserId(id);
+			u.setUsername(res.getString("username"));
+			u.setPassword(res.getString("password")); 
+			u.setEmail(res.getString("email"));
+			u.setRole(res.getInt("role"));
+			u.setIsSubscriber(res.getInt("isSubscriber"));
+			return u;
+			}
+		return null;
 	}
 }

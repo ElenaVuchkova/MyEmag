@@ -63,6 +63,7 @@ public class ProductDAO {
 			for (String path : imagePaths) {
 				ImageDAO.getInstance().addImagePath(path, productId);
 			}
+			con.commit();
 			p.setImagePaths(imagePaths);
 		} catch (SQLException e) {
 			System.out.println("SQL transaction to insert product -" + e.getMessage());
@@ -224,22 +225,27 @@ public class ProductDAO {
 	public synchronized void deleteProduct (int id) throws SQLException{
 		String sql1 = "DELETE FROM reviews WHERE product_id=?";
 		String sql2 = "DELETE FROM images WHERE product_id=?";
-		String sql3 = "DELETE FROM products WHERE product_id=?";
+		String sql3 = "DELETE FROM favouriteproducts WHERE product_id=?";
+		String sql4 = "DELETE FROM products WHERE product_id=?";
 		PreparedStatement st1=null;
 		PreparedStatement st2=null;
 		PreparedStatement st3=null;
+		PreparedStatement st4=null;
 		Connection con=DBManager.getInstance().getConnection();
 		try {
 			con.setAutoCommit(false);
 			st1 = con.prepareStatement(sql1);
 			st2 = con.prepareStatement(sql2);
 			st3 = con.prepareStatement(sql3);
+			st4 = con.prepareStatement(sql4);
 			st1.setInt(1, id);
 			st2.setInt(1, id);
 			st3.setInt(1, id);
+			st4.setInt(1, id);
 			st1.executeUpdate();
 			st2.executeUpdate();
 			st3.executeUpdate();
+			st4.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
 			System.out.println("SQL transaction to delete product -" + e.getMessage());

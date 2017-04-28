@@ -39,7 +39,7 @@ public class FavouriteProductsDAO {
 		st.setInt(2, productId);
 		st.executeUpdate();
 	}
-
+	
 	public synchronized ArrayList<Product> getAllFavouriteProductsByUser (String username) throws SQLException {
 		ArrayList<Product> products=new ArrayList<>(); 
 		User user=UserDAO.getInstance().getUser(username);

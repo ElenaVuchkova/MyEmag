@@ -81,9 +81,9 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginPage(Model model, HttpSession session) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
-			return new ModelAndView("index", "user", new User());
+			return new ModelAndView("index");
 		}
-		return new ModelAndView("login", "user", new User());
+		return new ModelAndView("login","user", new User());
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -101,10 +101,11 @@ public class UserController {
 			}
 			else{
 				session.setAttribute("logged", false);
-				session.setAttribute("login", "Could not login. Please, enter a valid username and password!");
+				m.addAttribute("login", "Could not login. Please, enter a valid username and password!");
 			}
 		} catch (SQLException e) {
-			System.out.println("Error loging in - " + e.getMessage());			
+			System.out.println("Error loging in - " + e.getMessage());
+			return "404";
 		}
 		return "login";
 	}
@@ -117,20 +118,20 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session){
+	public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session,Model m){
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 			session.invalidate();
 		}
 		if(result.hasErrors()){
-			session.setAttribute("register", "Could not register. Please, enter a valid data!");
+			m.addAttribute("register", "Could not register. Please, enter a valid data!");
 		}
 		else{			
 			try {
 				UserDAO.getInstance().addUser(user);
-				session.setAttribute("register", "Successfully register! Please, login!");			
+				m.addAttribute("register", "Successfully register! Please, login!");			
 				return "login";
 			} catch (SQLException e) {
-				session.setAttribute("register", "The user already exists!");
+				m.addAttribute("register", "The user already exists!");
 				System.out.println(e.getMessage());
 			}
 		}

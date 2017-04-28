@@ -31,8 +31,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 	
-	<c:if test="${sessionScope.register!=null}">
-		<c:out value="${sessionScope.register}"/>
+	<c:if test="${register!=null}">
+		<c:out value="${register}"/>
 	</c:if>
 
 <!--register-->
