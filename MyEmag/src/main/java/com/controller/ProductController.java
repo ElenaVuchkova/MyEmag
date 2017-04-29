@@ -159,7 +159,7 @@ public class ProductController {
 								if (o1.getReviews()!=null) {
 									size1=o1.getReviews().size();
 								}
-								if (o2.getReviews()==null) {
+								if (o2.getReviews()!=null) {
 									size2=o2.getReviews().size();
 								}
 								return size2-size1;

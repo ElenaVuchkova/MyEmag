@@ -40,7 +40,8 @@ public class ImageController {
 //		Files.copy(file.toPath(), resp.getOutputStream());
 //	}
 	
-	private static final String FILE_PATH = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	//private static final String FILE_PATH = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	private static final String FILE_PATH = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	//vizualizaciq na kartinkata
 	@RequestMapping (value="/image/{productId}/{index}", method=RequestMethod.GET)
 	@ResponseBody
