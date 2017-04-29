@@ -6,13 +6,6 @@ import java.util.Collections;
 
 public class Product implements Comparable<Product>{
 	
-	@Override
-	public String toString() {
-		return "Product [productId=" + productId + ", category=" + category + ", subcategory=" + subcategory
-				+ ", title=" + title + ", quantity=" + quantity + ", price=" + price + "]";
-	}
-
-
 	private int productId;
 	private String category;
 	private String subcategory;
@@ -29,8 +22,6 @@ public class Product implements Comparable<Product>{
 	private ArrayList<Review> reviews;
 	private double salePrice;
 	
-	
-
 	public Product () {
 		
 	}
@@ -201,6 +192,7 @@ public class Product implements Comparable<Product>{
 	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
+	
 
 	@Override
 	public int compareTo(Product o) {
@@ -307,5 +299,10 @@ public class Product implements Comparable<Product>{
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", category=" + category + ", subcategory=" + subcategory
+				+ ", title=" + title + ", quantity=" + quantity + ", price=" + price + "]";
+	}
+
 }

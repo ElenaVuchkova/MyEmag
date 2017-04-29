@@ -27,12 +27,13 @@ import com.model.dao.CategoryDAO;
 import com.model.dao.EmailSender;
 import com.model.dao.ProductDAO;
 import com.model.dao.SubcategoryDAO;
+import com.model.dao.UserDAO;
 
 @Controller
 @MultipartConfig
 public class ChangeProductController {
-	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	private String jspName;
 	
 	
@@ -92,20 +93,13 @@ public class ChangeProductController {
 					descrKey2, descrValue2, descrKey3, descrValue3,0.0);
 		
 			
-			//check size
-			//FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\"
-			//zapisvame snimkata v bazata
-			
 			ArrayList<String> paths = new ArrayList<>();
 			
 			if(multiPartPicture.getSize() != 0) {			
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture.getOriginalFilename());
 					Files.copy(multiPartPicture.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					//ArrayList<String> paths = new ArrayList<>();
-					//samo original name
 					paths.add(multiPartPicture.getOriginalFilename());
-					//p.setImagePaths(paths);
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
@@ -115,10 +109,7 @@ public class ChangeProductController {
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture1.getOriginalFilename());
 					Files.copy(multiPartPicture1.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					//ArrayList<String> paths = new ArrayList<>();
-					//samo original name
 					paths.add(multiPartPicture1.getOriginalFilename());
-					//p.setImagePaths(paths);
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
@@ -128,10 +119,7 @@ public class ChangeProductController {
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture2.getOriginalFilename());
 					Files.copy(multiPartPicture2.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					//ArrayList<String> paths = new ArrayList<>();
-					//samo original name
 					paths.add(multiPartPicture2.getOriginalFilename());
-					//p.setImagePaths(paths);
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
@@ -203,11 +191,16 @@ public class ChangeProductController {
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			int discount=Integer.parseInt(req.getParameter("discount"));
-			if(discount>1 && discount<=100){
+			if(discount>=1 && discount<=100){
 				try {
-					ProductDAO.getInstance().makeSaleForOneProduct(productId, discount);					
+					ProductDAO.getInstance().makeSaleForOneProduct(productId, discount);
+					ArrayList<User> users=UserDAO.getInstance().allSubscribers();
+					sendEmail(users);
 				} catch (SQLException e) {
 					System.out.println("sql setDiscount "+e.getMessage());
+					return "404";
+				} catch (MessagingException e) {
+					System.out.println("sql setDiscount messaging "+e.getMessage());
 					return "404";
 				}
 			}
@@ -229,12 +222,14 @@ public class ChangeProductController {
 					int discount=Integer.parseInt(req.getParameter("discount"));
 					if(discount>=1 && discount<100){
 						ProductDAO.getInstance().makeSaleForAllProductsBySubcategory(subcategory, discount);
+						ArrayList<User> users=UserDAO.getInstance().allSubscribers();
+						sendEmail(users);
 					}
 					else{
 						session.setAttribute("messageDiscount", "Please, enter number between 1 and 100!");
 					}	
 				}
-			} catch (SQLException e) {
+			} catch (SQLException | MessagingException e) {
 				System.out.println("sql setDiscountForSubcat "+e.getMessage());
 				return "404";
 			}

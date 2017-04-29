@@ -17,9 +17,11 @@
 <body>
 <!--//footer-->
 	<div class="footer">
-	<div class="footer-middle">
+	<!-- if user -->
+	
+	  <div class="footer-middle">
 				<div class="container">
-					<c:if test="${sessionScope.logged}">
+					<c:if test="${sessionScope.logged && sessionScope.user.role == 1}">
 						<div class="col-md-3 footer-middle-in">
 							<h6>Newsletter! Here you can subscribe for sales</h6>
 							<button onclick="myFunction()">Subscribe</button>
@@ -34,8 +36,10 @@
 					
 					<div class="clearfix"> </div>
 				</div>
-			</div>
 		</div>
+		
+	<!-- //if user -->
+	</div>
 		<!--//footer-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/MyEmag/js/simpleCart.min.js"> </script>

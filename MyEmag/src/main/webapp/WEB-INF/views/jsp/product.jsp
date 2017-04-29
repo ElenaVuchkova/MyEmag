@@ -104,17 +104,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p class="quick_desc">${product.descrKey3}: ${product.descrValue3}</p>
 				
 				
-	<script>
-    $('.value-plus').on('click', function(){
-    	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-    	divUpd.text(newVal);
-    });
-
-    $('.value-minus').on('click', function(){
-    	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-    	if(newVal>=1) divUpd.text(newVal);
-    });
-	</script>
+	
 	<!--quantity-->			
 				
 <!-- if user -->
@@ -137,16 +127,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			 		</li>
 			 	</ul>
 			 </div>
-			 <!-- 
-			 <div class="quantity"> 
-							<div class="quantity-select">                           
-								<div class="entry value-minus">&nbsp;</div>
-								<div class="entry value"><span>1</span></div>
-								<div class="entry value-plus active">&nbsp;</div>
-							</div>
-			 </div>	
-			 -->
-			 
+			 	 
 			 	
 				<div class="clearfix"> </div>
 	</c:if>

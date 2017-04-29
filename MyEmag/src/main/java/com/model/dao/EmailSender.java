@@ -32,7 +32,7 @@ public class EmailSender {
             
             String link = "<a href=\"http://localhost:8080/MyEmag/sale\">Sale</a>";
             String subject = "Notification from eBag!";
-            String messageHtml = "Hello,<br><br>We've got new sale " + link + "!<br>Come back and see ;)<br><br>Sincerely,<br><strong>MyEmag</strong> team. ";
+            String messageHtml = "Hello,<br><br>We've got a new " + link + "!<br>Come back and see ;)<br><br>Sincerely yours,<br><strong>eBag</strong> team. ";
             boolean sessionDebug = false;
 
             Properties props = System.getProperties();

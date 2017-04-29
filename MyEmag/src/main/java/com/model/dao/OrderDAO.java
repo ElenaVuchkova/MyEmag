@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.model.Order;
@@ -34,21 +35,22 @@ public class OrderDAO {
 		String paymentType=o.getPayment();
 		o.setDate(LocalDateTime.now());
 		int paymentId=PaymentDAO.getInstance().getPaymentId(paymentType);
-		String sql = "INSERT INTO orders (price, date, user_id, payment_id) values (?,?,?,?)";
+		String sql = "INSERT INTO orders (price, date, user_id, payment_id, address) values (?,?,?,?,?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 		st.setDouble(1, o.getPrice());
 		st.setTimestamp(2, java.sql.Timestamp.valueOf(o.getDate()));
 		st.setInt(3, userId);
 		st.setInt(4, paymentId);
+		st.setString(5, o.getAddress());
 		st.executeUpdate();
 		ResultSet rs=st.getGeneratedKeys();
 		rs.next();
 		int orderId=rs.getInt(1);
 		o.setOrderId(orderId);
-		Set<Product> products=o.getProducts();
-		for (Product p: products) {
+		Map<Product,Integer> products=o.getProducts();
+		for (Product p: products.keySet()) {
 			int productId=p.getProductId();
-			OrderHasProductDAO.getInstance().addOrderedProduct(orderId, productId);
+			OrderHasProductDAO.getInstance().addOrderedProduct(orderId, productId, products.get(p));
 		}
 	}
 	

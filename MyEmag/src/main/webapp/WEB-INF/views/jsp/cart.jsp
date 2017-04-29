@@ -22,6 +22,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="/MyEmag/js/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+ <script type="text/javascript">
+ 
+	 function changeQuantity(productId, value) {
+		  	$.ajax({
+				  url: "/MyEmag/setNewQuantity/" + productId + "/" + value,
+				  type: "POST", //send it through get method
+				  contentType : 'application/json; charset=utf-8',
+				  dataType : 'json',
+				  success: function(response) {
+					  var changes = response.changes;
+					  for(i = 0; i < changes.length; i++){
+						  var price = (changes[i].messege).toFixed(2);
+	 				 	 document.getElementById(changes[i].place).innerHTML = price + " $";
+					  }	  
+				  },
+				  error: function(xhr) {
+					  document.getElementById("status").innerHTML="error";
+				  }
+			}); 
+ 
+	}
+ 
+ </script>
+
 </head>
 <body>
 <jsp:include page="insertHeader.jsp" />
@@ -33,32 +58,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		   <p>Your cart is empty!<p>
 		</c:if>
 		 <c:if test="${fn:length(sessionScope.cart) gt 0}">
-	    	    <table class="table-heading simpleCart_shelfItem">
-			  <tr>
-				<th class="table-grid">Item</th>		
-				<th>Prices</th>
-			  </tr>
-			  <c:forEach items="${sessionScope.cart}" var="product">
-			  <tr class="cart-header">
-			  	<c:set var="index" value="${0}"/>
-				<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${product.productId}/${index}" class="img-responsive"  alt=""></a>
-				
-				<div class="clearfix"> </div>
-				</td>
-				<td> <c:if test="${product.salePrice != 0}">
-	   					 $${product.salePrice}
-					  </c:if>
-					  <c:if test="${product.salePrice == 0}">
-	   					 $${product.price}
-					  </c:if>
-				</td>
-				<td class="add-check">
-				<form action="/MyEmag/cart/delete/${product.productId}" method="post">
-				<input class="item_add hvr-skew-backward" type="submit" value="Delete">
-				</form>
-				</td> 
-			  </tr>
-			  </c:forEach>
+	    		<table class="table-heading simpleCart_shelfItem">
+					  <tr>
+						<th class="table-grid">Items</th>	
+						<th>Quantity</th>	
+						<th>Prices</th>
+					  </tr>
+					  <c:forEach items="${sessionScope.cart}" var="entry">
+					  <tr class="cart-header">
+					  	<c:set var="index" value="${0}"/>
+						<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${entry.key.productId}/${index}" class="img-responsive"  alt=""></a>
+						<div class="clearfix"> </div>
+						</td>
+						<td>
+						
+						<select id="quantity" name = "cart[items][09154100][quantity]" 
+						onchange="changeQuantity(${entry.key.productId}, this.value)">
+							<c:forEach  var="i" begin="1" end="${entry.key.quantity}">
+				                <option  value="${i}"><c:out value="${i}"></c:out></option>
+				       		 </c:forEach>
+				        </select> <br>	
+						</td>
+						<td id="${entry.key.productId}"> 
+							<c:if test="${entry.key.salePrice != 0}">
+			   					 $${entry.key.salePrice}
+							  </c:if>
+							  <c:if test="${entry.key.salePrice == 0}">
+			   					 $${entry.key.price}
+							  </c:if>
+						</td>
+						
+						<td class="add-check">
+						<form action="/MyEmag/cart/delete/${entry.key.productId}" method="post">
+						<input class="item_add hvr-skew-backward" type="submit" value="Delete">
+						</form>
+						</td> 
+					  </tr>
+					  </c:forEach>
 		</table>
 		</c:if>
 		</div>

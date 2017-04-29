@@ -29,16 +29,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 	<div class="bs-example4" data-example-id="simple-responsive-table">
 	    <div class="table-responsive">
-	    <c:if test="${fn:length(sessionScope.cart) == 0}">
+	    <c:if test="${fn:length(favouriteProducts) == 0}">
 		   <p>Your wishlist is empty!<p>
 		</c:if>
-		 <c:if test="${fn:length(fovuriteProducts) gt 0}">
+		 <c:if test="${fn:length(favouriteProducts) gt 0}">
 	    	    <table class="table-heading simpleCart_shelfItem">
 			  <tr>
 				<th class="table-grid">Item</th>		
 				<th>Prices</th>
 			  </tr>
-			  <c:forEach items="${fovuriteProducts}" var="product">
+			  <c:forEach items="${favouriteProducts}" var="product">
 			  <tr class="cart-header">
 			    <c:set var="index" value="${0}"/>
 				<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${product.productId}/${index}" class="img-responsive"  alt=""></a>

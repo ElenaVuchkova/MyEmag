@@ -17,11 +17,12 @@ public class OrderHasProductDAO {
 		return instance;
 	}
 	
-	public synchronized void addOrderedProduct (int orderId, int productId) throws SQLException{
-		String sql = "INSERT INTO orders_has_products (order_id, product_id) values (?,?)";
+	public synchronized void addOrderedProduct (int orderId, int productId, int quantity) throws SQLException{
+		String sql = "INSERT INTO orders_has_products (order_id, product_id, quantity) values (?,?,?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setInt(1, orderId);
 		st.setInt(2, productId);
+		st.setInt(3, quantity);
 		st.executeUpdate();
 	}
 

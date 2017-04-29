@@ -1,9 +1,9 @@
 package com.controller;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
@@ -17,7 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.model.Product;
 import com.model.Review;
@@ -159,7 +159,7 @@ public class ProductController {
 								if (o1.getReviews()!=null) {
 									size1=o1.getReviews().size();
 								}
-								if (o2.getReviews()==null) {
+								if (o2.getReviews()!=null) {
 									size2=o2.getReviews().size();
 								}
 								return size2-size1;
@@ -211,11 +211,11 @@ public class ProductController {
 		@RequestMapping(value="/product/{productId}/addToCart",method = RequestMethod.POST)
 		public String addToCart (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
-				HashSet<Product> productsInCart=(HashSet<Product>) session.getAttribute("cart");
+				HashMap<Product, Integer> productsInCart=(HashMap<Product, Integer>) session.getAttribute("cart");
 				try {
 					if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
 						Product p=ProductDAO.getInstance().getProduct(productId);
-						productsInCart.add(p);
+						productsInCart.put(p,1);
 						return viewProduct(model, productId, session);
 					}
 				} catch (SQLException e) {

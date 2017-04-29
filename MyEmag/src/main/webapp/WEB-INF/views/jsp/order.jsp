@@ -49,35 +49,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 Ime : <c:out value="${sessionScope.username}"/>
 
-4. Products information
-<table class="table-heading simpleCart_shelfItem">
-			  <tr>
-				<th class="table-grid">Item</th>		
-				<th>Prices</th>
-			  </tr>
-			  <c:forEach items="${sessionScope.cart}" var="product">
-			  <tr class="cart-header">
-			  	<c:set var="index" value="${0}"/>
-				<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${product.productId}/${index}" class="img-responsive"  alt=""></a>
-				
-				<div class="clearfix"> </div>
-				</td>
-				<td> <c:if test="${product.salePrice != 0}">
-	   					 $${product.salePrice}
-					  </c:if>
-					  <c:if test="${product.salePrice == 0}">
-	   					 $${product.price}
-					  </c:if>
-				</td>
-				<td class="add-check">
-				</td> 
-			  </tr>
-			  </c:forEach>
-		</table>
 
-5. Order price<br />
+4. Order price<br />
 
-<c:out value="${price}"/>
+<c:out value="${sessionScope.price}"/>
 <button type="submit" class="btn btn-primary btn-block btn-large">Order</button>
 </form>
 <jsp:include page="insertFooter.jsp" />

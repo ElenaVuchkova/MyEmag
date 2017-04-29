@@ -139,6 +139,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </nav>
 </div>
+			<!-- if user -->
+			//test????
+			<c:if test="${sessionScope.user.role == 1}">
 			<div class="col-sm-2 search-right">
 				<ul class="heart">
 				<li>
@@ -148,14 +151,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</li>	
 				<div class="cart box_1">
 					<a href="/MyEmag/cart">
-					<h3> <div class="total"></div>
-						<!-- <span class="simpleCart_total"></span>-->
+					<h3> <div class="total"></div>						
 						<img src="/MyEmag/images/cart.png" alt=""/>
 					</h3>
 					</a>
 					</div>
 				</ul>
 			</div>
+			</c:if>
+			
 		</div>	
 	</div>	
 </div>

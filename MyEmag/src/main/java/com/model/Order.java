@@ -2,39 +2,40 @@ package com.model;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
-
+import java.util.Map;
 import java.util.Set;
 
 public class Order {
 	
 	private int orderId;
-	private HashSet<Product> products;
+	HashMap<Product,Integer> products;
 	private double price;
 	private LocalDateTime date;
 	private User user;
 	private String payment;
+	private String address;
 	
-	public Order(HashSet<Product> products,LocalDateTime date, User user, String payment) {
+	public Order(HashMap<Product,Integer> products,LocalDateTime date, User user, String payment, String address) {
 		this.products=products;
 		this.date =date;
 		this.user = user;
 		this.payment = payment;
-		this.calculatePrice();
+		this.address=address;
+
 	}
 	
-	public void calculatePrice() {
-		if (this.products!=null) {
-			for (Product p: products) {
-				double price=p.getPrice();
-				double salePrice=p.getSalePrice();
-				if (salePrice!=0) {
-					this.price+=salePrice;
-				}
-				this.price+=price;
-			}
-		}
+
+	public String getAddress() {
+		return address;
 	}
+
+
+	public void setAdress(String address) {
+		this.address = address;
+	}
+
 
 	public int getOrderId() {
 		return orderId;
@@ -76,11 +77,11 @@ public class Order {
 		this.payment = payment;
 	}
 
-	public Set<Product> getProducts() {
-		return Collections.unmodifiableSet(products);
+	public Map<Product,Integer> getProducts() {
+		return Collections.unmodifiableMap(products);
 	}
 
-	public void setProducts(HashSet<Product> products) {
+	public void setProducts(HashMap<Product, Integer> products) {
 		this.products = products;
 	}
 	
