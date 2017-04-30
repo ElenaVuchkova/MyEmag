@@ -374,4 +374,16 @@ public class ProductDAO {
 		}
 		return topTwelveNewProducts;
 	}
+	
+	public synchronized void changeQuantity (int id, int quantity) throws SQLException{
+		String sql = "UPDATE products SET quantity=? WHERE product_id=?";
+		Product p=ALL_PRODUCTS.get(id);
+		int oldQuantity=p.getQuantity();
+		int newQuantity=oldQuantity-quantity;
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, newQuantity);
+		st.setInt(2, id);
+		st.executeUpdate();
+		p.setQuantity(newQuantity);
+	}
 }
