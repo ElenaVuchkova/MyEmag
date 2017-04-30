@@ -2,6 +2,7 @@ package com.controller;
 
 
 import static org.mockito.Matchers.doubleThat;
+import static org.mockito.Matchers.intThat;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
@@ -248,7 +250,6 @@ public class UserController {
 	
 	@RequestMapping(value="/sale", method=RequestMethod.GET)
 	public String salePage(Model m){
-		System.out.println("v sale +++++++++++++++++++++++++++++++++++++++");
 		try {		
 			HashMap<String,ArrayList<Product>> allProductsWithSale= ProductDAO.getInstance().getAllProductsWithSale();
 			m.addAttribute("allProductsWithSale", allProductsWithSale);
@@ -355,6 +356,17 @@ public class UserController {
 			o.setPrice(price);
 			try {
 				OrderDAO.getInstance().addOrder(o);
+				for (Iterator <Entry<Product, Integer>> iterator = products.entrySet().iterator(); iterator.hasNext();) {
+					Entry<Product, Integer> e= iterator.next();
+					Product p=e.getKey();
+					int productId=p.getProductId();
+					int quantity=e.getValue();
+					if (quantity>0 && quantity<=p.getQuantity()) {
+						ProductDAO.getInstance().changeQuantity(productId, quantity);	
+					}
+					iterator.remove();
+				}
+				session.setAttribute("cart", new HashMap<>());
 			} catch (SQLException e) {
 				System.out.println("SQL- make order " + e.getMessage());
 				return "404";
@@ -368,7 +380,6 @@ public class UserController {
 	@RequestMapping(value="/subscribe", method = RequestMethod.POST)
 	public void  subscribe (HttpSession session, Model model) {		
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
-			System.out.println("subscribeeeeeeeeeeeeeeeeeeee");
 			User u=(User) session.getAttribute("user");
 			String username=u.getUsername();
 			try {

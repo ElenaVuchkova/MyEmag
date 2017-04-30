@@ -32,8 +32,8 @@ import com.model.dao.UserDAO;
 @Controller
 @MultipartConfig
 public class ChangeProductController {
-	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	private String jspName;
 	
 	
@@ -239,7 +239,7 @@ public class ChangeProductController {
 	
 	
 	@RequestMapping(value="/addCategory", method=RequestMethod.GET)
-	public String addCategory (Model m, HttpSession session) {
+	public String categoryPage (Model m, HttpSession session) {
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			ArrayList<String> categories=new ArrayList<>();
@@ -267,5 +267,55 @@ public class ChangeProductController {
 			return "login";
 		}
 	}
-		
+	
+	@RequestMapping(value="/addSubcategory", method=RequestMethod.POST)
+	public String addSubcategory (HttpSession session, Model m, HttpServletRequest req) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			String name=req.getParameter("category");
+			String subcategoryName=req.getParameter("subcategory");
+			try {
+				int categoryId=CategoryDAO.getInstance().getCategoryId(name);
+				SubcategoryDAO.getInstance().addSubcategory(categoryId, subcategoryName);
+			} catch (SQLException e) {
+				System.out.println("sql add subcategory "+e.getMessage());
+				return "404";
+			}
+		}
+		m.addAttribute("words1", "You added new subcategory!");
+		return categoryPage(m, session);		
+	}
+	
+	@RequestMapping(value="/addCategory", method=RequestMethod.POST)
+	public String addCategory (HttpSession session, Model m, HttpServletRequest req) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			String category=req.getParameter("category");
+			String subcategory1=req.getParameter("subcategory1").trim();
+			String subcategory2=req.getParameter("subcategory2").trim();
+			String subcategory3=req.getParameter("subcategory3").trim();
+			ArrayList<String> subcategories=new ArrayList<>();
+			if (subcategory1!=null && !subcategory1.isEmpty()) {
+				subcategories.add(subcategory1);
+			}
+			if (subcategory2!=null && !subcategory2.isEmpty()) {
+				subcategories.add(subcategory2);
+			}
+			if (subcategory3!=null && !subcategory3.isEmpty()) {
+				subcategories.add(subcategory3);
+			}
+			try {
+				CategoryDAO.getInstance().addCategory(category, subcategories);
+			} catch (SQLException e) {
+				System.out.println("sql add category "+e.getMessage());
+				return "404";
+			}
+		}
+		m.addAttribute("words2", "You added new categoory!");
+		return categoryPage(m, session);		
+	}
 }

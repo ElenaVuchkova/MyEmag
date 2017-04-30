@@ -1,5 +1,6 @@
 package com.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,30 +30,46 @@ public class OrderDAO {
 		return instance;
 	}
 	
-	//TODO transaction
+	
 	public synchronized void addOrder (Order o) throws SQLException{
 		int userId=o.getUser().getUserId();
 		String paymentType=o.getPayment();
 		o.setDate(LocalDateTime.now());
 		int paymentId=PaymentDAO.getInstance().getPaymentId(paymentType);
 		String sql = "INSERT INTO orders (price, date, user_id, payment_id, address) values (?,?,?,?,?)";
-		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-		st.setDouble(1, o.getPrice());
-		st.setTimestamp(2, java.sql.Timestamp.valueOf(o.getDate()));
-		st.setInt(3, userId);
-		st.setInt(4, paymentId);
-		st.setString(5, o.getAddress());
-		st.executeUpdate();
-		ResultSet rs=st.getGeneratedKeys();
-		rs.next();
-		int orderId=rs.getInt(1);
-		o.setOrderId(orderId);
-		Map<Product,Integer> products=o.getProducts();
-		for (Product p: products.keySet()) {
-			int productId=p.getProductId();
-			OrderHasProductDAO.getInstance().addOrderedProduct(orderId, productId, products.get(p));
+		Connection con=DBManager.getInstance().getConnection();
+		PreparedStatement st=null;
+		try {
+			con.setAutoCommit(false);
+			st = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			st.setDouble(1, o.getPrice());
+			st.setTimestamp(2, java.sql.Timestamp.valueOf(o.getDate()));
+			st.setInt(3, userId);
+			st.setInt(4, paymentId);
+			st.setString(5, o.getAddress());
+			st.executeUpdate();
+			ResultSet rs=st.getGeneratedKeys();
+			rs.next();
+			int orderId=rs.getInt(1);
+			o.setOrderId(orderId);
+			Map<Product,Integer> products=o.getProducts();
+			for (Product p: products.keySet()) {
+				int productId=p.getProductId();
+				OrderHasProductDAO.getInstance().addOrderedProduct(orderId, productId, products.get(p));
+			}
+			con.commit();
+		} catch (SQLException e) {
+			System.out.println("SQL transaction to insert product -" + e.getMessage());
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				System.out.println("SQL transaction to insert product- rollback -" + e.getMessage());
+			}
+		} finally {
+			con.setAutoCommit(true);
 		}
 	}
+	
 	
 //	public synchronized ArrayList<Order> getAllOrdersByUser (String userName) throws SQLException {
 //		User user=UserDAO.getInstance().getUser(userName);

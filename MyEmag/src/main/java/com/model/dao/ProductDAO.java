@@ -63,8 +63,9 @@ public class ProductDAO {
 			for (String path : imagePaths) {
 				ImageDAO.getInstance().addImagePath(path, productId);
 			}
-			con.commit();
 			p.setImagePaths(imagePaths);
+			ALL_PRODUCTS.put(productId, p);
+			con.commit();
 		} catch (SQLException e) {
 			System.out.println("SQL transaction to insert product -" + e.getMessage());
 			try {
@@ -372,5 +373,17 @@ public class ProductDAO {
 			topTwelveNewProducts.add(p);
 		}
 		return topTwelveNewProducts;
+	}
+	
+	public synchronized void changeQuantity (int id, int quantity) throws SQLException{
+		String sql = "UPDATE products SET quantity=? WHERE product_id=?";
+		Product p=ALL_PRODUCTS.get(id);
+		int oldQuantity=p.getQuantity();
+		int newQuantity=oldQuantity-quantity;
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+		st.setInt(1, newQuantity);
+		st.setInt(2, id);
+		st.executeUpdate();
+		p.setQuantity(newQuantity);
 	}
 }
