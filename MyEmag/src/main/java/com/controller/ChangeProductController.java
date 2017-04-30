@@ -239,7 +239,7 @@ public class ChangeProductController {
 	
 	
 	@RequestMapping(value="/addCategory", method=RequestMethod.GET)
-	public String addCategory (Model m, HttpSession session) {
+	public String categoryPage (Model m, HttpSession session) {
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			ArrayList<String> categories=new ArrayList<>();
@@ -267,5 +267,53 @@ public class ChangeProductController {
 			return "login";
 		}
 	}
-		
+	
+	@RequestMapping(value="/addSubcategory", method=RequestMethod.POST)
+	public String addSubcategory (HttpSession session, Model m, HttpServletRequest req) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			String name=req.getParameter("category");
+			String subcategoryName=req.getParameter("subcategory");
+			try {
+				int categoryId=CategoryDAO.getInstance().getCategoryId(name);
+				SubcategoryDAO.getInstance().addSubcategory(categoryId, subcategoryName);
+			} catch (SQLException e) {
+				System.out.println("sql add subcategory "+e.getMessage());
+				return "404";
+			}
+		}
+		m.addAttribute("words", "You added new subcategory!");
+		return categoryPage(m, session);		
+	}
+	
+	@RequestMapping(value="/addCategory", method=RequestMethod.POST)
+	public String addCategory (HttpSession session, Model m, HttpServletRequest req) {
+		//check user is admin 
+		//check user session
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			String category=req.getParameter("category");
+			String subcategory1=req.getParameter("subcategory1");
+			String subcategory2=req.getParameter("subcategory2");
+			String subcategory3=req.getParameter("subcategory3");
+			ArrayList<String> subcategories=new ArrayList<>();
+			subcategories.add(subcategory1);
+			if (subcategory2!=null) {
+				subcategories.add(subcategory2);
+			}
+			if (subcategory3!=null) {
+				subcategories.add(subcategory3);
+			}
+			try {
+				CategoryDAO.getInstance().addCategory(category, subcategories);
+			} catch (SQLException e) {
+				System.out.println("sql add category "+e.getMessage());
+				return "404";
+			}
+		}
+		m.addAttribute("words", "You added new categoory!");
+		return categoryPage(m, session);		
+	}
 }

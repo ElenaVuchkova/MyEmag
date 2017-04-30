@@ -1,30 +1,70 @@
 package com.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.Statement;
+
 
 public class CategoryDAO {
 
 	private static CategoryDAO instance;
+	private static final  ArrayList<String> ALL_CATEGORIES=new ArrayList<>();
 	
-	private CategoryDAO(){
+	private CategoryDAO() throws SQLException{
+		getAllCategories();
 	}
 	
-	public static synchronized CategoryDAO getInstance(){
+	public static synchronized CategoryDAO getInstance() throws SQLException{
 		if(instance == null){
 			instance = new CategoryDAO();
 		}
 		return instance;
 	}
+	
+	public ArrayList<String> getAllCategories() throws SQLException{
+		if(ALL_CATEGORIES.isEmpty()){
+			String sql = "SELECT name FROM categories;";
+			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			ResultSet res = st.executeQuery();
+			while(res.next()){
+				String category=res.getString("name");
+				ALL_CATEGORIES.add(category);
+			}
+		}
+		return ALL_CATEGORIES;
+	}
 
-	public synchronized void addCategory (String name) throws SQLException{
+	public synchronized void addCategory (String name, ArrayList<String> subcategories) throws SQLException{
 		String sql = "INSERT INTO categories (name) values (?)";
-		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
-		st.setString(1, name);	
-		st.executeUpdate();
+		Connection con=DBManager.getInstance().getConnection();
+		PreparedStatement st=null;
+		try {
+			con.setAutoCommit(false);
+			st = DBManager.getInstance().getConnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, name);	
+			st.executeUpdate();
+			ALL_CATEGORIES.add(name);
+			ResultSet res = st.getGeneratedKeys();
+			res.next();
+			int categoryId=res.getInt(1);
+			for (String subcategory : subcategories) {
+				SubcategoryDAO.getInstance().addSubcategory(categoryId, subcategory);
+			}
+			con.commit();
+		} catch (SQLException e){
+			System.out.println("SQL transaction to insert category -" + e.getMessage());
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				System.out.println("SQL transaction to insert category- rollback -" + e.getMessage());
+			}
+		} finally {
+		con.setAutoCommit(true);
+		}
 	}
 	
 	public synchronized int getCategoryId (String name) throws SQLException {
@@ -32,20 +72,8 @@ public class CategoryDAO {
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setString(1, name);
 		ResultSet rs=st.executeQuery();
+		rs.next();
 		int categoryId=rs.getInt(1);
 		return categoryId;
 	}
-	
-	public synchronized ArrayList<String> getAllCategories () throws SQLException {
-		ArrayList<String> categories=new ArrayList<>();
-		String sql = "SELECT name FROM categories";
-		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ResultSet rs=st.executeQuery();
-		while (rs.next()) {
-			String category=rs.getString("name");
-			categories.add(category);
-		}
-		return categories;
-	}
-	
 }

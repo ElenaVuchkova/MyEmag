@@ -37,8 +37,7 @@ public class SubcategoryDAO {
 		return ALL_SUBCATEGORIES;
 	}
 	
-	public synchronized void addSubcategory (String categoryName, String subcategoryName) throws SQLException{
-		int categoryId=CategoryDAO.getInstance().getCategoryId(categoryName);
+	public synchronized void addSubcategory (int categoryId, String subcategoryName) throws SQLException{
 		String sql = "INSERT INTO subcategories (name, category_id) values (?, ?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
 		st.setString(1, subcategoryName);
