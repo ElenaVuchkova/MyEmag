@@ -104,9 +104,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p class="quick_desc">${product.descrKey3}: ${product.descrValue3}</p>
 				
 				
-	
-	<!--quantity-->			
-				
 <!-- if user -->
 	<c:if test="${sessionScope.logged && sessionScope.user.role == 1}">
 		    <div class="wish-list">
