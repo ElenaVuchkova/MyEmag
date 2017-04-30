@@ -341,7 +341,7 @@ public class UserController {
 			return "order";
 		}
 		return "login";
-	}
+	} 
 	
 	@RequestMapping(value="/order",method = RequestMethod.POST)
 	public String makeOrder (Model model, HttpServletRequest req,HttpSession session) {

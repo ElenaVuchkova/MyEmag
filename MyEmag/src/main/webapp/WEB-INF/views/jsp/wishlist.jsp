@@ -35,16 +35,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 <c:if test="${fn:length(favouriteProducts) gt 0}">
 	    	    <table class="table-heading simpleCart_shelfItem">
 			  <tr>
-				<th class="table-grid">Item</th>		
-				<th>Prices</th>
+				<th class="table-grid">Item</th>	
+				<th class="table-grid">Title</th>		
+				<th>Price</th>
 			  </tr>
 			  <c:forEach items="${favouriteProducts}" var="product">
 			  <tr class="cart-header">
 			    <c:set var="index" value="${0}"/>
-				<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${product.productId}/${index}" class="img-responsive"  alt=""></a>
-				
+				<td class="ring-in"><a href="/MyEmag/product/${product.productId}" class="at-in"><img src="/MyEmag/image/${product.productId}/${index}" class="img-responsive"  alt=""></a>
 				<div class="clearfix"> </div>
-				<div class="close1"> </div></td>
+				<td>  ${product.title} </td>		
+				</td>
 				<td> <c:if test="${product.salePrice != 0}">
 	   					 $${product.salePrice}
 					  </c:if>
@@ -52,10 +53,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   					 $${product.price}
 					  </c:if>
 				</td>
+				
 				<td class="add-check">
 				<form action="/MyEmag/wishlist/addToCart/${product.productId}" method="post">
 				<input class="item_add hvr-skew-backward" type="submit" value="Add to cart">
 				</form>
+				</td>	
+				
+				<td class="add-check">				
 				<form action="/MyEmag/wishlist/delete/${product.productId}" method="post">
 				<input class="item_add hvr-skew-backward" type="submit" value="Delete from wishlist">
 				</form>

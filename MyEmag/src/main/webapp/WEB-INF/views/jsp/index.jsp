@@ -212,9 +212,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="women-top">
 							<span><a href="single">${product.title}</a></span>
 							</div>
-							<div class="img item_add">
-								<a href="#"><img src="images/ca.png" alt=""></a>
-							</div>
 							<div class="clearfix"></div>
 							</div>
 							<div class="mid-2">

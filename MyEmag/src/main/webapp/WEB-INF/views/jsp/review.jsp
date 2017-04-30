@@ -5,10 +5,10 @@
 <html>
 <head>
 <title>MyEmag</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,36 +16,42 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--theme-style-->
-<link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/order.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
-<script src="js/jquery.min.js"></script>
+<script src="/MyEmag/js/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 
 <body>
 <jsp:include page="insertHeader.jsp" />
-<h2>Review</h2>
+<div id="accordian">
+		<div class="step" id="step1">			
+			<div class="title">
+				<h1 align="middle">Review</h1>
+			</div>			
+		</div>
+	</div>	
 <div class="container">
-<div class="col-md-9">
-	<div class="col-md-5 grid">		
+<div class="col-md-9" align="middle">	
 		<div class="flexslider">
 			 <c:set var="index" value="${0}"/>
-			 <div class="thumb-image"> <img src="/MyEmag/image/${product.productId}/${index}" data-imagezoom="true" class="img-responsive"> </div>
+			 <div class="thumb-image"> <img src="/MyEmag/image/${product.productId}/${index}" align="middle" data-imagezoom="true" class="img-responsive" height="350" width="350"> </div>
 		</div>	
-	<div class="col-md-7 single-top-in">
-		<div class="span_2_of_a1 simpleCart_shelfItem">
+	<div class="col-md-9 single-top-in" align="middle">
+		<div class="span_2_of_a1 simpleCart_shelfItem" style="width:800px; margin:0 auto;">
 			<h3>${product.title}</h3>
-			   <div class="price_single">
-				  <span class="reducedfrom item_price">$${product.price}</span>
+			   <div class="price_single" >
+				  <span class="reducedfrom item_price" >$${product.price}</span>
 				  <c:if test="${product.salePrice != 0}">
-   					 <span class="reducedfrom item_price">$${product.salePrice}</span>
+   					 	<span class="reducedfrom item_price sale-bg-color" >Sale: $${product.salePrice}</span>
 				  </c:if>
 				<div class="clearfix"> </div>
 				</div>
 			</div>
 		</div>
-	</div>
+	
 </div>
 </div>
 
@@ -53,7 +59,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div style="width: 400px;">
 		</div>
 		<div style="padding-bottom: 18px;">Rate this product<br/>
-			<select id="rating" name="rating" style="width : 150px;" class="form-control"><option>5</option>
+			<select id="rating" name="rating" style="width : 150px;" align="middle" class="form-control" required><option>5</option>
 			<option>4</option>
 			<option>3</option>
 			<option>2</option>
@@ -61,7 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</select>
 		</div>
 		<div style="padding-bottom: 18px;">Add comment<span style="color: red;"> *</span><br/>
-			<textarea id="comment" ${readonly} name="comment" style="width : 450px;" rows="10" class="form-control"></textarea>
+			<textarea id="comment" ${readonly} name="comment"  rows="10" align="middle" class="form-control" required></textarea>
 		</div>
 		<div style="padding-bottom: 18px;"><input value="Submit" type="submit"></div>
 	</form>

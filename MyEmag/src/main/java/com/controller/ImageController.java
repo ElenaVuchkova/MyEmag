@@ -24,11 +24,8 @@ import com.model.Product;
 import com.model.dao.ImageDAO;
 
 @Controller
-//@SessionAttributes("filename")
 @MultipartConfig
 public class ImageController {
-	
-
 	
 	private static final String FILE_PATH = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
 	//private static final String FILE_PATH = "C:\\Users\\hp\\Desktop\\EmagImages\\";

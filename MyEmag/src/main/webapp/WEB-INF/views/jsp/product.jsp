@@ -7,7 +7,7 @@
 <head>
 <title>MyEmag</title>
 <link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/MyEmag/css/test.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/order.css" rel="stylesheet" type="text/css" media="all" />
 
 <!-- Custom Theme files -->
 <!--theme-style-->
@@ -119,7 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  					<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to cart">
 						</form>
 						<form class="wish-button" action="/MyEmag/product/${product.productId}/review" method="get">		 
-					  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
+					  		<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
 						</form>  
 			 		</li>
 			 	</ul>
