@@ -122,11 +122,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>				
 			</li>
 			<li><a class="color3" href="/MyEmag/sale">Sale</a></li>
-			<li><a class="color4" href="404.html">About</a></li>
             <li ><a class="color6" href="contact.html">Contact</a></li>      
             <!-- if admin -->      
             <c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
-             <li ><a class="color6" href="addProduct">Add product</a></li>
+             <li ><a class="color6" href="/MyEmag/addProduct">Add product</a></li>
+             <li ><a class="color6" href="/MyEmag/addCategory">Add Category</a></li>
             </c:if>
              <!-- //if admin -->   
         </ul>
@@ -145,7 +145,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </nav>
 </div>
-			
+			<c:if test="${sessionScope.user.role == 1}">
 			<div class="col-sm-2 search-right">
 				<ul class="heart">
 				<li>
@@ -161,43 +161,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</a>
 					</div>
 					</ul>
-					<div class="clearfix"> </div>
-					
-						<!---pop-up-box---->					  
-			<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
-			<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-			<!---//pop-up-box---->
-			<div id="small-dialog" class="mfp-hide">
-				<div class="search-top">
-					<div class="login-search">
-						<input type="submit" value="">
-						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">		
-					</div>
-					<p>Shopin</p>
-				</div>				
+				</div>
+				</c:if>				
 			</div>
-		 <script>
-			$(document).ready(function() {
-			$('.popup-with-zoom-anim').magnificPopup({
-			type: 'inline',
-			fixedContentPos: false,
-			fixedBgPos: true,
-			overflowY: 'auto',
-			closeBtnInside: true,
-			preloader: false,
-			midClick: true,
-			removalDelay: 300,
-			mainClass: 'my-mfp-zoom-in'
-			});
-																						
-			});
-		</script>		
-						<!----->
 			</div>
-			<div class="clearfix"></div>
-		</div>	
-	</div>	
-</div>
+		</div>
 <!--banner-->
 <div class="banner">
 <div class="container">
