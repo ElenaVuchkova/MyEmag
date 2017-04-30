@@ -237,6 +237,35 @@ public class ChangeProductController {
 		return ProductController.viewProductsBySubcategory(model, subcategory, session);
 	}
 	
+	
+	@RequestMapping(value="/addCategory", method=RequestMethod.GET)
+	public String addCategory (Model m, HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
+			ArrayList<String> categories=new ArrayList<>();
+			ArrayList<String> subcategories=new ArrayList<>();
+			HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
+			try {
+				categories=CategoryDAO.getInstance().getAllCategories();
+				for(String c: categories){
+					System.out.println(c);
+					if (!catAndSubcat.containsKey(c)) {
+						catAndSubcat.put(c, new ArrayList<>());
+					}
+					subcategories=SubcategoryDAO.getInstance().getAllSubcategoryByCategory(c);
+					for(String s:subcategories){
+						catAndSubcat.get(c).add(s);
+					}					
+				}
+				m.addAttribute("catAndSubcat", catAndSubcat);
+			} catch (SQLException e) {
+				System.out.println("sql index controller"+e.getMessage());
+			}
+			return "addCategory";
+		}
+		else{
+			return "login";
+		}
+	}
 		
-
 }

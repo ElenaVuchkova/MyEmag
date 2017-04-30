@@ -121,8 +121,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>				
 			</li>
 			<li><a class="color3" href="/MyEmag/sale">Sale</a></li>
-			<li><a class="color4" href="404.html">About</a></li>
-            <li ><a class="color6" href="contact.html">Contact</a></li>
+            <li ><a class="color6" href="contact.html">Contact</a></li>      
+            <!-- if admin -->      
+            <c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
+             <li ><a class="color6" href="/MyEmag/addProduct">Add product</a></li>
+             <li ><a class="color6" href="/MyEmag/addCategory">Add Category</a></li>
+            </c:if>
         </ul>
          <!--Search product-->
         <div class="menu-top">
@@ -140,7 +144,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </nav>
 </div>
 			<!-- if user -->
-			//test????
 			<c:if test="${sessionScope.user.role == 1}">
 			<div class="col-sm-2 search-right">
 				<ul class="heart">
