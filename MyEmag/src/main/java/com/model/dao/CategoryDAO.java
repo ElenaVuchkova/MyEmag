@@ -44,10 +44,9 @@ public class CategoryDAO {
 		PreparedStatement st=null;
 		try {
 			con.setAutoCommit(false);
-			st = DBManager.getInstance().getConnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			st = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, name);	
 			st.executeUpdate();
-			ALL_CATEGORIES.add(name);
 			ResultSet res = st.getGeneratedKeys();
 			res.next();
 			int categoryId=res.getInt(1);
@@ -55,6 +54,7 @@ public class CategoryDAO {
 				SubcategoryDAO.getInstance().addSubcategory(categoryId, subcategory);
 			}
 			con.commit();
+			ALL_CATEGORIES.add(name);
 		} catch (SQLException e){
 			System.out.println("SQL transaction to insert category -" + e.getMessage());
 			try {

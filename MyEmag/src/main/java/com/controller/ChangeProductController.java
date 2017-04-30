@@ -32,8 +32,8 @@ import com.model.dao.UserDAO;
 @Controller
 @MultipartConfig
 public class ChangeProductController {
-	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	private String jspName;
 	
 	
@@ -284,7 +284,7 @@ public class ChangeProductController {
 				return "404";
 			}
 		}
-		m.addAttribute("words", "You added new subcategory!");
+		m.addAttribute("words1", "You added new subcategory!");
 		return categoryPage(m, session);		
 	}
 	
@@ -295,15 +295,17 @@ public class ChangeProductController {
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			String category=req.getParameter("category");
-			String subcategory1=req.getParameter("subcategory1");
-			String subcategory2=req.getParameter("subcategory2");
-			String subcategory3=req.getParameter("subcategory3");
+			String subcategory1=req.getParameter("subcategory1").trim();
+			String subcategory2=req.getParameter("subcategory2").trim();
+			String subcategory3=req.getParameter("subcategory3").trim();
 			ArrayList<String> subcategories=new ArrayList<>();
-			subcategories.add(subcategory1);
-			if (subcategory2!=null) {
+			if (subcategory1!=null && !subcategory1.isEmpty()) {
+				subcategories.add(subcategory1);
+			}
+			if (subcategory2!=null && !subcategory2.isEmpty()) {
 				subcategories.add(subcategory2);
 			}
-			if (subcategory3!=null) {
+			if (subcategory3!=null && !subcategory3.isEmpty()) {
 				subcategories.add(subcategory3);
 			}
 			try {
@@ -313,7 +315,7 @@ public class ChangeProductController {
 				return "404";
 			}
 		}
-		m.addAttribute("words", "You added new categoory!");
+		m.addAttribute("words2", "You added new categoory!");
 		return categoryPage(m, session);		
 	}
 }

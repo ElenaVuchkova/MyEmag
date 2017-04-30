@@ -63,8 +63,9 @@ public class ProductDAO {
 			for (String path : imagePaths) {
 				ImageDAO.getInstance().addImagePath(path, productId);
 			}
-			con.commit();
 			p.setImagePaths(imagePaths);
+			ALL_PRODUCTS.put(productId, p);
+			con.commit();
 		} catch (SQLException e) {
 			System.out.println("SQL transaction to insert product -" + e.getMessage());
 			try {

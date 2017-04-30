@@ -9,6 +9,12 @@
 </head>
 <body>
 <jsp:include page="insertHeader.jsp" />
+	<c:if test="${words1!=null}">
+		<c:out value="${words1}"/>
+	</c:if>
+	<c:if test="${words2!=null}">
+		<c:out value="${words2}"/>
+	</c:if>
 		<form action="addSubcategory" method="post" enctype="multipart/form-data">
 				Category:<br> 
 				<select name = "category">
@@ -18,25 +24,21 @@
 		       		 </c:forEach>
 		        </select> <br>		              
 		      	Add new subcetegory for excisting category:</br>
-				<input type="text" name="subcategory" class="validate" required="">
-         		   <label for="newSubcategory"></label><br>		 	
+				<input type="text" name="subcategory" class="validate" required=""><br>		 	
 				<input type="submit" value = "Save changes"></br>
 		</form>
 		
 		<form action="addCategory" method="post" enctype="multipart/form-data">
 				Add New Category:<br>
-				<input id="newSubcategory" type="text" name="category" class="validate" required="">
-         		<label for="newSubcategory" ></label><br>	           
+				<input id="newSubcategory" type="text" name="category" class="validate" required=""><br>	    
+           
 		      	Add subcetegories for new category:</br>
 		      		Subcategory 1:
-					<input id="newSubcategory" type="text" name="subcategory1" class="validate" required="">
-         			<label for="newSubcategory" ></label><br>
+					<input id="newSubcategory" type="text" name="subcategory1" class="validate" required=""><br>
          			Subcategory 2:	
-         		  	<input id="newSubcategory" type="text" name="subcategory2" class="validate" >
-         		   	<label for="newSubcategory" ></label><br>
-         		   	Subcategory 3:	
-         		   	<input id="newSubcategory" type="text" name="subcategory3" class="validate">
-         		   	<label for="newSubcategory" ></label><br>		 		 		 	
+         		  	<input id="newSubcategory" type="text" name="subcategory2" class="validate" > <br>
+      		   	Subcategory 3:	
+         		   	<input id="newSubcategory" type="text" name="subcategory3" class="validate"><br>	 		 		 	
 				<input type="submit" value = "Submit"></br>
 		</form>
 		
