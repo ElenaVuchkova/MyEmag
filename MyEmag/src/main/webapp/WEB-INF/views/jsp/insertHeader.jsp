@@ -133,7 +133,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col1">
 				<div class="h_nav">	
      				<form action="search" method="GET">
-			          	 <input type="text"  class="glyphicon glyphicon-search" name="keyword" placeholder="Search for product..." value="" required id="searchInput"> 		
+			          	 <input type="text"  class="glyphicon glyphicon-search" name="keyword" placeholder="Search" value="" required id="searchInput"> 		
 					</form>
 				</div>
 			</div>

@@ -8,7 +8,7 @@
 <title>MyEmag</title>
 <link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="/MyEmag/css/order.css" rel="stylesheet" type="text/css" media="all" />
-
+<link href="/MyEmag/css/review.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
 <link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
@@ -22,6 +22,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <script src="/MyEmag/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(e) {
+	    var $input = $('#refresh');	
+	    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+	});
+</script>
+
 <style>
 
  #wrapper {
@@ -45,6 +53,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <title>Insert title here</title>
 </head>
 <body>
+
+<input type="hidden" id="refresh" value="no">
+
 <jsp:include page="insertHeader.jsp" />
 <div class="single">
 
@@ -141,7 +152,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="admin-panel">
 		<c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
 			<!-- form CHANGE -->
-			<form action="${product.productId}/changeQuantity" method="post">
+			<form action="/MyEmag/product/${product.productId}/changeQuantity" method="post">
 				Current quantity:
 			  	<input  type="text" name="quantity" value="${product.quantity}" />	 
 			  	<input type="submit" value="Update" />
@@ -171,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="amazing-reviews">
 	<!-- test reviews -->
 	<c:if test="${fn:length(product.reviews) gt 0}">
-	<h1>Reviews</h1>	
+	<h3>Reviews</h3>	
 		<c:forEach items="${product.reviews}" var="review">
 		 <blockquote>  			
 		    <header>

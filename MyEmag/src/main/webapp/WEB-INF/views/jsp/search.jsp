@@ -20,10 +20,9 @@
 				<h3>No results!!!</h3>
 			</c:if>	
 			<c:forEach items="${searchResult}" var="product">	
-				<div class="mid-popular">
-					<div class="col-md-3 item-grid simpleCart_shelfItem">
-					<div class=" mid-pop">
-					<div class="pro-img">
+				
+					<div class=" mid-pop" style="display:table-cell;">
+					<div class="pro-img">	
 						<c:set var="index" value="${0}"/>
 						<img src="/MyEmag/image/${product.productId}/${index}" height=200 width=200 class="img-responsive" alt=""> 
 						<div class="zoom-icon ">
@@ -36,13 +35,14 @@
 						<div class="women-top">
 							<span><a href="single">${product.title}</a></span>
 							</div>
-							<div class="img item_add">
-								<a href="#"><img src="images/ca.png" alt=""></a>
-							</div>
+							
 							<div class="clearfix"></div>
 							</div>
 							<div class="mid-2">
 								<span>$${product.price}</span>
+								<c:if test="${sortedProduct.salePrice != 0}">
+   									<span class="mid-2 sale-bg-color">Sale: $${product.salePrice}</span>
+							    </c:if>	
 								  <div class="block">
 									<div class="starbox small ghosting"> </div>
 								</div>								
@@ -50,8 +50,7 @@
 							</div>
 						</div>
 					</div>
-					</div>					
-				</div>						
+										
 			</c:forEach>
 			</div>				
 			</div> 	
