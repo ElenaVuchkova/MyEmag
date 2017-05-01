@@ -7,23 +7,22 @@
 <html>
 <head>
 <title>login</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
-<link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
-<script src="js/jquery.min.js"></script>
+<script src="/MyEmag/js/jquery.min.js"></script>
 
 </head>
 <body>
-
 
 <!--banner-->
 <div class="banner-top">

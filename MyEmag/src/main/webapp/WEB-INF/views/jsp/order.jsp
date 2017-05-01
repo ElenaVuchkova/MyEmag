@@ -29,6 +29,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <jsp:include page="insertHeader.jsp" />
 
 <form action="order" method="post" >

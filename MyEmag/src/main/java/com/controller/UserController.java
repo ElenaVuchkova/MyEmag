@@ -73,11 +73,6 @@ public class UserController {
 			//session.setAttribute("catAndSubcat", catAndSubcat);
 			ArrayList<Product> newProducts= ProductDAO.getInstance().getTopTwelveNewProducts();
 			m.addAttribute("newProducts", newProducts);
-			System.out.println("Sled login");
-			System.out.println("vsichki produkti za index page");
-			for (Product p: newProducts){
-				System.out.println(p);
-			}
 		} catch (SQLException e) {
 			System.out.println("sql index controller"+e.getMessage());
 			return "404";
@@ -149,6 +144,8 @@ public class UserController {
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, Model model, HttpServletRequest req) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			session.setAttribute("user", new User());
+			session.setAttribute("logged", false);
 			session.invalidate();
 		}
 		return indexpage(model, req);
@@ -249,7 +246,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/sale", method=RequestMethod.GET)
-	public String salePage(Model m){
+	public ModelAndView salePage(Model m){
 		try {		
 			HashMap<String,ArrayList<Product>> allProductsWithSale= ProductDAO.getInstance().getAllProductsWithSale();
 			m.addAttribute("allProductsWithSale", allProductsWithSale);
@@ -262,9 +259,9 @@ public class UserController {
 			}
 		} catch (SQLException e) {
 			System.out.println("sql index controller"+e.getMessage());
-			return "404";
+			return new ModelAndView("404");
 		}
-		return "sale";
+		return new ModelAndView("login", "user", new User());
 	}	
 	
 	@RequestMapping(value="/wishlist", method=RequestMethod.GET)
@@ -314,13 +311,13 @@ public class UserController {
 				return new ModelAndView("404");
 			}
 		}
-		return new ModelAndView("login");
+		return new ModelAndView("login", "user", new User());
 	}
 	
 
 	
 	@RequestMapping(value="/order", method=RequestMethod.GET)
-	public String order (Model model, HttpSession session) {
+	public ModelAndView order (Model model, HttpSession session) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 			HashMap<Product,Integer> products=(HashMap<Product, Integer>) session.getAttribute("cart");
 			double price=0;
@@ -338,14 +335,16 @@ public class UserController {
 				session.setAttribute("price", price);
 			} catch (SQLException e) {
 				System.out.println("sql order "+e.getMessage());
+				return new ModelAndView("404");
 			}			
-			return "order";
+			return  new ModelAndView("order");
 		}
-		return "login";
-	} 
+		return new ModelAndView("login", "user", new User());
+	}
+
 	
 	@RequestMapping(value="/order",method = RequestMethod.POST)
-	public String makeOrder (Model model, HttpServletRequest req,HttpSession session) {
+	public ModelAndView makeOrder (Model model, HttpServletRequest req,HttpSession session) {
 		if(session.getAttribute("username") != null && (Boolean)session.getAttribute("logged")) {
 			HashMap<Product,Integer> products=(HashMap<Product, Integer>) session.getAttribute("cart");
 			String payment=req.getParameter("wayToPay");
@@ -369,11 +368,11 @@ public class UserController {
 				session.setAttribute("cart", new HashMap<>());
 			} catch (SQLException e) {
 				System.out.println("SQL- make order " + e.getMessage());
-				return "404";
+				return new ModelAndView("404");
 			}
-			return indexpage(model, req);
+			return  new ModelAndView("order");
 		}
-		return "login";
+		return new ModelAndView("login", "user", new User());
 	}
 
 
@@ -387,7 +386,6 @@ public class UserController {
 			} catch (SQLException e) {
 				System.out.println("SQL - subscribe " + e.getMessage());
 			}
-			
 		}
 	}	
 

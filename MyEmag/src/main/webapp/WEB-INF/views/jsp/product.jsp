@@ -18,11 +18,6 @@
 <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!--theme-style-->
-<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
-<!--//theme-style-->
-<script src="/MyEmag/js/jquery.min.js"></script>
-
 <script type="text/javascript">
 	$(document).ready(function(e) {
 	    var $input = $('#refresh');	
@@ -30,6 +25,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 
+<!--theme-style-->
+<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<!--//theme-style-->
+<script src="/MyEmag/js/jquery.min.js"></script>
 <style>
 
  #wrapper {
@@ -49,14 +48,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </style>
 
 
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-
-<input type="hidden" id="refresh" value="no">
-
 <jsp:include page="insertHeader.jsp" />
+
 <div class="single">
 
 <div class="container">

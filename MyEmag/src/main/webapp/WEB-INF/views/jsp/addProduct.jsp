@@ -44,10 +44,10 @@ function fillSubcategories(){
 </script>
 
 <body>
+
  <jsp:include page="insertHeader.jsp" />
  
   <form action="addProduct" method="post" enctype="multipart/form-data">
-  
   <div id="wrap">
 	<div id="accordian">
 	
@@ -164,7 +164,7 @@ function fillSubcategories(){
 			 <div>
 	       		 <select name = "category" id="categorycombo" onchange="fillSubcategories()">
 	       		 	<option selected="selected" class="holder">Please select</option>
-					<c:forEach var="cat" items="${catAndSubcat}">
+				<c:forEach var="cat" items="${catAndSubcat}">
 		                <option  value="${cat.key}"><c:out value="${cat.key}"></c:out></option>
 		       		 </c:forEach>
 		        </select>

@@ -43,6 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			});
 		});
 		</script>
+		
 <!---//End-rate---->
 
 <style>	
@@ -55,6 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </style>
 </head>
 <body>
+
 <!--header-->
 <div class="header">
 <div class="container">

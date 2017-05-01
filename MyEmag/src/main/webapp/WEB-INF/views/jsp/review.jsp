@@ -25,6 +25,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 
 <body>
+
 <jsp:include page="insertHeader.jsp" />
 <div id="accordian">
 		<div class="step" id="step1">			

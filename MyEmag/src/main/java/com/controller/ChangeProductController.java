@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model.Product;
 import com.model.User;
@@ -38,7 +39,7 @@ public class ChangeProductController {
 	
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.GET)
-	public String createProduct (Model m, HttpSession session) {
+	public ModelAndView createProduct (Model m, HttpSession session) {
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			ArrayList<String> categories=new ArrayList<>();
@@ -54,23 +55,19 @@ public class ChangeProductController {
 					subcategories=SubcategoryDAO.getInstance().getAllSubcategoryByCategory(c);
 					for(String s:subcategories){
 						catAndSubcat.get(c).add(s);
-						System.out.println(s);
 					}					
 				}
-				System.out.println(catAndSubcat.size());
 				m.addAttribute("catAndSubcat", catAndSubcat);
 			} catch (SQLException e) {
 				System.out.println("sql index controller"+e.getMessage());
 			}
-			return "addProduct";
+			return new ModelAndView("addProduct");
 		}
-		else{
-			return "login";
-		}
+		return new ModelAndView("login", "user", new User());
 	}
 	
 	@RequestMapping(value="/addProduct",method = RequestMethod.POST)
-	public String addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture,
+	public ModelAndView addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture,
 										@RequestParam("picture1") MultipartFile multiPartPicture1, 
 										@RequestParam("picture2") MultipartFile multiPartPicture2, 
 										HttpServletRequest req,HttpSession session) {
@@ -86,15 +83,10 @@ public class ChangeProductController {
 			String descrValue2=req.getParameter("descrValue2");
 			String descrKey3=req.getParameter("descrKey3");
 			String descrValue3=req.getParameter("descrValue3");
-			
-			
 			//create product
 			Product p=new Product(category, subcategory, title, quantity, price, descrKey1, descrValue1,
 					descrKey2, descrValue2, descrKey3, descrValue3,0.0);
-		
-			
 			ArrayList<String> paths = new ArrayList<>();
-			
 			if(multiPartPicture.getSize() != 0) {			
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture.getOriginalFilename());
@@ -104,7 +96,6 @@ public class ChangeProductController {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
 			}
-			
 			if(multiPartPicture1.getSize() != 0) {			
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture1.getOriginalFilename());
@@ -114,7 +105,6 @@ public class ChangeProductController {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
 			}
-			
 			if(multiPartPicture1.getSize() != 0) {			
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture2.getOriginalFilename());
@@ -124,25 +114,25 @@ public class ChangeProductController {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
 			}
-			
 			p.setImagePaths(paths);
-			
 			try {
 				ProductDAO.getInstance().addProduct(p);
 			} catch (SQLException e) {
-				jspName= "addProduct";
+				//jspName= "addProduct";
 				System.out.println(e.getMessage());
+				return new ModelAndView("404");
+				
 			}
+			return new ModelAndView("addProduct");
 		}
-		else {
-			jspName = "login";
-		}		
-		return jspName;
+		//jspName = "login";
+		return new ModelAndView("login", "user", new User());
+		
 	}
 	
 	
 	@RequestMapping(value="product/{productId}/delete", method=RequestMethod.POST)
-	public String deleteProduct (@PathVariable(value="productId") Integer productId, HttpSession session) {
+	public ModelAndView deleteProduct (@PathVariable(value="productId") Integer productId, HttpSession session) {
 		//check user is admin 
 		//check user session
 		User user = (User)session.getAttribute("user");
@@ -151,15 +141,16 @@ public class ChangeProductController {
 				ProductDAO.getInstance().deleteProduct(productId);
 			} catch (SQLException e) {
 				System.out.println("sql deleteProduct"+e.getMessage());
-				return "404";
+				return new ModelAndView("404");
 			}
+			return new ModelAndView("inddex");
 		}
-		return "redirect:/index";		
+		return new ModelAndView("login", "user", new User());
 	}
 	
 	
 	@RequestMapping(value="product/{productId}/changeQuantity", method=RequestMethod.POST)
-	public String changeQuantity (@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model) {
+	public ModelAndView changeQuantity (@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model) {
 		//check user is admin 
 		//check user session
 		User user = (User)session.getAttribute("user");
@@ -169,10 +160,11 @@ public class ChangeProductController {
 				ProductDAO.getInstance().updateQuantity(productId, quantity);
 			} catch (SQLException e) {
 				System.out.println("sql changeQuantity "+ e.getMessage());
-				return "404";
+				return new ModelAndView("404");
 			}
+			return ProductController.viewProduct(model, productId, session);
 		}
-		return ProductController.viewProduct(model, productId, session);	
+		return new ModelAndView("login", "user", new User());	
 	}
 	
 	//TODO
@@ -184,7 +176,7 @@ public class ChangeProductController {
 	}
 	
 	@RequestMapping(value="product/{productId}/setDiscount", method=RequestMethod.POST)
-	public String setDiscount (@PathVariable(value="productId") Integer productId, HttpSession session, 
+	public ModelAndView setDiscount (@PathVariable(value="productId") Integer productId, HttpSession session, 
 			HttpServletRequest req, Model model) {
 		//check user is admin 
 		//check user session
@@ -198,21 +190,23 @@ public class ChangeProductController {
 					sendEmail(users);
 				} catch (SQLException e) {
 					System.out.println("sql setDiscount "+e.getMessage());
-					return "404";
+					return new ModelAndView("404");
 				} catch (MessagingException e) {
 					System.out.println("sql setDiscount messaging "+e.getMessage());
-					return "404";
+					return new ModelAndView("404");
 				}
 			}
 			else{
 				session.setAttribute("messageDiscount", "Please, enter number between 1 and 100!");
-			}			
+			}
+			return ProductController.viewProduct(model, productId, session);	
 		}
-		return ProductController.viewProduct(model, productId, session);	
+		return new ModelAndView("login", "user", new User());	
 	}
 	
+	//TODO
 	@RequestMapping(value="{subcategory}/setDiscount", method=RequestMethod.POST)
-	public String setDiscountForSubcat (@PathVariable(value="subcategory") String subcategory, HttpSession session, HttpServletRequest req, Model model) {
+	public ModelAndView setDiscountForSubcat (@PathVariable(value="subcategory") String subcategory, HttpSession session, HttpServletRequest req, Model model) {
 		//check user is admin 
 		//check user session
 		User user = (User)session.getAttribute("user");
@@ -231,15 +225,16 @@ public class ChangeProductController {
 				}
 			} catch (SQLException | MessagingException e) {
 				System.out.println("sql setDiscountForSubcat "+e.getMessage());
-				return "404";
+				return new ModelAndView("404");
 			}
+			return ProductController.viewProductsBySubcategory(model, subcategory, session);
 		}
-		return ProductController.viewProductsBySubcategory(model, subcategory, session);
+		return new ModelAndView("login", "user", new User());
 	}
 	
 	
 	@RequestMapping(value="/addCategory", method=RequestMethod.GET)
-	public String categoryPage (Model m, HttpSession session) {
+	public ModelAndView categoryPage (Model m, HttpSession session) {
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			ArrayList<String> categories=new ArrayList<>();
@@ -261,15 +256,13 @@ public class ChangeProductController {
 			} catch (SQLException e) {
 				System.out.println("sql index controller"+e.getMessage());
 			}
-			return "addCategory";
+			return new ModelAndView("addCategory");
 		}
-		else{
-			return "login";
-		}
+		return new ModelAndView("login", "user", new User());		
 	}
 	
 	@RequestMapping(value="/addSubcategory", method=RequestMethod.POST)
-	public String addSubcategory (HttpSession session, Model m, HttpServletRequest req) {
+	public ModelAndView addSubcategory (HttpSession session, Model m, HttpServletRequest req) {
 		//check user is admin 
 		//check user session
 		User user = (User)session.getAttribute("user");
@@ -281,15 +274,15 @@ public class ChangeProductController {
 				SubcategoryDAO.getInstance().addSubcategory(categoryId, subcategoryName);
 			} catch (SQLException e) {
 				System.out.println("sql add subcategory "+e.getMessage());
-				return "404";
+				return new ModelAndView("404");
 			}
+			return new ModelAndView("addCategory","words1", "You added new subcategory!");
 		}
-		m.addAttribute("words1", "You added new subcategory!");
-		return categoryPage(m, session);		
+		return new ModelAndView("login", "user", new User());		
 	}
 	
 	@RequestMapping(value="/addCategory", method=RequestMethod.POST)
-	public String addCategory (HttpSession session, Model m, HttpServletRequest req) {
+	public ModelAndView addCategory (HttpSession session, Model m, HttpServletRequest req) {
 		//check user is admin 
 		//check user session
 		User user = (User)session.getAttribute("user");
@@ -312,10 +305,11 @@ public class ChangeProductController {
 				CategoryDAO.getInstance().addCategory(category, subcategories);
 			} catch (SQLException e) {
 				System.out.println("sql add category "+e.getMessage());
-				return "404";
+				return new ModelAndView("404");
 			}
+			return new ModelAndView("addCategory","words2", "You added new categoory!");
 		}
-		m.addAttribute("words2", "You added new categoory!");
-		return categoryPage(m, session);		
+		return new ModelAndView("login", "user", new User());	
+		
 	}
 }

@@ -20,10 +20,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <script src="/MyEmag/js/jquery.min.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
+
 <jsp:include page="insertHeader.jsp" />
 <div class="check-out">
 <div class="container">
