@@ -24,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 
 <body>
+
 <jsp:include page="insertHeader.jsp" />
 <h2>Review</h2>
 <div class="container">

@@ -18,6 +18,13 @@
 <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+	    var $input = $('#refresh');	
+	    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+	});
+</script>
+
 <!--theme-style-->
 <link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
@@ -41,11 +48,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </style>
 
 
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
+<input type="hidden" id="refresh" value="no">
 <jsp:include page="insertHeader.jsp" />
+
 <div class="single">
 
 <div class="container">
@@ -141,7 +152,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="admin-panel">
 		<c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
 			<!-- form CHANGE -->
-			<form action="${product.productId}/changeQuantity" method="post">
+			<form action="/MyEmag/product/${product.productId}/changeQuantity" method="post">
 				Current quantity:
 			  	<input  type="text" name="quantity" value="${product.quantity}" />	 
 			  	<input type="submit" value="Update" />

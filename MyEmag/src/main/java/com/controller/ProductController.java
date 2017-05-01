@@ -17,7 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model.Product;
 import com.model.Review;
@@ -38,34 +38,37 @@ public class ProductController {
 	
 	//view product
 	@RequestMapping(value="product/{productId}",method = RequestMethod.GET)
-	public static String viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {
+	public static ModelAndView viewProduct (Model model, @PathVariable(value="productId") Integer productId, HttpSession session) {
 		try {
 			if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
 				Product p=ProductDAO.getInstance().getProduct(productId);
 				model.addAttribute("product",p);
 				session.setAttribute("product", p);
-				return "product";
+				return new ModelAndView("product");
 			} 
 			else {
-				return "index";
+				return new ModelAndView("index");
 			}				
 		} 
 		catch (SQLException e) {
-			return "404";
+			return new ModelAndView("404");
 		}			
 	}
 	
+	//TODO
 	//view review
 		@RequestMapping(value="/product/{productId}/review",method = RequestMethod.GET)
-		public String review (@PathVariable(value="productId") Integer productId) {		
-			System.out.println("find review jsp++++++++++++++");
-			return "review";
+		public ModelAndView review (@PathVariable(value="productId") Integer productId, HttpSession session) {
+			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+				return new ModelAndView("review");
+			}
+			return new ModelAndView("login", "user", new User());
 		}		
 
 		
 
 		@RequestMapping(value = "/product/{productId}/review", method = RequestMethod.POST)
-		public String addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model){
+		public ModelAndView addReview(@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model){
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 				try {
 					if(ProductDAO.getInstance().getAllProducts().containsKey(productId)) {
@@ -80,30 +83,30 @@ public class ProductController {
 						}
 				} catch (NumberFormatException | SQLException e) {
 					System.out.println("SQL" + e.getMessage());
-					return "404";
+					return new ModelAndView("404");
 				}
-				return "index";
+				return new ModelAndView("index");
 				}
-			return "login";
+			return new ModelAndView("login", "user", new User());
 			}
 		
 		@RequestMapping(value="/{subcategory}", method = RequestMethod.GET)
-		public static String viewProductsBySubcategory (Model model, @PathVariable(value="subcategory") String subcategory, HttpSession session) {
+		public static ModelAndView viewProductsBySubcategory (Model model, @PathVariable(value="subcategory") String subcategory, HttpSession session) {
 			try {
 				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
 					ProductDAO pDao=ProductDAO.getInstance();
 					HashSet<Product> allProductsBySubcategory=pDao.getAllProductsBySubcategory(subcategory);
 					model.addAttribute("products",allProductsBySubcategory);
 					model.addAttribute("sortedProducts", null);
-					return "allProductsBySubcategory";
+					return new ModelAndView("allProductsBySubcategory");
 				} 
 				else {
-					return "index";
+					return new ModelAndView("index");
 				}				
 			} 
 			catch (SQLException e) {
 				System.out.println("SQL - allProductsBySubcategory" + e.getMessage());
-				return "404";
+				return new ModelAndView("404");
 			}			
 		}
 		
@@ -209,7 +212,7 @@ public class ProductController {
 		}
 		
 		@RequestMapping(value="/product/{productId}/addToCart",method = RequestMethod.POST)
-		public String addToCart (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
+		public ModelAndView addToCart (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 				HashMap<Product, Integer> productsInCart=(HashMap<Product, Integer>) session.getAttribute("cart");
 				try {
@@ -220,15 +223,15 @@ public class ProductController {
 					}
 				} catch (SQLException e) {
 					System.out.println("SQL add products to cart " + e.getMessage());
-					return "404";
+					return new ModelAndView("404");
 				}
 			}
-			return "login";
+			return new ModelAndView("login", "user", new User());
 		}
 		
 
 		@RequestMapping(value="/product/{productId}/addToWishList",method = RequestMethod.POST)
-		public String addToWishList (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
+		public ModelAndView addToWishList (@PathVariable(value="productId") Integer productId,HttpSession session, Model model) {		
 			if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 				User u=(User) session.getAttribute("user");
 				int userId=u.getUserId();
@@ -243,7 +246,7 @@ public class ProductController {
 					return viewProduct(model, productId, session);
 				}
 			}
-			return "login";
+			return new ModelAndView("login", "user", new User());
 		}
 		
 		@RequestMapping (value="/search", method=RequestMethod.GET)

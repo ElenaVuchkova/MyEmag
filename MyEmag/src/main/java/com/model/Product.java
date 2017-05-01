@@ -19,7 +19,7 @@ public class Product implements Comparable<Product>{
 	private String descrValue2;
 	private String descrKey3;
 	private String descrValue3;
-	private ArrayList<Review> reviews;
+	private ArrayList<Review> reviews=new ArrayList<>();
 	private double salePrice;
 	
 	public Product () {

@@ -43,6 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			});
 		});
 		</script>
+		
 		<style>
 			
 	#searchInput {
@@ -56,6 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </head>
 <body>
+
 <!--header-->
 <div class="header">
 <div class="container">

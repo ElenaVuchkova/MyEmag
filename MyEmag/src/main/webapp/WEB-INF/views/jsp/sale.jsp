@@ -23,6 +23,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <title>Insert title here</title>
 </head>
 <body>
+
 <jsp:include page="insertHeader.jsp" />
 <div class="content">
 			<div class="container">				

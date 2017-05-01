@@ -41,7 +41,9 @@ function fillSubcategories(){
 		    });
 }
 </script>
+
 <body>
+
  <jsp:include page="insertHeader.jsp" />
   <form action="addProduct" method="post" enctype="multipart/form-data">
 				 <input id="title" type="text" name="title" class="validate" required>
@@ -73,6 +75,7 @@ function fillSubcategories(){
          		   
 				Categories: 
 				<select name = "category" id="categorycombo" onchange="fillSubcategories()">
+					<option selected="selected" class="holder">Please select</option>
 					<c:forEach var="cat" items="${catAndSubcat}">
 		                <option  value="${cat.key}"><c:out value="${cat.key}"></c:out></option>
 		       		 </c:forEach>
