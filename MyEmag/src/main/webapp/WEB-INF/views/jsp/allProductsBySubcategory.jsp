@@ -51,7 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<h2>Order by:</h2>
 				<form action="${subcategory}" method="post">		 
 					<select name="param">
-						<option selected="selected" class="holder">Please select</option>
+						<option selected="selected" class="holder" >Please select</option>
 					    <option value="date">date</option>
 					    <option value="price desc.">price desc.</option>
 					    <option value="price asc.">price asc.</option>

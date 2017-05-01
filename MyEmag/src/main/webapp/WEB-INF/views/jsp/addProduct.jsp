@@ -9,6 +9,7 @@
 <!-- Custom Theme files -->
 <!--theme-style-->
 <link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/order.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,57 +42,183 @@ function fillSubcategories(){
 		    });
 }
 </script>
+
 <body>
  <jsp:include page="insertHeader.jsp" />
+ 
   <form action="addProduct" method="post" enctype="multipart/form-data">
-				 <input id="title" type="text" name="title" class="validate" required>
-         		   <label for="title">Title</label><br>
-         		 <input id="quantity" type="text" name="quantity" class="validate" required>
-         		   <label for="quantity">Quantity</label><br>
-         		<input id="price" type="text" name="price" class="validate" required>
-         		   <label for="price">Price</label><br>	
-         		   
-         		    <input id="descrKey1" type="text" name="descrKey1" class="validate" required>
-         		   <label for="descrKey1">descrKey1</label><br>
-         		   
-         		     <input id="descrValue1" type="text" name="descrValue1" class="validate" required>
-         		   <label for="descrValue1">"descrValue1"</label><br>
-         		   
-         		    <input id="descrKey2" type="text" name="descrKey2" class="validate" required>
-         		   <label for="descrKey2">descrKey2</label><br>
-         		   
-         		     <input id="descrValue2" type="text" name="descrValue2" class="validate" required>
-         		   <label for="descrValue2">"descrValue2"</label><br>
-         		   
-         		    <input id="descrKey3" type="text" name="descrKey3" class="validate" required>
-         		   <label for="descrKey3">descrKey3</label><br>
-         		   
-         		     <input id="descrValue3" type="text" name="descrValue3" class="validate" required>
-         		   <label for="descrValue3">"descrValue3"</label><br>
-         		   
-         		       		   
-         		   
-				Categories: 
-				<select name = "category" id="categorycombo" onchange="fillSubcategories()">
+  
+  <div id="wrap">
+	<div id="accordian">
+	
+	   <!-- 1 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>1</span>
+			</div>
+			<div class="title">
+				<h1>Title</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		 <input id="title" type="text" name="title" class="validate" required>
+	         </div>		
+		 </div>
+		<!-- //1 --> 
+		
+		 <!-- 2 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>2</span>
+			</div>
+			<div class="title">
+				<h1>Quantity</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		 <input id="quantity" type="number" min="1" name="quantity" class="validate" required>
+	         </div>		
+		 </div>
+		<!-- //2 --> 
+		
+		<!-- 3 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>3</span>
+			</div>
+			<div class="title">
+				<h1>Price</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		 <input id="price" type="number" step="0.01" name="price" class="validate" required>
+	         </div>		
+		 </div>
+		<!-- //3 --> 
+		
+		<!-- 4 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>4</span>
+			</div>
+			<div class="title">
+				<h1>Specification</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		 <input id="descrKey1" placeholder="Characteristic" type="text" name="descrKey1" class="validate" required>
+	       		 <input id="descrValue1" placeholder="Description" type="text" name="descrValue1" class="validate" required>
+	         </div>		
+		 </div>
+		<!-- //4 --> 
+		
+		<!-- 5 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>5</span>
+			</div>
+			<div class="title">
+				<h1>Specification</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		  <input id="descrKey2" placeholder="Characteristics" type="text" name="descrKey2" class="validate" required>
+	       		  <input id="descrValue2" placeholder="Description" type="text" name="descrValue2" class="validate" required>
+	         </div>		
+		 </div>
+		<!-- //5 --> 
+		
+		<!-- 6 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>6</span>
+			</div>
+			<div class="title">
+				<h1>Specification</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		  <input id="descrKey3" type="text" placeholder="Characteristics" name="descrKey3" class="validate" required>
+	       		  <input id="descrValue3" type="text" placeholder="Description" name="descrValue3" class="validate" required>
+	         </div>		
+		 </div>
+		<!-- //6 -->
+		
+		
+		<!-- 7 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>7</span>
+			</div>
+			<div class="title">
+				<h1>Category</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		 <select name = "category" id="categorycombo" onchange="fillSubcategories()">
+	       		 	<option selected="selected" class="holder">Please select</option>
 					<c:forEach var="cat" items="${catAndSubcat}">
 		                <option  value="${cat.key}"><c:out value="${cat.key}"></c:out></option>
 		       		 </c:forEach>
-		        </select> <br>		        
-		       Subcategories: 
-				<select name = "subcategory" id="subcats">
-		        </select> <br>      
-		        
-				<label for="photo"> Select picture:  </label> <br>			
+		        </select>
+	         </div>		
+		 </div>
+		<!-- //7 --> 
+		
+		<!-- 8 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>8</span>
+			</div>
+			<div class="title">
+				<h1>Subcategory</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       		<select name="subcategory" id="subcats" >
+		        </select> 
+	         </div>		
+		 </div>
+		<!-- //8 -->
+		
+		<!-- 9 -->
+		<div class="step" id="step1">
+			<div class="number">
+				<span>9</span>
+			</div>
+			<div class="title">
+				<h1>Pictures</h1>
+			</div>			
+		 </div>
+		 <div class="content" id="email">		
+			 <div>
+	       				
 				<input type="file" name="picture" size="50" placeholder="Upload Image" ><br><br>
 					
-				<label for="photo"> Select picture:  </label> <br>			
 				<input type="file" name="picture1" size="50" placeholder="Upload Image" ><br><br>	
-				
-				<label for="photo"> Select picture:  </label> <br>			
-				<input type="file" name="picture2" size="50" placeholder="Upload Image" ><br><br>	
-						 	
-				<input type="submit" value = "Add product"></br>
-		</form>
+					
+				<input type="file" name="picture2" size="50" placeholder="Upload Image" ><br><br>	 
+	         </div>		
+		 </div>
+		<!-- //9 -->
+		        
+		<div class="right" id="reviewed">
+			<div id="complete">
+				<button type="submit" class="big_button" id="complete" value = "Add product">Add</button>
+			</div>
+		</div>
+		
+		</div>
+		</div>
+	</form>	
  <jsp:include page="insertFooter.jsp" />
 </body>
 </html>

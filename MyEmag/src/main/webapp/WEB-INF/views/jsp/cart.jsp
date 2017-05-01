@@ -106,7 +106,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<div class="produced">
-	<a href="/MyEmag/order" class="hvr-skew-backward">Continue</a>
+	    <c:if test="${fn:length(sessionScope.cart) gt 0}">
+		  <a href="/MyEmag/order" class="hvr-skew-backward">Continue</a>
+		</c:if>
 	</div>
 </div>
 </div>
