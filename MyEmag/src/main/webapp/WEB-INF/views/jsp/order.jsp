@@ -17,44 +17,120 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--theme-style-->
 <link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/order.css" rel="stylesheet" type="text/css" media="all" />
 <!--//theme-style-->
 <script src="/MyEmag/js/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <jsp:include page="insertHeader.jsp" />
 
 <form action="order" method="post" >
-<h2>Order data<br /> </h2>
-<div class="order-box">
-	1. Delivery data<br />
-		Delivery by courier<br />
-		<div class="login-mail">
-			<input type="text" name="address" placeholder="Enter your address" required="required" />
-			<i class="glyphicon glyphicon-user"></i>
-		</div>	
-</div>
+				
+<div id="wrap">
+	<div id="accordian">
+		<div class="step" id="step1">
+			<div class="number">
+				<span>1</span>
+			</div>
+			<div class="title">
+				<h1>Delivery data</h1>
+			</div>			
+		</div>
 	
-2. Payment method: <br />
-
-	<select name ="wayToPay" >
-		<c:forEach var="way" items="${waysToPay}">
-	        <option  value="${way}"><c:out value="${way}"></c:out></option>
-		</c:forEach>
-    </select> <br />	
-
-    
-3. User information<br />
-
-Ime : <c:out value="${sessionScope.username}"/>
-
-
-4. Order price<br />
-
-<c:out value="${sessionScope.price}"/>
-<button type="submit" class="btn btn-primary btn-block btn-large">Order</button>
+		<div class="content" id="email">		
+		<div>
+        <input type="text" name="address" id="email-address" placeholder="Address" required/><label for="email">Address</label>
+        </div>		
+		</div>
+		
+		<div class="step" id="step2">
+			<div class="number">
+				<span>2</span>
+			</div>
+			<div class="title">
+				<h1>User Information</h1>
+			</div>
+		</div>
+		
+		
+		<div class="content" id="address">			
+			<div>
+			<input type="text" name="first_name" value="${sessionScope.username}" id="first_name" />
+       		</div>	
+       		<div>
+			<input type="text" name="first_name" value="${sessionScope.user.email}" id="first_name" />
+       		</div>					
+		</div>
+	
+		<div class="step" id="step3">
+			<div class="number">
+				<span>3</span>
+			</div>
+			<div class="title">
+				<h1>Payment Information</h1>
+			</div>
+		</div>
+		<div class="content" id="payment">
+			<div class="left credit_card">				
+				<div>
+				  <div class="expiry">	
+				      <div class="month_select">
+				       <select name ="wayToPay" required >
+							<c:forEach var="way" items="${waysToPay}">
+					       	 <option  value="${way}"><c:out value="${way}"></c:out></option>
+							</c:forEach>
+			    		</select> <br />	
+                      </div>              
+            	   </div>
+               </div>                    
+          </div>
+          
+          <div class="right">
+			<div class="accepted">
+				<span><img src="http://i.imgur.com/Pu4e7AT.png" height="60" width="60"></span>
+				<span><img src="http://i.imgur.com/ewMjaHv.png" height="60" width="60"></span>
+				<span><img src="http://i.imgur.com/3LmmFFV.png" height="60" width="60"></span>
+			</div>			
+		</div>
+		
+	   </div>
+ 		
+ 		<div class="step" id="step5">
+			<div class="number">
+				<span>4</span>
+			</div>
+			<div class="title">
+				<h1>Finalize Order</h1>
+			</div>
+		</div>
+		
+		<div class="content" id="final_products">
+			<div class="left" id="ordered">				
+				<div class="final">
+					<span class="title">Total <span id="calculated_total">$${sessionScope.price}</span></span>
+				</div>
+			</div>	
+			
+			<div class="right" id="reviewed">
+				<div id="complete">
+				<button type="submit" class="big_button" id="complete">Order</button>
+				</div>
+			</div>
+	   </div>
+	   
+	   </div>
+</div>
+		
+		
+		
 </form>
 <jsp:include page="insertFooter.jsp" />
 

@@ -7,8 +7,8 @@
 <head>
 <title>MyEmag</title>
 <link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/MyEmag/css/test.css" rel="stylesheet" type="text/css" media="all" />
-
+<link href="/MyEmag/css/order.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/review.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
 <link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
@@ -54,7 +54,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <title>Insert title here</title>
 </head>
 <body>
-<input type="hidden" id="refresh" value="no">
 <jsp:include page="insertHeader.jsp" />
 
 <div class="single">
@@ -130,7 +129,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  					<input class="add-to item_add hvr-skew-backward" type="submit" value="Add to cart">
 						</form>
 						<form class="wish-button" action="/MyEmag/product/${product.productId}/review" method="get">		 
-					  				<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
+					  		<input class="add-to item_add hvr-skew-backward" type="submit" value="Make review">
 						</form>  
 			 		</li>
 			 	</ul>
@@ -182,7 +181,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="amazing-reviews">
 	<!-- test reviews -->
 	<c:if test="${fn:length(product.reviews) gt 0}">
-	<h1>Reviews</h1>	
+	<h3>Reviews</h3>	
 		<c:forEach items="${product.reviews}" var="review">
 		 <blockquote>  			
 		    <header>

@@ -61,18 +61,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 <c:if test="${fn:length(sessionScope.cart) gt 0}">
 	    		<table class="table-heading simpleCart_shelfItem">
 					  <tr>
-						<th class="table-grid">Items</th>	
+						<th class="table-grid">Item</th>	
+						<th class="table-grid">Title</th>	
 						<th>Quantity</th>	
-						<th>Prices</th>
+						<th>Price</th>
+						
 					  </tr>
 					  <c:forEach items="${sessionScope.cart}" var="entry">
 					  <tr class="cart-header">
+					  
 					  	<c:set var="index" value="${0}"/>
 						<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${entry.key.productId}/${index}" class="img-responsive"  alt=""></a>
 						<div class="clearfix"> </div>
-						</td>
-						<td>
+						</td>	
 						
+						
+						<td>  ${entry.key.title} </td>				
+								
+						<td>						
 						<select id="quantity" name = "cart[items][09154100][quantity]" 
 						onchange="changeQuantity(${entry.key.productId}, this.value)">
 							<c:forEach  var="i" begin="1" end="${entry.key.quantity}">
@@ -101,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<div class="produced">
-	<a href="order" class="hvr-skew-backward">Produced To Buy</a>
+	<a href="/MyEmag/order" class="hvr-skew-backward">Continue</a>
 	</div>
 </div>
 </div>

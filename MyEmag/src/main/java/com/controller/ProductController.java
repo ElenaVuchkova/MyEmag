@@ -114,7 +114,7 @@ public class ProductController {
 		@RequestMapping(value="/{subcategory}", method = RequestMethod.POST)
 		public String viewProductsBySubcategoryOrderByParam (Model model, @PathVariable(value="subcategory") String subcategory,
 				HttpServletRequest req, HttpSession session) {
-			System.out.println("assdadsfdsfdsdsdsdgdfgdf");
+			
 			try {
 				if (SubcategoryDAO.getInstance().isSubcategory(subcategory)) {
 					ProductDAO pDao=ProductDAO.getInstance();

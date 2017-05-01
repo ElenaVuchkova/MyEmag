@@ -341,6 +341,7 @@ public class UserController {
 		}
 		return new ModelAndView("login", "user", new User());
 	}
+
 	
 	@RequestMapping(value="/order",method = RequestMethod.POST)
 	public ModelAndView makeOrder (Model model, HttpServletRequest req,HttpSession session) {
