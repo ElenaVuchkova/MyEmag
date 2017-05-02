@@ -153,7 +153,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- form CHANGE -->
 			<form action="/MyEmag/product/${product.productId}/changeQuantity" method="post">
 				Current quantity:
-			  	<input  type="text" name="quantity" value="${product.quantity}" />	 
+			  	<input  type="number" name="quantity" min="1" value="${product.quantity}" />	 
 			  	<input type="submit" value="Update" />
 			</form> 
 			<!-- END form CHANGE -->
@@ -163,8 +163,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<c:out value="${sessionScope.messageDiscount}"/>
 			</c:if>
 			<form action="/MyEmag/product/${product.productId}/setDiscount" method="post">
-			Enter 1-100:
-				<input type="text" name="discount" placeholder="Percent number" />
+				<input type="number" name="discount" placeholder="Percent number between 1 and 100" min="1" max="100" />
 			  	<input type="submit" value="Set discount" />
 			</form> 
 			<!-- END form DISCOUNT -->
@@ -194,6 +193,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		      </span>
 		      <i>${review.comment}</i><br>
 		      <span>${review.date}</span><br>
+		     	<img src="/MyEmag/images/star.png" alt=""/>
+		      <span>${review.rating}</span><br>
 		      <span>By <em>${review.user.username}</em></span>      
 		    </header>
 		 </blockquote>  

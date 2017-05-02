@@ -1,18 +1,11 @@
 package com.controller;
 
 
-import static org.mockito.Matchers.doubleThat;
-import static org.mockito.Matchers.intThat;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -21,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.http.HttpRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,9 +22,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonArray;
@@ -151,10 +144,25 @@ public class UserController {
 		return indexpage(model, req);
 	}
 	
+	
+	//profile
+	@RequestMapping(value="/profile", method=RequestMethod.GET)
+	public ModelAndView profile(Model model, HttpSession session) {
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			return new ModelAndView("profile");
+		}
+		return new ModelAndView("login","user", new User());			
+	}
+	
 
 	@RequestMapping(value="/test2", method=RequestMethod.GET)
 	public String test() {
 		return "test2";
+	}
+	
+	@RequestMapping(value="/contact", method=RequestMethod.GET)
+	public String contact() {
+		return "contact";
 	}
 	
 
@@ -261,8 +269,9 @@ public class UserController {
 			System.out.println("sql index controller"+e.getMessage());
 			return new ModelAndView("404");
 		}
-		return new ModelAndView("login", "user", new User());
+		return new ModelAndView("sale");
 	}	
+	
 	
 	@RequestMapping(value="/wishlist", method=RequestMethod.GET)
 	public ModelAndView wishlistPage(Model model, HttpSession session) {
@@ -314,8 +323,6 @@ public class UserController {
 		return new ModelAndView("login", "user", new User());
 	}
 	
-
-	
 	@RequestMapping(value="/order", method=RequestMethod.GET)
 	public ModelAndView order (Model model, HttpSession session) {
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
@@ -328,6 +335,9 @@ public class UserController {
 				else {
 					price+=p.getPrice()*products.get(p);
 				}
+			}
+			if(price<=0){
+				return new ModelAndView("cart");
 			}
 			try {
 				ArrayList<String> waysToPay=PaymentDAO.getInstance().getAllPayments();
@@ -370,7 +380,7 @@ public class UserController {
 				System.out.println("SQL- make order " + e.getMessage());
 				return new ModelAndView("404");
 			}
-			return  new ModelAndView("order");
+			return  new ModelAndView("index");
 		}
 		return new ModelAndView("login", "user", new User());
 	}

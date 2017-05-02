@@ -10,7 +10,7 @@
 <link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
-<link href="MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,7 +18,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--theme-style-->
-<link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <script src="/MyEmag/js/jquery.min.js"></script>
 </head>
@@ -51,7 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<i  class="glyphicon glyphicon-envelope"></i>
 				</div>
 				<div class="login-mail">
-					<f:input  path="password" type="password" placeholder="Password" required=""></f:input>
+					<f:input  path="password" type="password" placeholder="Password*" required=""></f:input>
 					<i class="glyphicon glyphicon-lock"></i>
 				</div>
 				<div class="login-mail">
@@ -62,6 +62,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="submit" value="Submit">
 				</label>	
 		</div>
+		<label style="font-size:15px">*The password must have at least 8 characters, at least 1 digit(s), 
+						at least 1 lower case letter(s), 
+						at least 1 upper case letter(s), 
+						at least 1 character(s) such as as *, -, or #</label>
 		</f:form>
 		</div>
 	</div>

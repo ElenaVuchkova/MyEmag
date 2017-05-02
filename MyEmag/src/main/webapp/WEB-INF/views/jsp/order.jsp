@@ -63,10 +63,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 		<div class="content" id="address">			
 			<div>
-			<input type="text" name="first_name" value="${sessionScope.username}" id="first_name" />
+			<input type="text" name="first_name" value="${sessionScope.username}" id="first_name" readonly />
        		</div>	
        		<div>
-			<input type="text" name="first_name" value="${sessionScope.user.email}" id="first_name" />
+			<input type="text" name="first_name" value="${sessionScope.user.email}" id="first_name" readonly />
        		</div>					
 		</div>
 	

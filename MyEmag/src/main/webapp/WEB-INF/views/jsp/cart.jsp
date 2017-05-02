@@ -56,7 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="bs-example4" data-example-id="simple-responsive-table">
 	    <div class="table-responsive">
 	    <c:if test="${fn:length(sessionScope.cart) == 0}">
-		   <p>Your cart is empty!<p>
+		   <h2 align="center" >Your cart is empty!</h2>
 		</c:if>
 		 <c:if test="${fn:length(sessionScope.cart) gt 0}">
 	    		<table class="table-heading simpleCart_shelfItem">
@@ -71,7 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <tr class="cart-header">
 					  
 					  	<c:set var="index" value="${0}"/>
-						<td class="ring-in"><a href="product" class="at-in"><img src="/MyEmag/image/${entry.key.productId}/${index}" class="img-responsive"  alt=""></a>
+						<td class="ring-in"><a href="/MyEmag/product/${product.productId}" class="at-in"><img src="/MyEmag/image/${entry.key.productId}/${index}" class="img-responsive"  alt=""></a>
 						<div class="clearfix"> </div>
 						</td>	
 						
@@ -107,7 +107,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<div class="produced">
-	<a href="/MyEmag/order" class="hvr-skew-backward">Continue</a>
+	    <c:if test="${fn:length(sessionScope.cart) gt 0}">
+		  <a href="/MyEmag/order" class="hvr-skew-backward">Continue</a>
+		</c:if>
 	</div>
 </div>
 </div>

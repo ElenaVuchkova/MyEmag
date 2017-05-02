@@ -32,7 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="bs-example4" data-example-id="simple-responsive-table">
 	    <div class="table-responsive">
 	    <c:if test="${fn:length(favouriteProducts) == 0}">
-		   <p>Your wishlist is empty!<p>
+		   <h2 align="center" >Your wishlist is empty!</h2>
 		</c:if>
 		 <c:if test="${fn:length(favouriteProducts) gt 0}">
 	    	    <table class="table-heading simpleCart_shelfItem">

@@ -36,20 +36,20 @@
 				<div class="container">
 					<c:if test="${sessionScope.logged && sessionScope.user.role == 1 && sessionScope.user.isSubscriber==0}">
 						<div class="col-md-3 footer-middle-in">
-							<h6>Newsletter! Here you can subscribe for sales</h6>
-							<button id="subscribe" onclick="myFunction()">Subscribe</button>
+							<h6>Here you can subscribe for sales</h6>
+							<button id="subscribe" onclick="myFunction()" style="color: #F67777; background: transparent; font-size: 20px;">Subscribe</button>
 						</div>	
 						</c:if>
 					<c:if test="${sessionScope.logged && sessionScope.user.role == 1 && sessionScope.user.isSubscriber==1}">
 						<div class="col-md-3 footer-middle-in">
 							<h6>Here you can unsubscribe for sales</h6>
-							<button id="unsubscribe" onclick="myFunction1()">Unsubscribe</button>
+							<button id="unsubscribe" onclick="myFunction1()" style="color: #F67777; background: transparent; font-size: 20px;">Unsubscribe</button>
 						</div>	
 						</c:if>
 					<c:if test="${!sessionScope.logged}">
 						<div class="col-md-3 footer-middle-in">
 							<h6>Newsletter! You can subscribe for sales!</h6>
-							<a href="login">Login here</a>
+							<a href="login" style="color: #F67777; background: transparent; font-size: 20px;">Login here!</a>
 						</div>		
 					</c:if>					
 					

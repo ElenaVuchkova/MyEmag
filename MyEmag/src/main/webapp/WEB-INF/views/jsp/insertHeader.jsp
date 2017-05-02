@@ -123,7 +123,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>				
 			</li>
 			<li><a class="color3" href="/MyEmag/sale">Sale</a></li>
-            <li ><a class="color6" href="contact.html">Contact</a></li>      
+            <li ><a class="color6" href="/MyEmag/contact">Contact</a></li>    
+            <li ><a class="color6" href="/MyEmag/profile">Profile</a></li>      
             <!-- if admin -->      
             <c:if test="${sessionScope.logged && sessionScope.user.role == 0}">
              <li ><a class="color6" href="/MyEmag/addProduct">Add product</a></li>

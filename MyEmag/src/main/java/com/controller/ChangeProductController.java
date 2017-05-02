@@ -33,8 +33,8 @@ import com.model.dao.UserDAO;
 @Controller
 @MultipartConfig
 public class ChangeProductController {
-	//private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 	private String jspName;
 	
 	
@@ -60,6 +60,7 @@ public class ChangeProductController {
 				m.addAttribute("catAndSubcat", catAndSubcat);
 			} catch (SQLException e) {
 				System.out.println("sql index controller"+e.getMessage());
+				return new ModelAndView("404");
 			}
 			return new ModelAndView("addProduct");
 		}
@@ -94,6 +95,7 @@ public class ChangeProductController {
 					paths.add(multiPartPicture.getOriginalFilename());
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment"+e.getMessage());
+					return new ModelAndView("404");
 				}
 			}
 			if(multiPartPicture1.getSize() != 0) {			
@@ -105,7 +107,7 @@ public class ChangeProductController {
 					System.out.println("io exception int check size comment"+e.getMessage());
 				}
 			}
-			if(multiPartPicture1.getSize() != 0) {			
+			if(multiPartPicture2.getSize() != 0) {			
 				try {
 					File fileOnDisk = new File(FILE_LOCATION + multiPartPicture2.getOriginalFilename());
 					Files.copy(multiPartPicture2.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -118,14 +120,12 @@ public class ChangeProductController {
 			try {
 				ProductDAO.getInstance().addProduct(p);
 			} catch (SQLException e) {
-				//jspName= "addProduct";
-				System.out.println(e.getMessage());
-				return new ModelAndView("404");
-				
+				System.out.println("add product + "+e.getMessage());
+				return new ModelAndView("404");				
 			}
 			return new ModelAndView("addProduct");
 		}
-		//jspName = "login";
+		
 		return new ModelAndView("login", "user", new User());
 		
 	}
@@ -167,7 +167,7 @@ public class ChangeProductController {
 		return new ModelAndView("login", "user", new User());	
 	}
 	
-	//TODO
+	
 	private void sendEmail(ArrayList<User> users) throws MessagingException{
 		EmailSender sender=EmailSender.getInstance();
 		for(User u : users){

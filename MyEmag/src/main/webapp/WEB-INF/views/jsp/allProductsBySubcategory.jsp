@@ -7,10 +7,11 @@
 <html>
 <head>
 <title>MyEmag</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/MyEmag/css/order.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,9 +19,9 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--theme-style-->
-<link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/MyEmag/css/style4.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
-<script src="js/jquery.min.js"></script>
+<script src="/MyEmag/js/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 		
@@ -37,11 +38,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<label class="line"></label>
 				<!-- if admin -->      
 	            <c:if test="${sessionScope.logged && sessionScope.user.role == 0}">	             
-	             <form action="${subcategory}/setDiscount" method="post">
-				  Enter 1-100:<input placeholder="Percent number" type="text" name="discount" >
-				  <br>		 
-				  <input class="quick_desc" type="submit" value="Set discount">
-				</form> 
+	             <form action="${subcategory}/setDiscount" method="post">      	             				
+					<div id="wrap">
+						<div id="accordian">
+							<div class="step" id="step1">
+								<div class="title">
+									<h1>Set discount for subcategory</h1>
+								</div>			
+							 </div>
+							 <div class="content" id="email">		
+								 <div>
+						       		<input placeholder="Percent number" type="number" min="1" max="100" name="discount"  >
+						         </div>		
+							 </div>
+							  <div class="right" id="reviewed">
+							<div id="complete">
+								<button type="submit" class="big_button" id="complete" value = "Set discount">Save</button>     
+							</div>
+						</div> 
+			 		</div>
+			 	</div>
+			</form> 
+				
+				
 	             
 	            </c:if>
 	             <!-- //if admin -->  
@@ -49,18 +68,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<c:if test="${select!=null}">
 					<c:out value="${select}"/>
 				</c:if>
-				<h2>Order by:</h2>
-				<form action="${subcategory}" method="post">		 
-					<select name="param">
-						<option selected="selected" class="holder">Please select</option>
-					    <option value="date">date</option>
-					    <option value="price desc.">price desc.</option>
-					    <option value="price asc.">price asc.</option>
-					    <option value="most reviews">most reviews</option>
-					    <option value="sale desc.">sale desc.</option>
-					</select>
-					<input type="submit" value="Submit" >
+				
+				 <form action="${subcategory}" method="post">
+					<div id="wrap">
+						<div id="accordian">
+							<div class="step" id="step1">
+								<div class="title">
+									<h1>Order by</h1>
+								</div>			
+							 </div>
+						 	<div class="content" id="email">		
+								<div>	 
+									<select name="param">
+										<option selected="selected" class="holder" >Please select</option>
+									    <option value="date">date</option>
+									    <option value="price desc.">price desc.</option>
+									    <option value="price asc.">price asc.</option>
+									    <option value="most reviews">most reviews</option>
+									    <option value="sale desc.">sale desc.</option>
+									</select>
+								</div>
+							</div>
+								
+							<div class="right" id="reviewed">
+								<div id="complete">
+									<button type="submit" class="big_button" id="complete">Order</button>     
+								</div>
+							</div> 
+						</div>
+					</div>
 				</form>
+				
 		<c:if test="${sortedProducts == null}">
 			<c:forEach items="${products}" var="product">	
 					<div class=" mid-pop" style="display:table-cell;">
@@ -118,7 +156,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="mid-2">
 								<span>$${sortedProduct.price}</span>
 								<c:if test="${sortedProduct.salePrice != 0}">
-   									<span class="mid-2 sale-bg-color">Sale: $${product.salePrice}</span>
+   									<span class="mid-2 sale-bg-color">Sale: $${sortedProduct.salePrice}</span>
 							    </c:if>	
 								  <div class="block">
 									<div class="starbox small ghosting"> </div>
