@@ -134,6 +134,20 @@ public class UserDAO {
 		}
 	}
 	
+	public void unsubscribe (String username) throws SQLException {
+		if (ALL_USERS.containsKey(username)) {
+			User u=ALL_USERS.get(username);
+			if (u.getRole()!=0) {
+			u.setIsSubscriber(0);
+			String sql = "UPDATE users SET isSubscriber=? WHERE username=?";
+			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			st.setInt(1, 0);
+			st.setString(2, username);
+			st.executeUpdate();
+			}
+		}
+	}
+	
 	public ArrayList<User> allSubscribers () {
 		ArrayList<User> subscribers=new ArrayList<>();
 		for (User u : ALL_USERS.values()) {

@@ -303,11 +303,11 @@ public class ChangeProductController {
 			}
 			try {
 				CategoryDAO.getInstance().addCategory(category, subcategories);
+				return new ModelAndView("addCategory","words2", "You added new categoory!");
 			} catch (SQLException e) {
 				System.out.println("sql add category "+e.getMessage());
 				return new ModelAndView("404");
 			}
-			return new ModelAndView("addCategory","words2", "You added new categoory!");
 		}
 		return new ModelAndView("login", "user", new User());	
 		
