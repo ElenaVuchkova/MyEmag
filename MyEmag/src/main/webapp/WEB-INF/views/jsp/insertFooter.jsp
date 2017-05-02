@@ -9,8 +9,21 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	function myFunction() {
-	    alert("Subscribed!"),
+		alert("Subscribed!"),
+		$("#subscribe").hide();
 		$.post("/MyEmag/subscribe");
+		console.log($("#unsubscribe"));
+		$("#unsubscribe").show();
+	};
+</script>
+
+<script type="text/javascript">
+	function myFunction1() {
+	    alert("Unsubscribed!"),
+		$("#unsubscribe").hide();
+		$.post("/MyEmag/unsubscribe");
+		console.log($("#subscribe"));
+		$("#subscribe").show();
 	};
 </script>
 </head>
@@ -21,16 +34,22 @@
 	
 	  <div class="footer-middle">
 				<div class="container">
-					<c:if test="${sessionScope.logged && sessionScope.user.role == 1}">
+					<c:if test="${sessionScope.logged && sessionScope.user.role == 1 && sessionScope.user.isSubscriber==0}">
 						<div class="col-md-3 footer-middle-in">
 							<h6>Here you can subscribe for sales</h6>
-							<button onclick="myFunction()" style="color: #F67777; background: transparent; font-size: 20px;">Subscribe</button>
+							<button id="subscribe" onclick="myFunction()" style="color: #F67777; background: transparent; font-size: 20px;">Subscribe</button>
+						</div>	
+						</c:if>
+					<c:if test="${sessionScope.logged && sessionScope.user.role == 1 && sessionScope.user.isSubscriber==1}">
+						<div class="col-md-3 footer-middle-in">
+							<h6>Here you can unsubscribe for sales</h6>
+							<button id="unsubscribe" onclick="myFunction1()" style="color: #F67777; background: transparent; font-size: 20px;">Unsubscribe</button>
 						</div>	
 						</c:if>
 					<c:if test="${!sessionScope.logged}">
 						<div class="col-md-3 footer-middle-in">
 							<h6>Newsletter! You can subscribe for sales!</h6>
-							<a href="login" style="color: #F67777; background: transparent; font-size: 20px;">Login here</a>
+							<a href="login" style="color: #F67777; background: transparent; font-size: 20px;">Login here!</a>
 						</div>		
 					</c:if>					
 					

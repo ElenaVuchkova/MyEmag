@@ -155,9 +155,9 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value="/test", method=RequestMethod.GET)
+	@RequestMapping(value="/test2", method=RequestMethod.GET)
 	public String test() {
-		return "test";
+		return "test2";
 	}
 	
 	@RequestMapping(value="/contact", method=RequestMethod.GET)
@@ -376,6 +376,7 @@ public class UserController {
 	public void  subscribe (HttpSession session, Model model) {		
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
 			User u=(User) session.getAttribute("user");
+			u.setIsSubscriber(1);
 			String username=u.getUsername();
 			try {
 				UserDAO.getInstance().subscribe(username);
@@ -383,6 +384,20 @@ public class UserController {
 				System.out.println("SQL - subscribe " + e.getMessage());
 			}
 		}
-	}	
+	}
+	
+	@RequestMapping(value="/unsubscribe", method = RequestMethod.POST)
+	public void  unsubscribe (HttpSession session, Model model) {		
+		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged")){
+			User u=(User) session.getAttribute("user");
+			u.setIsSubscriber(0);
+			String username=u.getUsername();
+			try {
+				UserDAO.getInstance().unsubscribe(username);
+			} catch (SQLException e) {
+				System.out.println("SQL - subscribe " + e.getMessage());
+			}
+		}
+	}
 
 }

@@ -28,8 +28,8 @@ import com.model.dao.ImageDAO;
 public class ImageController {
 	
 
-	private static final String FILE_PATH = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
-	//private static final String FILE_PATH = "C:\\Users\\hp\\Desktop\\EmagImages\\";
+	//private static final String FILE_PATH = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
+	private static final String FILE_PATH = "C:\\Users\\hp\\Desktop\\EmagImages\\";
 
 	
 	@RequestMapping (value="/image/{productId}/{index}", method=RequestMethod.GET)
