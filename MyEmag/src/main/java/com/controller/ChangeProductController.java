@@ -35,7 +35,7 @@ import com.model.dao.UserDAO;
 public class ChangeProductController {
 	private static final String FILE_LOCATION = "C:\\Users\\Elena\\Desktop\\EmagImages\\";
 	//private static final String FILE_LOCATION = "C:\\Users\\hp\\Desktop\\EmagImages\\";
-	private String jspName;
+	
 	
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.GET)
@@ -68,7 +68,7 @@ public class ChangeProductController {
 	}
 	
 	@RequestMapping(value="/addProduct",method = RequestMethod.POST)
-	public ModelAndView addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture,
+	public String addProduct(Model model,@RequestParam("picture") MultipartFile multiPartPicture,
 										@RequestParam("picture1") MultipartFile multiPartPicture1, 
 										@RequestParam("picture2") MultipartFile multiPartPicture2, 
 										HttpServletRequest req,HttpSession session) {
@@ -95,7 +95,7 @@ public class ChangeProductController {
 					paths.add(multiPartPicture.getOriginalFilename());
 				} catch (IOException e) {
 					System.out.println("io exception int check size comment"+e.getMessage());
-					return new ModelAndView("404");
+					return "404";
 				}
 			}
 			if(multiPartPicture1.getSize() != 0) {			
@@ -121,38 +121,35 @@ public class ChangeProductController {
 				ProductDAO.getInstance().addProduct(p);
 			} catch (SQLException e) {
 				System.out.println("add product + "+e.getMessage());
-				return new ModelAndView("404");				
+				return "404";			
 			}
-			return new ModelAndView("addProduct");
+			model.addAttribute("message", "Create new product!");
+			return "addProduct";
 		}
-		
-		return new ModelAndView("login", "user", new User());
-		
+		return "login";		
 	}
 	
 	
 	@RequestMapping(value="product/{productId}/delete", method=RequestMethod.POST)
-	public ModelAndView deleteProduct (@PathVariable(value="productId") Integer productId, HttpSession session) {
-		//check user is admin 
-		//check user session
+	public String deleteProduct (@PathVariable(value="productId") Integer productId, HttpSession session, Model m, HttpServletRequest req) {
+		
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			try {
 				ProductDAO.getInstance().deleteProduct(productId);
 			} catch (SQLException e) {
 				System.out.println("sql deleteProduct"+e.getMessage());
-				return new ModelAndView("404");
+				return "404";
 			}
-			return new ModelAndView("inddex");
+			return UserController.indexpage(m, req);
 		}
-		return new ModelAndView("login", "user", new User());
+		return "login";
 	}
 	
 	
 	@RequestMapping(value="product/{productId}/changeQuantity", method=RequestMethod.POST)
-	public ModelAndView changeQuantity (@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model) {
-		//check user is admin 
-		//check user session
+	public String changeQuantity (@PathVariable(value="productId") Integer productId, HttpSession session, HttpServletRequest req, Model model) {
+		
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			int quantity=Integer.parseInt(req.getParameter("quantity"));
@@ -160,11 +157,11 @@ public class ChangeProductController {
 				ProductDAO.getInstance().updateQuantity(productId, quantity);
 			} catch (SQLException e) {
 				System.out.println("sql changeQuantity "+ e.getMessage());
-				return new ModelAndView("404");
+				return "404";
 			}
-			return ProductController.viewProduct(model, productId, session);
+			return ProductController.viewProduct(model, productId, session, req);
 		}
-		return new ModelAndView("login", "user", new User());	
+		return "login";
 	}
 	
 	
@@ -176,10 +173,9 @@ public class ChangeProductController {
 	}
 	
 	@RequestMapping(value="product/{productId}/setDiscount", method=RequestMethod.POST)
-	public ModelAndView setDiscount (@PathVariable(value="productId") Integer productId, HttpSession session, 
+	public String setDiscount (@PathVariable(value="productId") Integer productId, HttpSession session, 
 			HttpServletRequest req, Model model) {
-		//check user is admin 
-		//check user session
+		
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			int discount=Integer.parseInt(req.getParameter("discount"));
@@ -190,25 +186,24 @@ public class ChangeProductController {
 					sendEmail(users);
 				} catch (SQLException e) {
 					System.out.println("sql setDiscount "+e.getMessage());
-					return new ModelAndView("404");
+					return "404";
 				} catch (MessagingException e) {
 					System.out.println("sql setDiscount messaging "+e.getMessage());
-					return new ModelAndView("404");
+					return "404";
 				}
 			}
 			else{
 				session.setAttribute("messageDiscount", "Please, enter number between 1 and 100!");
 			}
-			return ProductController.viewProduct(model, productId, session);	
+			return ProductController.viewProduct(model, productId, session, req);	
 		}
-		return new ModelAndView("login", "user", new User());	
+		return "login";
 	}
 	
-	//TODO
+	
 	@RequestMapping(value="{subcategory}/setDiscount", method=RequestMethod.POST)
-	public ModelAndView setDiscountForSubcat (@PathVariable(value="subcategory") String subcategory, HttpSession session, HttpServletRequest req, Model model) {
-		//check user is admin 
-		//check user session
+	public String setDiscountForSubcat (@PathVariable(value="subcategory") String subcategory, HttpSession session, HttpServletRequest req, Model model) {
+		
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			try {
@@ -225,11 +220,11 @@ public class ChangeProductController {
 				}
 			} catch (SQLException | MessagingException e) {
 				System.out.println("sql setDiscountForSubcat "+e.getMessage());
-				return new ModelAndView("404");
+				return "404";
 			}
 			return ProductController.viewProductsBySubcategory(model, subcategory, session);
 		}
-		return new ModelAndView("login", "user", new User());
+		return "login";
 	}
 	
 	
@@ -263,8 +258,7 @@ public class ChangeProductController {
 	
 	@RequestMapping(value="/addSubcategory", method=RequestMethod.POST)
 	public ModelAndView addSubcategory (HttpSession session, Model m, HttpServletRequest req) {
-		//check user is admin 
-		//check user session
+		
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			String name=req.getParameter("category");
@@ -283,8 +277,7 @@ public class ChangeProductController {
 	
 	@RequestMapping(value="/addCategory", method=RequestMethod.POST)
 	public ModelAndView addCategory (HttpSession session, Model m, HttpServletRequest req) {
-		//check user is admin 
-		//check user session
+		
 		User user = (User)session.getAttribute("user");
 		if(session.getAttribute("logged") != null && (Boolean) session.getAttribute("logged") && user.getRole()==0){
 			String category=req.getParameter("category");

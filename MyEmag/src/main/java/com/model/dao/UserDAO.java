@@ -49,8 +49,7 @@ public class UserDAO {
 		ALL_USERS.put(u1.getUsername(), u1);
 	}
 	
-	//get all users from db
-	//TODO 
+	
 	private HashMap<String, User> getAllUsers() throws SQLException{
 		if(ALL_USERS.isEmpty()){
 			String sql = "SELECT user_id, username, password, email, role, isSubscriber FROM users;";

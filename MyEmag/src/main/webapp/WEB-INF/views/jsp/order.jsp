@@ -47,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 		<div class="content" id="email">		
 		<div>
-        <input type="text" name="address" id="email-address" placeholder="Address" required/><label for="email">Address</label>
+        <input type="text" name="address" id="email-address" placeholder="Address" required/>
         </div>		
 		</div>
 		

@@ -44,7 +44,7 @@ import com.model.dao.UserDAO;
 @Controller
 public class UserController {		
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String indexpage(Model m, HttpServletRequest req){
+	public static String indexpage(Model m, HttpServletRequest req){
 		ArrayList<String> categories=new ArrayList<>();
 		ArrayList<String> subcategories=new ArrayList<>();
 		HashMap<String, ArrayList<String>> catAndSubcat=new HashMap<>();
@@ -63,7 +63,7 @@ public class UserController {
 			//add to application
 			ServletContext sc = req.getServletContext();
 			sc.setAttribute("catAndSubcat", catAndSubcat);
-			//session.setAttribute("catAndSubcat", catAndSubcat);
+			
 			ArrayList<Product> newProducts= ProductDAO.getInstance().getTopTwelveNewProducts();
 			m.addAttribute("newProducts", newProducts);
 		} catch (SQLException e) {
@@ -179,33 +179,24 @@ public class UserController {
 	public String setNewQuantity(Model model, HttpServletRequest request, 
 								@PathVariable("productId") Integer productId,
 								@PathVariable("quantity") Integer quantity, HttpSession session){		
-		//ot tekushtata sesiq vzimame productite
-		//trqbva da e map s product i kolichestvo
+		
 		HashMap<Product, Integer> cartProducts=  (HashMap<Product, Integer>) session.getAttribute("cart");
-		//opredeleniq product
+		
 		Product product;
 		try {
-			product = ProductDAO.getInstance().getProduct(productId);
-			//slagame novoto kolichestvo na opredeliq product v mapa
+			product = ProductDAO.getInstance().getProduct(productId);			
 			cartProducts.put(product, quantity);
-			//smqtame novata cena
 			double newCartPrice = 0.0;
 			for (Entry<Product, Integer> entry : cartProducts.entrySet()) {
 				newCartPrice += (entry.getKey().getPrice() * entry.getValue());
 				System.out.println(newCartPrice);
 			}
 			
-			//json object
+			
 			JsonObject respJSON = new JsonObject();
-			//json arr
 			JsonArray respArray = new JsonArray();
-			
-			//vsqko entry e otdelen obekt
 			JsonObject change1 = new JsonObject();
-			//place->total price na opredelen product
 			change1.addProperty("place", productId);
-			
-			//message->cenata na producta*kolichestvoto
 			double price=0.0;
 			if (product.getSalePrice()!=0) {
 				price=product.getSalePrice() * cartProducts.get(product);
@@ -213,19 +204,13 @@ public class UserController {
 			else {
 				price=product.getPrice() * cartProducts.get(product);
 			}
-			change1.addProperty("messege", price);
-			
-			JsonObject change2 = new JsonObject();
-			//total_cart_price
-			change2.addProperty("place", "total_cart_price");
-			//novata cena v kolichkata
-			change2.addProperty("messege", newCartPrice);
-			
+			change1.addProperty("messege", price);			
+			JsonObject change2 = new JsonObject();			
+			change2.addProperty("place", "total_cart_price");			
+			change2.addProperty("messege", newCartPrice);			
 			respArray.add(change1);
 			respArray.add(change2);
-			
-			respJSON.add("changes", respArray);
-			
+			respJSON.add("changes", respArray);			
 			return respJSON.toString();
 		} catch (SQLException e) {
 			System.out.println("setNewQuantity"+ e.getMessage());
@@ -245,7 +230,8 @@ public class UserController {
 				if(productsInCart.containsKey(product)) {
 					productsInCart.remove(product);
 				}
-			} catch (SQLException e) {
+			}
+			catch (SQLException e) {
 				return new ModelAndView("404");
 			}
 			return viewCart(model, session);
@@ -254,7 +240,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/sale", method=RequestMethod.GET)
-	public ModelAndView salePage(Model m){
+	public String salePage(Model m){
 		try {		
 			HashMap<String,ArrayList<Product>> allProductsWithSale= ProductDAO.getInstance().getAllProductsWithSale();
 			m.addAttribute("allProductsWithSale", allProductsWithSale);
@@ -267,9 +253,9 @@ public class UserController {
 			}
 		} catch (SQLException e) {
 			System.out.println("sql index controller"+e.getMessage());
-			return new ModelAndView("404");
+			return "404";
 		}
-		return new ModelAndView("sale");
+		return "sale";
 	}	
 	
 	
@@ -354,7 +340,7 @@ public class UserController {
 
 	
 	@RequestMapping(value="/order",method = RequestMethod.POST)
-	public ModelAndView makeOrder (Model model, HttpServletRequest req,HttpSession session) {
+	public String makeOrder (Model model, HttpServletRequest req,HttpSession session) {
 		if(session.getAttribute("username") != null && (Boolean)session.getAttribute("logged")) {
 			HashMap<Product,Integer> products=(HashMap<Product, Integer>) session.getAttribute("cart");
 			String payment=req.getParameter("wayToPay");
@@ -378,11 +364,11 @@ public class UserController {
 				session.setAttribute("cart", new HashMap<>());
 			} catch (SQLException e) {
 				System.out.println("SQL- make order " + e.getMessage());
-				return new ModelAndView("404");
+				return "404";
 			}
-			return  new ModelAndView("index");
+			return indexpage(model, req);
 		}
-		return new ModelAndView("login", "user", new User());
+		return "login";
 	}
 
 

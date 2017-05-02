@@ -92,7 +92,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								
 							<div class="right" id="reviewed">
 								<div id="complete">
-									<button type="submit" class="big_button" id="complete">Order</button>     
+									<button type="submit" class="big_button" id="complete">Submit</button>     
 								</div>
 							</div> 
 						</div>

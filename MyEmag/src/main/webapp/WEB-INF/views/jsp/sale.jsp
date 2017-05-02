@@ -26,17 +26,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <jsp:include page="insertHeader.jsp" />
 <div class="content">
-	<div class="container">				
+	<div class="container">		
 					
 			<c:forEach items="${allProductsWithSale}" var="entry">	
 			<div class="content-mid" style="display:table-row;">
 				<h3 >${entry.key}</h3>
 				<label class="line"></label>
-				<c:forEach items="${entry.value}" var="product">
-			
-					<div class="col-md-3 item-grid simpleCart_shelfItem">
-						<div class=" mid-pop" style="display:table-cell;">
-						
+		
+				<c:forEach items="${entry.value}" var="product">			
+					<div class="col-md-12 item-grid simpleCart_shelfItem" >
+						<div class="mid-pop" style="display:table-cell;">						
 							<div class="pro-img">
 								<c:set var="index" value="${0}"/>
 								<img src="/MyEmag/image/${product.productId}/${index}" height=200 width=200 class="img-responsive" alt=""> 
@@ -67,10 +66,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 						</div>
 					</div>
-		
 			  </c:forEach>
-			  </div>
-			</c:forEach>		
+			</div>
+		</c:forEach>		
 	</div>					
 </div>						
 

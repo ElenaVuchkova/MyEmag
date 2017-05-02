@@ -46,6 +46,9 @@ function fillSubcategories(){
 <body>
 
  <jsp:include page="insertHeader.jsp" />
+ <c:if test="${message!=null}">
+		<c:out value="${message}"/>
+	</c:if>
  
   <form action="addProduct" method="post" enctype="multipart/form-data">
   <div id="wrap">

@@ -63,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 		<div class="head">
 			<div class=" logo">
-				<a href="index"><img src="images/ebaglogo.jpg" alt=""></a>	
+				<a href="index"><img src="/MyEmag/images/ebaglogo.jpg" alt=""></a>	
 			</div>
 		</div>
 	</div>
@@ -72,11 +72,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
 						<c:if test="${sessionScope.logged}">
-							<li><a href="logout">Logout</a></li>
+							<li><a href="/MyEmag/logout">Logout</a></li>
 						</c:if>
 						<c:if test="${!sessionScope.logged}">
-							<li><a href="login">Login</a></li>
-							<li><a href="register">Register</a></li>
+							<li><a href="/MyEmag/login">Login</a></li>
+							<li><a href="/MyEmag/register">Register</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -114,7 +114,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<h4>${catAndSubcat.key}</h4>
 									<c:forEach items="${catAndSubcat.value}" var="subcategory">
 									<ul>
-										<li><a href="${subcategory}"><c:out value="${subcategory}"></c:out></a></li>
+										<li><a href="/MyEmag/${subcategory}"><c:out value="${subcategory}"></c:out></a></li>
 									</ul>
 									</c:forEach>
 								</c:forEach>											
@@ -159,7 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="cart box_1">
 						<a href="/MyEmag/cart">
 						<h3> <div class="total">
-						<!-- 	<span class="simpleCart_total"></span></div> -->
+						
 							<img src="/MyEmag/images/cart.png" alt=""/></h3>
 						</a>
 					</div>
@@ -206,13 +206,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<img src="/MyEmag/image/${product.productId}/${index}" height=200 width=200 class="img-responsive" alt=""> 
 						<div class="zoom-icon ">
 						 <a class="picture" href="/MyEmag/image/${product.productId}/${index}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
-						<a href="product/${product.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
+						<a href="/MyEmag/product/${product.productId}"><i class="glyphicon glyphicon-menu-right icon"></i></a> 
 						</div>
 						</div>
 						<div class="mid-1">
 						<div class="women">
 						<div class="women-top">
-							<span><a href="single">${product.title}</a></span>
+							<span><a href="/MyEmag/product/${product.productId}">${product.title}</a></span>
 							</div>
 							<div class="clearfix"></div>
 							</div>
